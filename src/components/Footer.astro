@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 import { nav, site, ui, whatsappLink } from '../data/site';
 import { services } from '../data/services';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const year = new Date().getFullYear();
@@ -29,7 +29,7 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       <div>
-        <h2 class="site-footer__h">{lang === 'fa' ? 'وب‌سایت' : 'Website'}</h2>
+        <h2 class="site-footer__h">{makeTr(lang)('وب‌سایت', 'Website')}</h2>
         <ul>
           {nav.filter((n) => n.path !== '/services/').map((n) => <li><a href={href(lang, n.path)}>{t(n.label, lang)}</a></li>)}
           <li><a href={href(lang, '/consultation/')}>{t(ui.contact, lang)}</a></li>
@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
   .site-footer__tag { color: var(--gold); margin: 0 0 0.6rem; }
   .site-footer__pillars { margin-block-end: 1.5rem; }
   .site-footer__h { color: var(--white); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-block-end: 1rem; }
-  :global(:root[lang='fa']) .site-footer__h { letter-spacing: normal; font-size: 0.95rem; }
+  :global(:root:is([dir='rtl'], [lang='zh'])) .site-footer__h { letter-spacing: normal; font-size: 0.95rem; }
   .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
   .site-footer__bottom { margin-block-start: 3rem; padding-block-start: 1.5rem; border-block-start: 1px solid rgb(255 255 255 / 10%); display: grid; gap: 0.5rem; font-size: 0.85rem; }
   .site-footer__bottom p { margin: 0; }

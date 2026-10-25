@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 import SeaLines from './SeaLines.astro';
 import { site, ui, whatsappLink } from '../data/site';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 interface Props {
   lang: Lang;
   title: string;
@@ -18,7 +18,7 @@ const target = href(lang, '/consultation/') + (service ? `?service=${service}` :
   <SeaLines variant="band" />
   <div class="container cta-band__inner">
     <div>
-      <p class="eyebrow">{lang === 'fa' ? 'گفت‌وگوی محرمانه' : 'Confidential discussion'}</p>
+      <p class="eyebrow">{makeTr(lang)('گفت‌وگوی محرمانه', 'Confidential discussion')}</p>
       <h2>{title}</h2>
       <p class="lead">{text}</p>
     </div>
@@ -27,7 +27,7 @@ const target = href(lang, '/consultation/') + (service ? `?service=${service}` :
       <a class="btn btn--ghost cta-band__wa" href={whatsappLink()} target="_blank" rel="noopener" data-track={`${track}-whatsapp`}>
         <Icon name="whatsapp" size={18} /> {t(ui.whatsapp, lang)}
       </a>
-      <p class="cta-band__small"><Icon name="lock" size={16} /> {lang === 'fa' ? 'گفت‌وگوها محرمانه می‌ماند' : 'Every conversation stays confidential'} · <span class="ltr">{site.whatsappDisplay}</span></p>
+      <p class="cta-band__small"><Icon name="lock" size={16} /> {makeTr(lang)('گفت‌وگوها محرمانه می‌ماند', 'Every conversation stays confidential')} · <span class="ltr">{site.whatsappDisplay}</span></p>
     </div>
   </div>
 </section>

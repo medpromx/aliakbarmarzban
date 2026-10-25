@@ -5,18 +5,19 @@ import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import { specialistAreas } from '../data/services';
 import { ui } from '../data/site';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
+const tr = makeTr(lang);
 const title = t(ui.specialist, lang);
 ---
-<Base lang={lang} title={title} description={fa ? 'سرمایه‌گذاری و PPP بندری، کربن‌زدایی، دیجیتالی‌سازی و مشاوره مستقل اختلافات.' : 'Port investment & PPP, maritime decarbonisation, digitalisation and independent dispute advisory.'}>
+<Base lang={lang} title={title} description={tr('سرمایه‌گذاری و PPP بندری، کربن‌زدایی، دیجیتالی‌سازی و مشاوره مستقل اختلافات.', 'Port investment & PPP, maritime decarbonisation, digitalisation and independent dispute advisory.')}>
   <PageHero
     lang={lang}
     eyebrow={title}
-    title={fa ? 'حوزه‌های تخصصی تکمیلی' : 'Specialist practice areas'}
-    lead={fa ? 'این حوزه‌ها مکمل خدمات اصلی‌اند و در صورت نیاز با همراهی متخصصان همکار ارائه می‌شوند.' : 'These areas complement the core practices and are delivered with trusted specialist colleagues where needed.'}
+    title={tr('حوزه‌های تخصصی تکمیلی', 'Specialist practice areas')}
+    lead={tr('این حوزه‌ها مکمل خدمات اصلی‌اند و در صورت نیاز با همراهی متخصصان همکار ارائه می‌شوند.', 'These areas complement the core practices and are delivered with trusted specialist colleagues where needed.')}
     crumbs={[{ label: t(ui.services, lang), path: '/services/' }, { label: title }]}
   />
   <section class="section section--white">
@@ -27,14 +28,14 @@ const title = t(ui.specialist, lang);
           <div>
             <p class="lead">{t(a.text, lang)}</p>
             <a class="btn btn--outline" href={`${href(lang, '/consultation/')}?service=${a.slug}`} data-track={`specialist-${a.slug}`}>
-              {fa ? 'گفت‌وگو درباره این حوزه' : 'Discuss this area'} <Icon name="arrow" size={18} />
+              {tr('گفت‌وگو درباره این حوزه', 'Discuss this area')} <Icon name="arrow" size={18} />
             </a>
           </div>
         </article>
       ))}
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'یک مسئله تخصصی دارید؟' : 'Have a specialist question?'} text={fa ? 'دامنه و ترکیب مناسب تخصص‌ها را در یک گفت‌وگوی محرمانه مشخص می‌کنیم.' : 'We will define the right scope and mix of expertise in a confidential discussion.'} cta={t(ui.requestConsultation, lang)} track="specialist-final" />
+  <CtaBand lang={lang} title={tr('یک مسئله تخصصی دارید؟', 'Have a specialist question?')} text={tr('دامنه و ترکیب مناسب تخصص‌ها را در یک گفت‌وگوی محرمانه مشخص می‌کنیم.', 'We will define the right scope and mix of expertise in a confidential discussion.')} cta={t(ui.requestConsultation, lang)} track="specialist-final" />
 </Base>
 <style>
   .specialist { display: grid; gap: 0; }

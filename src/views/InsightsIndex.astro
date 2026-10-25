@@ -5,19 +5,20 @@ import InsightCard from '../components/InsightCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { getInsights } from '../lib/insights';
 import { ui } from '../data/site';
-import { t, type Lang } from '../lib/i18n';
+import { t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
+const tr = makeTr(lang);
 const insights = getInsights(lang);
-const title = fa ? 'تحلیل‌ها و انتشارات' : 'Insights & Publications';
+const title = tr('تحلیل‌ها و انتشارات', 'Insights & Publications');
 ---
-<Base lang={lang} title={title} description={fa ? 'تحلیل‌های تخصصی درباره مقررات IMO، حکمرانی بندری، قراردادهای دریایی و STCW.' : 'Expert analysis on IMO regulation, port governance, maritime contracts and STCW.'}>
+<Base lang={lang} title={title} description={tr('تحلیل‌های تخصصی درباره مقررات IMO، حکمرانی بندری، قراردادهای دریایی و STCW.', 'Expert analysis on IMO regulation, port governance, maritime contracts and STCW.')}>
   <PageHero
     lang={lang}
     eyebrow={title}
-    title={fa ? 'تحلیل‌هایی برای تصمیم‌گیران دریایی' : 'Analysis for maritime decision-makers'}
-    lead={fa ? 'یادداشت‌های کوتاه و کاربردی درباره تحولات مقرراتی و نهادی و پیامدهای آنها برای اجرا.' : 'Short, practical notes on regulatory and institutional developments and what they mean for implementation.'}
+    title={tr('تحلیل‌هایی برای تصمیم‌گیران دریایی', 'Analysis for maritime decision-makers')}
+    lead={tr('یادداشت‌های کوتاه و کاربردی درباره تحولات مقرراتی و نهادی و پیامدهای آنها برای اجرا.', 'Short, practical notes on regulatory and institutional developments and what they mean for implementation.')}
     crumbs={[{ label: t(ui.insights, lang) }]}
   />
   <section class="section">
@@ -25,5 +26,5 @@ const title = fa ? 'تحلیل‌ها و انتشارات' : 'Insights & Publica
       <div class="grid grid--3">{insights.map((i) => <InsightCard lang={lang} insight={i} />)}</div>
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'این موضوع برای سازمان شما مطرح است؟' : 'Is this on your organisation\'s agenda?'} text={fa ? 'درباره پیامدهای آن برای سازمان خود گفت‌وگو کنید.' : 'Discuss what it means for your organisation.'} cta={t(ui.requestConsultation, lang)} track="insights-index" />
+  <CtaBand lang={lang} title={tr('این موضوع برای سازمان شما مطرح است؟', 'Is this on your organisation\'s agenda?')} text={tr('درباره پیامدهای آن برای سازمان خود گفت‌وگو کنید.', 'Discuss what it means for your organisation.')} cta={t(ui.requestConsultation, lang)} track="insights-index" />
 </Base>

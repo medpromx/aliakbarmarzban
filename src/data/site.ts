@@ -44,8 +44,6 @@ export const ui = {
   skip: { en: 'Skip to main content', fa: 'رفتن به محتوای اصلی' },
   menu: { en: 'Menu', fa: 'منو' },
   close: { en: 'Close', fa: 'بستن' },
-  switchLang: { en: 'فارسی', fa: 'English' },
-  switchLangLabel: { en: 'Read this page in Persian', fa: 'Read this page in English' },
   primaryCta: { en: 'Discuss an Advisory Mandate', fa: 'گفت‌وگو درباره مأموریت مشاوره‌ای' },
   secondaryCta: { en: 'Explore Advisory Services', fa: 'مشاهده خدمات مشاوره' },
   requestConsultation: { en: 'Request a Consultation', fa: 'درخواست مشاوره' },

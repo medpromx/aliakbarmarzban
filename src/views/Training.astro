@@ -5,11 +5,12 @@ import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import credentials from '../data/credentials.json';
 import type { L } from '../lib/i18n';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
-const title = fa ? 'آموزش و سخنرانی' : 'Training & Speaking';
+const tr = makeTr(lang);
+const title = tr('آموزش و سخنرانی', 'Training & Speaking');
 const formats = [
   { icon: 'people', title: { en: 'Executive workshop', fa: 'کارگاه مدیران' }, meta: { en: '1–2 days · 8–20 participants', fa: '۱ تا ۲ روز · ۸ تا ۲۰ نفر' }, text: { en: 'Case-based programme tailored to your organisation\'s decisions.', fa: 'برنامه مبتنی بر مورد، متناسب با تصمیم‌های واقعی سازمان شما.' } },
   { icon: 'doc', title: { en: 'Leadership briefing', fa: 'جلسه توجیهی مدیران' }, meta: { en: '2–3 hours · board or senior team', fa: '۲ تا ۳ ساعت · هیئت‌مدیره یا تیم ارشد' }, text: { en: 'A focused briefing on a regulatory change, reform or negotiation.', fa: 'جلسه‌ای متمرکز درباره یک تغییر مقرراتی، اصلاحات یا مذاکره.' } },
@@ -21,17 +22,17 @@ const topics = {
   fa: ['اجرای اسناد IMO و کد III', 'مدل‌های حکمرانی بندری و نظارت بر امتیازها', 'قراردادهای دریایی و ریسک تدارکات', 'استانداردهای کیفیت STCW و عامل انسانی', 'آمادگی برای مذاکرات بین‌المللی دریایی', 'سیاست کربن‌زدایی دریایی برای مدیران دولتی'],
 };
 ---
-<Base lang={lang} title={title} description={fa ? 'کارگاه‌های مدیران، جلسات توجیهی و سخنرانی در حوزه مقررات دریایی و حکمرانی بندری.' : 'Executive workshops, leadership briefings and speaking on maritime regulation and port governance.'}>
+<Base lang={lang} title={title} description={tr('کارگاه‌های مدیران، جلسات توجیهی و سخنرانی در حوزه مقررات دریایی و حکمرانی بندری.', 'Executive workshops, leadership briefings and speaking on maritime regulation and port governance.')}>
   <PageHero
     lang={lang}
     eyebrow={title}
-    title={fa ? 'آموزش مدیران برای تصمیم‌های واقعی' : 'Executive education for real decisions'}
-    lead={fa ? 'کارگاه‌ها و جلسات توجیهی به زبان انگلیسی یا فارسی، حضوری یا آنلاین.' : 'Workshops and briefings in English or Persian, in person or online.'}
+    title={tr('آموزش مدیران برای تصمیم‌های واقعی', 'Executive education for real decisions')}
+    lead={tr('کارگاه‌ها و جلسات توجیهی به زبان انگلیسی یا فارسی، حضوری یا آنلاین.', 'Workshops and briefings in English or Persian, in person or online.')}
     crumbs={[{ label: title }]}
   />
   <section class="section section--white" id="formats">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">{fa ? 'قالب‌ها' : 'Formats'}</p><h2>{fa ? 'قالب‌های آموزشی' : 'Workshop formats'}</h2></div>
+      <div class="section-head"><p class="eyebrow">{tr('قالب‌ها', 'Formats')}</p><h2>{tr('قالب‌های آموزشی', 'Workshop formats')}</h2></div>
       <div class="grid grid--4">
         {formats.map((f) => (
           <div class="card">
@@ -47,10 +48,10 @@ const topics = {
   <section class="section">
     <div class="container split">
       <div>
-        <p class="eyebrow">{fa ? 'موضوعات' : 'Topics'}</p>
-        <h2>{fa ? 'موضوعات پرتقاضا' : 'Frequently requested topics'}</h2>
-        <p>{fa ? 'هر برنامه بر اساس نیازسنجی و اهداف سازمان شما تنظیم می‌شود.' : "Every programme is tailored following a needs analysis against your organisation's objectives."}</p>
-        <a class="btn btn--teal" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track="training-mid">{fa ? 'درخواست کارگاه آموزشی مدیران' : 'Request an Executive Workshop'} <Icon name="arrow" size={18} /></a>
+        <p class="eyebrow">{tr('موضوعات', 'Topics')}</p>
+        <h2>{tr('موضوعات پرتقاضا', 'Frequently requested topics')}</h2>
+        <p>{tr('هر برنامه بر اساس نیازسنجی و اهداف سازمان شما تنظیم می‌شود.', "Every programme is tailored following a needs analysis against your organisation's objectives.")}</p>
+        <a class="btn btn--teal" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track="training-mid">{tr('درخواست کارگاه آموزشی مدیران', 'Request an Executive Workshop')} <Icon name="arrow" size={18} /></a>
       </div>
       <ul class="check-list">{t(topics, lang).map((x) => <li>{x}</li>)}</ul>
     </div>
@@ -58,19 +59,19 @@ const topics = {
   <section class="section section--white">
     <div class="container split">
       <div>
-        <p class="eyebrow">{fa ? 'سخنرانی' : 'Speaking'}</p>
-        <h2>{fa ? 'سخنرانی و پنل‌ها' : 'Conferences and panels'}</h2>
-        <p>{fa ? 'علی‌اکبر مرزبان در همایش‌های دریایی در چهار قاره سخنرانی کرده است. برای دعوت به سخنرانی کلیدی، پنل یا میزگرد، فرم درخواست را تکمیل کنید یا در واتس‌اپ پیام دهید.' : 'Ali Akbar Marzban has spoken at maritime conferences across four continents. To invite him as a keynote speaker, panellist or moderator, use the request form or WhatsApp.'}</p>
+        <p class="eyebrow">{tr('سخنرانی', 'Speaking')}</p>
+        <h2>{tr('سخنرانی و پنل‌ها', 'Conferences and panels')}</h2>
+        <p>{tr('علی‌اکبر مرزبان در همایش‌های دریایی در چهار قاره سخنرانی کرده است. برای دعوت به سخنرانی کلیدی، پنل یا میزگرد، فرم درخواست را تکمیل کنید یا در واتس‌اپ پیام دهید.', 'Ali Akbar Marzban has spoken at maritime conferences across four continents. To invite him as a keynote speaker, panellist or moderator, use the request form or WhatsApp.')}</p>
       </div>
       <div class="card">
-        <h3>{fa ? 'حضور بین‌المللی' : 'International presence'}</h3>
+        <h3>{tr('حضور بین‌المللی', 'International presence')}</h3>
         <p>{t(credentials.speaking as L, lang)}</p>
-        <h3 class="mt">{fa ? 'رویدادها' : 'Events'}</h3>
+        <h3 class="mt">{tr('رویدادها', 'Events')}</h3>
         <p>{t(credentials.events as L, lang)}</p>
       </div>
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'درخواست کارگاه آموزشی مدیران' : 'Request an Executive Workshop'} text={fa ? 'مخاطبان، اهداف و زمان‌بندی مورد نظر را بنویسید.' : 'Tell us about the audience, objectives and preferred timing.'} cta={fa ? 'درخواست کارگاه' : 'Request a Workshop'} service="executive-training" track="training-final" />
+  <CtaBand lang={lang} title={tr('درخواست کارگاه آموزشی مدیران', 'Request an Executive Workshop')} text={tr('مخاطبان، اهداف و زمان‌بندی مورد نظر را بنویسید.', 'Tell us about the audience, objectives and preferred timing.')} cta={tr('درخواست کارگاه', 'Request a Workshop')} service="executive-training" track="training-final" />
 </Base>
 <style>
   .mt { margin-block-start: 1.2rem; }

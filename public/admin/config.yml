@@ -31,6 +31,36 @@ collections:
     create: true
     slug: '{{slug}}'
     fields: *insightFields
+  - name: insights_ar
+    label: Insights (Arabic / العربية)
+    folder: src/content/insights/ar
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
+  - name: insights_es
+    label: Insights (Spanish / Español)
+    folder: src/content/insights/es
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
+  - name: insights_fr
+    label: Insights (French / Français)
+    folder: src/content/insights/fr
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
+  - name: insights_de
+    label: Insights (German / Deutsch)
+    folder: src/content/insights/de
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
+  - name: insights_zh
+    label: Insights (Chinese / 中文)
+    folder: src/content/insights/zh
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
   - name: credentials
     label: Experience & Credentials
     files:

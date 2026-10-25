@@ -1,29 +1,29 @@
 # International Maritime Advisory — aliakbarmarzban.ir
 
-Bilingual (English-first, Persian RTL) website for an independent maritime advisory practice, built with [Astro](https://astro.build) as a fast static site and deployed to GitHub Pages.
+Multilingual website (English, Persian, Arabic, Spanish, French, German and Chinese; Persian and Arabic are RTL) for an independent maritime advisory practice, built with [Astro](https://astro.build) as a fast static site and deployed to GitHub Pages.
 
 ## Structure
 
-| Page | English | Persian |
+| Page | English | Other languages (`fa`, `ar`, `es`, `fr`, `de`, `zh`) |
 |---|---|---|
-| Home | `/` | `/fa/` |
-| Advisory Services (6 core pages) | `/services/`, `/services/<slug>/` | `/fa/services/...` |
-| Specialist Advisory | `/specialist-advisory/` | `/fa/specialist-advisory/` |
-| Clients & Sectors (role-based journeys) | `/sectors/` | `/fa/sectors/` |
-| About the Advisor | `/about/` | `/fa/about/` |
-| Experience & Credentials | `/experience/` | `/fa/experience/` |
-| Insights & Publications | `/insights/` | `/fa/insights/` |
-| Training & Speaking | `/training/` | `/fa/training/` |
-| Request an Advisory Discussion + confirmation | `/consultation/`, `/consultation/thank-you/` | `/fa/consultation/...` |
-| Privacy Policy, Legal Notices | `/privacy/`, `/legal/` | `/fa/privacy/`, `/fa/legal/` |
+| Home | `/` | `/<lang>/` |
+| Advisory Services (6 core pages) | `/services/`, `/services/<slug>/` | `/<lang>/services/...` |
+| Specialist Advisory | `/specialist-advisory/` | `/<lang>/specialist-advisory/` |
+| Clients & Sectors (role-based journeys) | `/sectors/` | `/<lang>/sectors/` |
+| About the Advisor | `/about/` | `/<lang>/about/` |
+| Experience & Credentials | `/experience/` | `/<lang>/experience/` |
+| Insights & Publications | `/insights/` | `/<lang>/insights/` |
+| Training & Speaking | `/training/` | `/<lang>/training/` |
+| Request an Advisory Discussion + confirmation | `/consultation/`, `/consultation/thank-you/` | `/<lang>/consultation/...` |
+| Privacy Policy, Legal Notices | `/privacy/`, `/legal/` | `/<lang>/privacy/`, `/<lang>/legal/` |
 
-Every page is rendered once per language from a shared view in `src/views/`. Text lives in:
+Every page is rendered once per language from a shared view in `src/views/`. English and Persian text is written side by side in the data files and views; Arabic, Spanish, French, German and Chinese come from `src/i18n/<lang>.json`, keyed by the English text (anything missing falls back to English). Run `I18N_COLLECT=missing.txt npm run build` to list untranslated strings. Text lives in:
 
 - `src/data/services.ts` — the six core services and four specialist areas (both languages).
 - `src/data/sectors.ts` — audience journeys and sectors.
 - `src/data/credentials.json` — career, international roles, education and books.
 - `src/data/profile.ts` — biography, headline figures and career highlights.
-- `src/content/insights/<en|fa>/*.md` — articles.
+- `src/content/insights/<lang>/*.md` — articles.
 
 Service pages link to the form with `?service=<slug>`, and the form preselects that advisory area.
 

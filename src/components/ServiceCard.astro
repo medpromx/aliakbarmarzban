@@ -2,13 +2,13 @@
 import Icon from './Icon.astro';
 import type { Service } from '../data/services';
 import { ui } from '../data/site';
-import { href, num, t, type Lang } from '../lib/i18n';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang; service: Service; index?: number }
 const { lang, service, index } = Astro.props;
 ---
 <article class="card card--link">
   <div class="icon-badge"><Icon name={service.icon} /></div>
-  {index !== undefined && <span class="tag">{lang === 'fa' ? 'خدمت' : 'Service'} {num(`0${index + 1}`, lang)}</span>}
+  {index !== undefined && <span class="tag">{makeTr(lang)('خدمت', 'Service')} {num(`0${index + 1}`, lang)}</span>}
   <h3><a class="stretched" href={href(lang, `/services/${service.slug}/`)}>{t(service.title, lang)}</a></h3>
   <p>{t(service.short, lang)}</p>
   <span class="more" aria-hidden="true">{t(ui.learnMore, lang)} <Icon name="arrow" size={16} /></span>
