@@ -24,7 +24,6 @@ collections:
         widget: select
         required: false
         options: [imo-regulation, port-governance, maritime-contracts, seafarers-stcw, international-negotiation, executive-training]
-      - { label: 'Sample (shows a "sample article" label)', name: sample, widget: boolean, default: false, required: false }
       - { label: Body, name: body, widget: markdown }
   - name: insights_fa
     label: Insights (Persian / فارسی)
@@ -36,15 +35,9 @@ collections:
     label: Experience & Credentials
     files:
       - name: credentials
-        label: Credentials (publish only verified items)
+        label: Credentials
         file: src/data/credentials.json
         fields:
-          - label: Notice
-            name: notice
-            widget: object
-            fields:
-              - { label: English, name: en, widget: text }
-              - { label: Persian, name: fa, widget: text }
           - label: Groups
             name: groups
             widget: list
@@ -53,25 +46,25 @@ collections:
               - label: Title
                 name: title
                 widget: object
-                fields:
+                fields: &bilingual
                   - { label: English, name: en, widget: string }
                   - { label: Persian, name: fa, widget: string }
               - label: Items
                 name: items
                 widget: list
                 fields:
-                  - { label: Period, name: period, widget: string }
-                  - label: Title
-                    name: title
-                    widget: object
-                    fields:
-                      - { label: English, name: en, widget: string }
-                      - { label: Persian, name: fa, widget: string }
-                  - label: Organisation
-                    name: org
-                    widget: object
-                    fields:
-                      - { label: English, name: en, widget: string }
-                      - { label: Persian, name: fa, widget: string }
-                  - { label: Verified, name: verified, widget: boolean, default: false }
-          - { label: Case studies, name: caseStudies, widget: list, required: false, field: { label: Item, name: item, widget: string } }
+                  - { label: Period, name: period, widget: object, fields: *bilingual }
+                  - { label: Title, name: title, widget: object, fields: *bilingual }
+                  - { label: Organisation, name: org, widget: object, fields: *bilingual }
+          - label: Speaking
+            name: speaking
+            widget: object
+            fields:
+              - { label: English, name: en, widget: text }
+              - { label: Persian, name: fa, widget: text }
+          - label: Events
+            name: events
+            widget: object
+            fields:
+              - { label: English, name: en, widget: text }
+              - { label: Persian, name: fa, widget: text }

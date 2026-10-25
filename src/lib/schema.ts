@@ -1,7 +1,7 @@
 import { site } from '../data/site';
 import { href, t, type Lang } from './i18n';
 
-// Structured data. Only verified facts should be added to these objects (e.g. jobTitle, alumniOf, sameAs).
+// Structured data built from the advisor's CV.
 export function personLd(lang: Lang) {
   return {
     '@context': 'https://schema.org',
@@ -9,6 +9,16 @@ export function personLd(lang: Lang) {
     '@id': `${site.url}/#advisor`,
     name: t(site.advisorName, lang),
     url: new URL(href(lang, '/about/'), site.url).href,
+    image: new URL(site.portrait, site.url).href,
+    jobTitle: lang === 'fa' ? 'مشاور امور دریایی و بندری' : 'Maritime and port affairs advisor',
+    description: t(site.title, lang),
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'World Maritime University' },
+      { '@type': 'CollegeOrUniversity', name: 'Shahid Beheshti University' },
+      { '@type': 'CollegeOrUniversity', name: 'Islamic Azad University, Central Tehran Branch' },
+    ],
+    telephone: `+${site.whatsapp}`,
+    knowsLanguage: ['fa', 'en'],
     knowsAbout: ['IMO regulation', 'Port governance', 'Maritime contracts', 'STCW', 'International maritime cooperation'],
     worksFor: { '@id': `${site.url}/#organization` },
     ...(site.linkedin ? { sameAs: [site.linkedin] } : {}),

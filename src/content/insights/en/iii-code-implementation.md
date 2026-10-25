@@ -3,7 +3,6 @@ title: "From Ratification to Results: Using the III Code as an Implementation Fr
 date: "2026-09-15"
 summary: "The IMO Instruments Implementation Code is often treated as an audit standard. Used early, it is a practical roadmap for organising a maritime administration."
 service: imo-regulation
-sample: true
 ---
 
 Since 1 January 2016 the **IMO Instruments Implementation Code (III Code)** has been mandatory, and audits under the IMO Member State Audit Scheme (IMSAS) assess how States meet their obligations as flag, port and coastal States.
@@ -20,4 +19,3 @@ Many administrations meet the Code for the first time when preparing for an audi
 
 A structured gap assessment against the Code, followed by a prioritised roadmap with owners and timelines, turns audit preparation into lasting institutional improvement.
 
-*This is a sample article to demonstrate the Insights section. Replace or approve before publication.*

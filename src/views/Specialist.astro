@@ -15,8 +15,8 @@ const title = t(ui.specialist, lang);
   <PageHero
     lang={lang}
     eyebrow={title}
-    title={fa ? 'حوزه‌های تخصصی، با نقش‌های شفاف' : 'Specialist practice areas, with clear roles'}
-    lead={fa ? 'این حوزه‌ها مکمل خدمات اصلی‌اند. دامنه مشاوره راهبردی و نقش متخصصان همکار در هر مورد به‌روشنی بیان می‌شود.' : 'These areas complement the core practices. The scope of strategic advice and the role of associate specialists are stated clearly in each case.'}
+    title={fa ? 'حوزه‌های تخصصی تکمیلی' : 'Specialist practice areas'}
+    lead={fa ? 'این حوزه‌ها مکمل خدمات اصلی‌اند و در صورت نیاز با همراهی متخصصان همکار ارائه می‌شوند.' : 'These areas complement the core practices and are delivered with trusted specialist colleagues where needed.'}
     crumbs={[{ label: t(ui.services, lang), path: '/services/' }, { label: title }]}
   />
   <section class="section section--white">
@@ -26,7 +26,6 @@ const title = t(ui.specialist, lang);
           <h2>{t(a.title, lang)}</h2>
           <div>
             <p class="lead">{t(a.text, lang)}</p>
-            <p class="note">{t(a.note, lang)}</p>
             <a class="btn btn--outline" href={`${href(lang, '/consultation/')}?service=${a.slug}`} data-track={`specialist-${a.slug}`}>
               {fa ? 'گفت‌وگو درباره این حوزه' : 'Discuss this area'} <Icon name="arrow" size={18} />
             </a>
@@ -42,5 +41,5 @@ const title = t(ui.specialist, lang);
   .specialist__item { display: grid; gap: 1rem 4rem; padding-block: 2.8rem; border-block-start: 1px solid var(--line); scroll-margin-block-start: 100px; }
   .specialist__item:first-child { border: 0; padding-block-start: 0; }
   @media (min-width: 900px) { .specialist__item { grid-template-columns: 1fr 1.6fr; } }
-  .specialist__item .note { margin-block: 1.2rem 1.6rem; }
+  .specialist__item .lead { margin-block-end: 1.6rem; }
 </style>

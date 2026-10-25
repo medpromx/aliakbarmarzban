@@ -3,16 +3,13 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { advisoryAreas } from '../data/services';
-import { site } from '../data/site';
+import { site, ui, whatsappLink } from '../data/site';
 import { href, t, type Lang } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
 const title = fa ? 'درخواست گفت‌وگوی محرمانه مشاوره‌ای' : 'Request a Confidential Advisory Discussion';
 
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
-const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY || '';
-const email = site.contactEmail;
 
 const sectorsOpts = [
   { value: 'government', label: { en: 'Government ministry / maritime administration', fa: 'وزارتخانه / سازمان دریایی' } },
@@ -32,22 +29,20 @@ const L = {
   name: { en: 'Full name', fa: 'نام و نام خانوادگی' },
   role: { en: 'Position / title', fa: 'سمت' },
   org: { en: 'Organisation / institution', fa: 'سازمان / نهاد' },
-  email: { en: 'Professional email', fa: 'ایمیل سازمانی' },
+  email: { en: 'Email', fa: 'ایمیل' },
   sector: { en: 'Organisation type', fa: 'نوع سازمان' },
   area: { en: 'Advisory area', fa: 'حوزه مشاوره' },
   timeframe: { en: 'Expected timeframe', fa: 'بازه زمانی مورد انتظار' },
   summary: { en: 'Brief description of your challenge', fa: 'شرح کوتاه چالش شما' },
-  summaryHint: { en: 'A few sentences are enough. Please do not include confidential contractual or government documents or sensitive personal data.', fa: 'چند جمله کافی است. لطفاً اسناد محرمانه قراردادی یا دولتی و اطلاعات شخصی حساس را وارد نکنید.' },
+  summaryHint: { en: 'A few sentences are enough.', fa: 'چند جمله کافی است.' },
   optional: { en: '(optional)', fa: '(اختیاری)' },
   choose: { en: 'Select…', fa: 'انتخاب کنید…' },
-  consent: { en: 'I agree that the information in this form is processed to respond to my enquiry, as described in the', fa: 'موافقم اطلاعات این فرم برای پاسخ به درخواستم و مطابق با' },
-  consentTail: { en: '.', fa: ' پردازش شود.' },
-  submit: { en: 'Send request', fa: 'ارسال درخواست' },
-  sending: { en: 'Sending…', fa: 'در حال ارسال…' },
+  consent: { en: 'I agree that this information is used to reply to my request, as described in the', fa: 'موافقم این اطلاعات برای پاسخ به درخواستم و مطابق با' },
+  consentTail: { en: '.', fa: ' استفاده شود.' },
+  submit: { en: 'Send via WhatsApp', fa: 'ارسال از طریق واتس‌اپ' },
+  submitHint: { en: 'Your request opens as a ready-to-send WhatsApp message to Ali Akbar Marzban.', fa: 'درخواست شما به‌صورت یک پیام آماده در واتس‌اپ برای علی‌اکبر مرزبان باز می‌شود؛ فقط کافی است ارسال را بزنید.' },
   required: { en: 'Required', fa: 'الزامی' },
   errorsTitle: { en: 'Please check the following fields:', fa: 'لطفاً این موارد را بررسی کنید:' },
-  sendFail: { en: 'Your request could not be sent. Please try again in a moment.', fa: 'ارسال درخواست انجام نشد. لطفاً چند لحظه بعد دوباره تلاش کنید.' },
-  notConfigured: { en: 'Online submission is not yet connected. Your request has been prepared — please contact us directly while this is being set up.', fa: 'ارسال آنلاین هنوز فعال نشده است. لطفاً تا زمان راه‌اندازی، مستقیماً تماس بگیرید.' },
   preselected: { en: 'Selected from the page you were viewing:', fa: 'بر اساس صفحه‌ای که مشاهده می‌کردید انتخاب شد:' },
 };
 const msgs = {
@@ -71,9 +66,7 @@ const msgs = {
         id="consult-form"
         class="form"
         novalidate
-        data-endpoint={endpoint}
-        data-access-key={accessKey}
-        data-email={email}
+        data-whatsapp={site.whatsapp}
         data-lang={lang}
         data-thanks={href(lang, '/consultation/thank-you/')}
         data-msgs={JSON.stringify(msgs)}
@@ -99,8 +92,8 @@ const msgs = {
             <input id="f-org" name="organisation" type="text" autocomplete="organization" required dir="auto" maxlength="160" />
           </div>
           <div class="field">
-            <label for="f-email">{t(L.email, lang)} <span class="req" aria-hidden="true">*</span></label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required dir="ltr" maxlength="160" />
+            <label for="f-email">{t(L.email, lang)} <span class="opt">{t(L.optional, lang)}</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" dir="ltr" maxlength="160" />
           </div>
         </div>
         <div class="form__row">
@@ -153,22 +146,23 @@ const msgs = {
         </div>
 
         <p class="form__status" role="status" aria-live="polite"></p>
-        <button class="btn btn--teal form__submit" type="submit" data-sending={t(L.sending, lang)} data-fail={t(L.sendFail, lang)} data-unconfigured={t(L.notConfigured, lang)}>
-          {t(L.submit, lang)} <Icon name="arrow" size={18} />
+        <button class="btn form__submit" type="submit">
+          <Icon name="whatsapp" size={20} /> {t(L.submit, lang)}
         </button>
+        <p class="hint">{t(L.submitHint, lang)}</p>
       </form>
 
       <aside class="consult__aside">
         <h2>{fa ? 'پس از ارسال چه اتفاقی می‌افتد؟' : 'What happens next?'}</h2>
         <ol class="next-steps">
-          <li><strong>{fa ? 'تأیید دریافت' : 'Acknowledgement'}</strong><span>{fa ? 'صفحه تأیید را می‌بینید و درخواست شما ثبت می‌شود.' : 'You see a confirmation and your request is recorded.'}</span></li>
-          <li><strong>{fa ? 'بررسی اولیه' : 'Initial review'}</strong><span>{fa ? 'درخواست به‌صورت محرمانه بررسی و تناسب آن ارزیابی می‌شود (معمولاً ظرف دو روز کاری).' : 'The request is reviewed confidentially for fit, usually within two working days.'}</span></li>
-          <li><strong>{fa ? 'هماهنگی جلسه' : 'Introductory call'}</strong><span>{fa ? 'زمانی برای گفت‌وگوی اولیه و بدون تعهد پیشنهاد می‌شود.' : 'A time is proposed for a short, no-obligation discussion.'}</span></li>
-          <li><strong>{fa ? 'تعیین دامنه' : 'Scope'}</strong><span>{fa ? 'در صورت تناسب، پیشنهاد دامنه کار و شیوه همکاری ارائه می‌شود.' : 'If there is a fit, a proposed scope and engagement approach follow.'}</span></li>
+          <li><strong>{fa ? 'ارسال در واتس‌اپ' : 'Send on WhatsApp'}</strong><span>{fa ? 'پیام آماده در واتس‌اپ باز می‌شود؛ آن را ارسال کنید.' : 'Your message opens in WhatsApp, ready to send.'}</span></li>
+          <li><strong>{fa ? 'پاسخ شخصی' : 'A personal reply'}</strong><span>{fa ? 'علی‌اکبر مرزبان پیام شما را می‌خواند و معمولاً ظرف دو روز کاری پاسخ می‌دهد.' : 'Ali Akbar Marzban reads your message and usually replies within two working days.'}</span></li>
+          <li><strong>{fa ? 'گفت‌وگوی اولیه' : 'First conversation'}</strong><span>{fa ? 'زمانی برای یک گفت‌وگوی کوتاه و بدون تعهد هماهنگ می‌شود.' : 'A short, no-obligation call is arranged.'}</span></li>
+          <li><strong>{fa ? 'تعیین دامنه همکاری' : 'Scope'}</strong><span>{fa ? 'اگر همکاری مناسب باشد، دامنه کار و شیوه همکاری پیشنهاد می‌شود.' : 'If it is a good fit, a proposed scope and way of working follow.'}</span></li>
         </ol>
         <div class="note">
-          <p><Icon name="lock" size={16} /> <strong>{fa ? 'محرمانگی' : 'Confidentiality'}</strong></p>
-          <p>{fa ? 'از این فرم برای ارسال اسناد حساس استفاده نکنید. در صورت نیاز، کانال امن تبادل اسناد پس از جلسه اولیه هماهنگ می‌شود.' : 'Do not use this form for sensitive documents. If needed, a secure channel for document exchange is arranged after the first call.'}</p>
+          <p><Icon name="whatsapp" size={16} /> <strong>{fa ? 'ترجیح می‌دهید مستقیم پیام دهید؟' : 'Prefer to message directly?'}</strong></p>
+          <p><a href={whatsappLink()} target="_blank" rel="noopener" data-track="whatsapp-consult">{t(ui.whatsappShort, lang)} <span class="ltr">{site.whatsappDisplay}</span></a></p>
         </div>
       </aside>
     </div>
@@ -184,8 +178,6 @@ const msgs = {
     const note = document.getElementById('area-note')!;
     const errorsBox = document.getElementById('form-errors')!;
     const status = form.querySelector<HTMLElement>('.form__status')!;
-    const submit = form.querySelector<HTMLButtonElement>('.form__submit')!;
-    const submitHtml = submit.innerHTML;
 
     // Preserve the service the visitor came from (?service=slug).
     const params = new URLSearchParams(location.search);
@@ -259,43 +251,38 @@ const msgs = {
       if (data.website || Date.now() - startedAt < 3000) { location.href = form.dataset.thanks!; return; }
       delete data.website;
       const areaLabel = area.selectedOptions[0]?.textContent || data.area;
-      const payload = {
-        ...data,
-        area_label: areaLabel,
-        language: form.dataset.lang,
-        page: location.href,
-        subject: `Advisory request — ${areaLabel} — ${data.organisation}`,
-        ...(form.dataset.accessKey ? { access_key: form.dataset.accessKey } : {}),
+      const label = (name: string) => {
+        const el = form.elements.namedItem(name) as HTMLElement | RadioNodeList | null;
+        const node = el instanceof RadioNodeList ? (el[0] as HTMLElement) : el;
+        return node ? fieldLabel(node).replace(/\s*\(.*\)$/, '') : name;
       };
-      const thanks = `${form.dataset.thanks}?service=${encodeURIComponent(data.area)}`;
-      const w = window as any;
-      const track = () => typeof w.plausible === 'function' && w.plausible('Inquiry Submitted', { props: { area: data.area, sector: data.sector, timeframe: data.timeframe } });
-
-      if (form.dataset.endpoint) {
-        submit.disabled = true;
-        submit.textContent = submit.dataset.sending!;
-        try {
-          const res = await fetch(form.dataset.endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          if (!res.ok) throw new Error(String(res.status));
-          track();
-          location.href = thanks;
-        } catch {
-          status.textContent = submit.dataset.fail!;
-          submit.disabled = false;
-          submit.innerHTML = submitHtml;
+      const optionText = (name: string) => {
+        const el = form.elements.namedItem(name);
+        if (el instanceof HTMLSelectElement) return el.selectedOptions[0]?.textContent || '';
+        if (el instanceof RadioNodeList) {
+          const checked = Array.from(el).find((r) => (r as HTMLInputElement).checked) as HTMLInputElement | undefined;
+          return checked?.nextElementSibling?.textContent || '';
         }
-      } else if (form.dataset.email) {
-        const body = Object.entries(payload).filter(([k]) => !['subject', 'consent'].includes(k)).map(([k, v]) => `${k}: ${v}`).join('\n');
-        track();
-        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
-        setTimeout(() => (location.href = `${thanks}&via=email`), 800);
-      } else {
-        status.textContent = submit.dataset.unconfigured!;
-      }
+        return data[name] || '';
+      };
+      const lines = [
+        form.dataset.lang === 'fa' ? 'سلام آقای مرزبان، درخواست مشاوره از طریق وب‌سایت:' : 'Hello Mr Marzban, advisory request via your website:',
+        '',
+        ...['name', 'role', 'organisation', 'email', 'sector', 'area', 'timeframe']
+          .map((n) => [label(n), n === 'sector' || n === 'timeframe' ? optionText(n) : n === 'area' ? areaLabel : data[n]])
+          .filter(([, v]) => v)
+          .map(([k, v]) => `${k}: ${v}`),
+        '',
+        data.summary,
+      ];
+      const url = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
+      const w = window as any;
+      if (typeof w.plausible === 'function') w.plausible('Inquiry Submitted', { props: { area: data.area, sector: data.sector, timeframe: data.timeframe } });
+      // Open WhatsApp in a new tab (desktop) or the app (mobile), then show the confirmation page here.
+      const win = window.open(url, '_blank');
+      if (!win) { location.href = url; return; }
+      win.opener = null;
+      location.href = `${form.dataset.thanks}?service=${encodeURIComponent(data.area)}`;
     });
   }
 </script>
@@ -342,8 +329,8 @@ const msgs = {
   .form__errors a { color: #7d3415; }
   .form__status { margin: 0; font-weight: 600; color: #7d3415; }
   .form__status:empty { display: none; }
-  .form__submit { justify-self: start; min-width: 200px; }
-  .form__submit:disabled { opacity: 0.7; cursor: progress; }
+  .form__submit { justify-self: start; min-width: 220px; background: #25d366; color: #0b3d22; }
+  .form__submit:hover { background: #1fbe5b; color: #0b3d22; }
   .consult__aside h2 { font-size: 1.3rem; }
   .next-steps { list-style: none; margin: 0 0 2rem; padding: 0; counter-reset: n; display: grid; gap: 1.1rem; }
   .next-steps li { counter-increment: n; display: grid; grid-template-columns: 2rem 1fr; gap: 0 0.8rem; }
@@ -352,5 +339,5 @@ const msgs = {
   .next-steps strong { color: var(--navy); }
   .next-steps span { font-size: 0.95rem; }
   .consult__aside .note p { margin: 0 0 0.4rem; display: flex; gap: 0.4rem; align-items: center; }
-  .consult__aside .note p:last-child { display: block; margin: 0; }
+  .consult__aside .note p:last-child { margin: 0; font-weight: 700; }
 </style>

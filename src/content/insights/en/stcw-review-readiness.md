@@ -3,7 +3,6 @@ title: "Preparing Training and Certification Systems for the STCW Comprehensive 
 date: "2026-07-10"
 summary: "The IMO's comprehensive review of the STCW Convention is an opportunity for administrations to strengthen quality standards before new requirements arrive."
 service: seafarers-stcw
-sample: true
 ---
 
 The IMO has undertaken a **comprehensive review of the STCW Convention and Code**. Administrations and training institutions that wait for the final text risk a compressed implementation timeline.
@@ -19,4 +18,3 @@ The IMO has undertaken a **comprehensive review of the STCW Convention and Code*
 
 A credible certification system protects seafarers' employability and the flag's reputation. Preparation now makes the transition to amended requirements orderly rather than reactive.
 
-*This is a sample article to demonstrate the Insights section. Replace or approve before publication.*

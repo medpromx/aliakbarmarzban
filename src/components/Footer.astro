@@ -1,5 +1,6 @@
 ---
-import { nav, site, ui } from '../data/site';
+import Icon from './Icon.astro';
+import { nav, site, ui, whatsappLink } from '../data/site';
 import { services } from '../data/services';
 import { href, t, type Lang } from '../lib/i18n';
 interface Props { lang: Lang }
@@ -13,6 +14,11 @@ const year = new Date().getFullYear();
         <p class="site-footer__name">{t(site.advisorName, lang)}</p>
         <p class="site-footer__tag">{t(site.brand, lang)}</p>
         <p class="site-footer__pillars">{t(site.pillars, lang)}</p>
+        <p class="site-footer__wa">
+          <a href={whatsappLink()} target="_blank" rel="noopener" data-track="whatsapp-footer">
+            <Icon name="whatsapp" size={20} /> <span>{t(ui.whatsappShort, lang)}:</span> <span class="ltr">{site.whatsappDisplay}</span>
+          </a>
+        </p>
         <a class="btn btn--primary" href={href(lang, '/consultation/')} data-track="cta-footer">{t(ui.requestConsultation, lang)}</a>
       </div>
       <div>
@@ -31,7 +37,6 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="site-footer__bottom">
-      <p class="site-footer__note">{t(ui.footerNote, lang)}</p>
       <p>
         © <span class="ltr">{year}</span> {t(site.advisorName, lang)} ·
         <a href={href(lang, '/privacy/')}>{t(ui.privacy, lang)}</a> ·
@@ -54,5 +59,6 @@ const year = new Date().getFullYear();
   .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
   .site-footer__bottom { margin-block-start: 3rem; padding-block-start: 1.5rem; border-block-start: 1px solid rgb(255 255 255 / 10%); display: grid; gap: 0.5rem; font-size: 0.85rem; }
   .site-footer__bottom p { margin: 0; }
-  .site-footer__note { max-width: 60rem; }
+  .site-footer__wa a { display: inline-flex; gap: 0.5rem; align-items: center; font-size: 1.05rem; color: var(--white) !important; }
+  .site-footer__wa :global(svg) { color: #25d366; }
 </style>

@@ -22,18 +22,18 @@ export const methodology: { title: L; text: L }[] = [
 export const differentiators: { icon: string; title: L; text: L }[] = [
   {
     icon: 'compass',
-    title: { en: 'Independent', fa: 'مستقل' },
-    text: { en: 'No brokerage, vendor or institutional interest in the outcome.', fa: 'بدون منافع کارگزاری، فروشندگی یا نهادی در نتیجه.' },
+    title: { en: 'Seen from the inside', fa: 'شناخت از درون' },
+    text: { en: 'Thirty years inside port and maritime administration, from the contracts desk to the executive board.', fa: 'سی سال کار در بنادر و دریانوردی؛ از میز قراردادها تا هیئت عامل سازمان.' },
   },
   {
     icon: 'globe',
     title: { en: 'International perspective', fa: 'دیدگاه بین‌المللی' },
-    text: { en: 'Grounded in how international maritime instruments are negotiated and implemented.', fa: 'مبتنی بر شناخت شیوه مذاکره و اجرای اسناد بین‌المللی دریایی.' },
+    text: { en: 'Eight years at the IMO in London: knowing how international rules are negotiated, not only what they say.', fa: 'هشت سال حضور در IMO، لندن: شناخت اینکه مقررات بین‌المللی چگونه مذاکره می‌شوند، نه فقط اینکه چه می‌گویند.' },
   },
   {
     icon: 'chart',
     title: { en: 'Implementation-focused', fa: 'متمرکز بر اجرا' },
-    text: { en: 'Deliverables built for decisions: roadmaps, frameworks and KPIs, not only reports.', fa: 'خروجی‌هایی برای تصمیم‌گیری: نقشه راه، چارچوب و شاخص؛ نه فقط گزارش.' },
+    text: { en: 'Advice you can act on: roadmaps, frameworks and clear next steps, not only reports.', fa: 'توصیه‌هایی که می‌توان اجرا کرد: نقشه راه، چارچوب و گام‌های روشن؛ نه فقط گزارش.' },
   },
   {
     icon: 'shield',
