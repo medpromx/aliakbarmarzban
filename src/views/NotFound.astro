@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { href, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+---
+<Base lang={lang} title={fa ? 'صفحه پیدا نشد' : 'Page not found'} noindex>
+  <PageHero lang={lang} eyebrow="404" title={fa ? 'این صفحه پیدا نشد' : 'This page could not be found'} lead={fa ? 'ممکن است نشانی تغییر کرده باشد.' : 'The address may have changed.'}>
+    <div class="btn-row" style="margin-block-start:2rem">
+      <a class="btn btn--primary" href={href(lang, '/')}>{fa ? 'صفحه اصلی' : 'Home'}</a>
+      <a class="btn btn--ghost" href={href(lang, '/services/')}>{fa ? 'خدمات مشاوره' : 'Advisory services'}</a>
+    </div>
+  </PageHero>
+</Base>

@@ -1,0 +1,356 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { advisoryAreas } from '../data/services';
+import { site } from '../data/site';
+import { href, t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = fa ? 'درخواست گفت‌وگوی محرمانه مشاوره‌ای' : 'Request a Confidential Advisory Discussion';
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
+const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY || '';
+const email = site.contactEmail;
+
+const sectorsOpts = [
+  { value: 'government', label: { en: 'Government ministry / maritime administration', fa: 'وزارتخانه / سازمان دریایی' } },
+  { value: 'port', label: { en: 'Port authority / port company', fa: 'سازمان بنادر / شرکت بندری' } },
+  { value: 'shipping', label: { en: 'Shipowner, ship manager or terminal operator', fa: 'مالک یا مدیر کشتی یا بهره‌بردار ترمینال' } },
+  { value: 'legal', label: { en: 'Legal / procurement function', fa: 'واحد حقوقی / تدارکات' } },
+  { value: 'training', label: { en: 'Maritime academy / training institution', fa: 'دانشگاه / مؤسسه آموزش دریایی' } },
+  { value: 'investor', label: { en: 'Investor, law firm or development agency', fa: 'سرمایه‌گذار، مؤسسه حقوقی یا نهاد توسعه‌ای' } },
+  { value: 'other', label: { en: 'Other', fa: 'سایر' } },
+];
+const timeframes = [
+  { value: 'urgent', label: { en: 'Immediate / urgent', fa: 'فوری' } },
+  { value: '1-3-months', label: { en: 'Within 1–3 months', fa: 'ظرف ۱ تا ۳ ماه' } },
+  { value: 'exploratory', label: { en: 'Exploratory discussion', fa: 'گفت‌وگوی اکتشافی' } },
+];
+const L = {
+  name: { en: 'Full name', fa: 'نام و نام خانوادگی' },
+  role: { en: 'Position / title', fa: 'سمت' },
+  org: { en: 'Organisation / institution', fa: 'سازمان / نهاد' },
+  email: { en: 'Professional email', fa: 'ایمیل سازمانی' },
+  sector: { en: 'Organisation type', fa: 'نوع سازمان' },
+  area: { en: 'Advisory area', fa: 'حوزه مشاوره' },
+  timeframe: { en: 'Expected timeframe', fa: 'بازه زمانی مورد انتظار' },
+  summary: { en: 'Brief description of your challenge', fa: 'شرح کوتاه چالش شما' },
+  summaryHint: { en: 'A few sentences are enough. Please do not include confidential contractual or government documents or sensitive personal data.', fa: 'چند جمله کافی است. لطفاً اسناد محرمانه قراردادی یا دولتی و اطلاعات شخصی حساس را وارد نکنید.' },
+  optional: { en: '(optional)', fa: '(اختیاری)' },
+  choose: { en: 'Select…', fa: 'انتخاب کنید…' },
+  consent: { en: 'I agree that the information in this form is processed to respond to my enquiry, as described in the', fa: 'موافقم اطلاعات این فرم برای پاسخ به درخواستم و مطابق با' },
+  consentTail: { en: '.', fa: ' پردازش شود.' },
+  submit: { en: 'Send request', fa: 'ارسال درخواست' },
+  sending: { en: 'Sending…', fa: 'در حال ارسال…' },
+  required: { en: 'Required', fa: 'الزامی' },
+  errorsTitle: { en: 'Please check the following fields:', fa: 'لطفاً این موارد را بررسی کنید:' },
+  sendFail: { en: 'Your request could not be sent. Please try again in a moment.', fa: 'ارسال درخواست انجام نشد. لطفاً چند لحظه بعد دوباره تلاش کنید.' },
+  notConfigured: { en: 'Online submission is not yet connected. Your request has been prepared — please contact us directly while this is being set up.', fa: 'ارسال آنلاین هنوز فعال نشده است. لطفاً تا زمان راه‌اندازی، مستقیماً تماس بگیرید.' },
+  preselected: { en: 'Selected from the page you were viewing:', fa: 'بر اساس صفحه‌ای که مشاهده می‌کردید انتخاب شد:' },
+};
+const msgs = {
+  valueMissing: fa ? 'این فیلد الزامی است.' : 'This field is required.',
+  typeMismatch: fa ? 'لطفاً یک نشانی ایمیل معتبر وارد کنید.' : 'Please enter a valid email address.',
+  tooShort: fa ? 'لطفاً کمی بیشتر توضیح دهید.' : 'Please add a little more detail.',
+  consent: fa ? 'برای ارسال، موافقت با پردازش اطلاعات لازم است.' : 'Consent is required to send the request.',
+};
+---
+<Base lang={lang} title={title} description={fa ? 'درخواست جلسه مشاوره محرمانه درباره مقررات دریایی، حکمرانی بندری، قراردادها، STCW یا مذاکرات بین‌المللی.' : 'Request a confidential advisory discussion on maritime regulation, port governance, contracts, STCW or international negotiation.'}>
+  <PageHero
+    lang={lang}
+    eyebrow={fa ? 'تماس و درخواست مشاوره' : 'Contact & consultation'}
+    title={title}
+    lead={fa ? 'فرمی کوتاه برای شناخت نیاز شما. هر درخواست به‌صورت محرمانه بررسی می‌شود.' : 'A short form to understand your needs. Every request is reviewed confidentially.'}
+    crumbs={[{ label: fa ? 'درخواست مشاوره' : 'Consultation' }]}
+  />
+  <section class="section section--white">
+    <div class="container consult">
+      <form
+        id="consult-form"
+        class="form"
+        novalidate
+        data-endpoint={endpoint}
+        data-access-key={accessKey}
+        data-email={email}
+        data-lang={lang}
+        data-thanks={href(lang, '/consultation/thank-you/')}
+        data-msgs={JSON.stringify(msgs)}
+      >
+        <div class="form__errors" id="form-errors" tabindex="-1" hidden>
+          <p><strong>{t(L.errorsTitle, lang)}</strong></p>
+          <ul></ul>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">{t(L.name, lang)} <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required dir="auto" maxlength="120" />
+          </div>
+          <div class="field">
+            <label for="f-role">{t(L.role, lang)} <span class="opt">{t(L.optional, lang)}</span></label>
+            <input id="f-role" name="role" type="text" autocomplete="organization-title" dir="auto" maxlength="120" />
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-org">{t(L.org, lang)} <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-org" name="organisation" type="text" autocomplete="organization" required dir="auto" maxlength="160" />
+          </div>
+          <div class="field">
+            <label for="f-email">{t(L.email, lang)} <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required dir="ltr" maxlength="160" />
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-sector">{t(L.sector, lang)} <span class="req" aria-hidden="true">*</span></label>
+            <select id="f-sector" name="sector" required>
+              <option value="">{t(L.choose, lang)}</option>
+              {sectorsOpts.map((o) => <option value={o.value}>{t(o.label, lang)}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-area">{t(L.area, lang)} <span class="req" aria-hidden="true">*</span></label>
+            <select id="f-area" name="area" required aria-describedby="area-note">
+              <option value="">{t(L.choose, lang)}</option>
+              {advisoryAreas.map((o) => <option value={o.value}>{t(o.label, lang)}</option>)}
+            </select>
+            <p class="hint" id="area-note" hidden>{t(L.preselected, lang)} <strong></strong></p>
+          </div>
+        </div>
+
+        <fieldset class="field">
+          <legend>{t(L.timeframe, lang)} <span class="req" aria-hidden="true">*</span></legend>
+          <div class="radios">
+            {timeframes.map((tf, i) => (
+              <label class="radio">
+                <input type="radio" name="timeframe" value={tf.value} required={i === 0} />
+                <span>{t(tf.label, lang)}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="f-summary">{t(L.summary, lang)} <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="f-summary" name="summary" rows="6" required minlength="20" maxlength="2000" dir="auto" aria-describedby="summary-hint"></textarea>
+          <p class="hint" id="summary-hint">{t(L.summaryHint, lang)}</p>
+        </div>
+
+        <!-- Spam protection: a field hidden from people, and a minimum completion time. -->
+        <div class="hp" aria-hidden="true">
+          <label for="f-website">Website</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" name="consent" id="f-consent" required data-label={fa ? 'رضایت پردازش اطلاعات' : 'Consent'} />
+            <span>{t(L.consent, lang)} <a href={href(lang, '/privacy/')}>{fa ? 'سیاست حریم خصوصی' : 'Privacy Policy'}</a>{t(L.consentTail, lang)}</span>
+          </label>
+        </div>
+
+        <p class="form__status" role="status" aria-live="polite"></p>
+        <button class="btn btn--teal form__submit" type="submit" data-sending={t(L.sending, lang)} data-fail={t(L.sendFail, lang)} data-unconfigured={t(L.notConfigured, lang)}>
+          {t(L.submit, lang)} <Icon name="arrow" size={18} />
+        </button>
+      </form>
+
+      <aside class="consult__aside">
+        <h2>{fa ? 'پس از ارسال چه اتفاقی می‌افتد؟' : 'What happens next?'}</h2>
+        <ol class="next-steps">
+          <li><strong>{fa ? 'تأیید دریافت' : 'Acknowledgement'}</strong><span>{fa ? 'صفحه تأیید را می‌بینید و درخواست شما ثبت می‌شود.' : 'You see a confirmation and your request is recorded.'}</span></li>
+          <li><strong>{fa ? 'بررسی اولیه' : 'Initial review'}</strong><span>{fa ? 'درخواست به‌صورت محرمانه بررسی و تناسب آن ارزیابی می‌شود (معمولاً ظرف دو روز کاری).' : 'The request is reviewed confidentially for fit, usually within two working days.'}</span></li>
+          <li><strong>{fa ? 'هماهنگی جلسه' : 'Introductory call'}</strong><span>{fa ? 'زمانی برای گفت‌وگوی اولیه و بدون تعهد پیشنهاد می‌شود.' : 'A time is proposed for a short, no-obligation discussion.'}</span></li>
+          <li><strong>{fa ? 'تعیین دامنه' : 'Scope'}</strong><span>{fa ? 'در صورت تناسب، پیشنهاد دامنه کار و شیوه همکاری ارائه می‌شود.' : 'If there is a fit, a proposed scope and engagement approach follow.'}</span></li>
+        </ol>
+        <div class="note">
+          <p><Icon name="lock" size={16} /> <strong>{fa ? 'محرمانگی' : 'Confidentiality'}</strong></p>
+          <p>{fa ? 'از این فرم برای ارسال اسناد حساس استفاده نکنید. در صورت نیاز، کانال امن تبادل اسناد پس از جلسه اولیه هماهنگ می‌شود.' : 'Do not use this form for sensitive documents. If needed, a secure channel for document exchange is arranged after the first call.'}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('consult-form') as HTMLFormElement | null;
+  if (form) {
+    const startedAt = Date.now();
+    const msgs = JSON.parse(form.dataset.msgs || '{}');
+    const area = form.elements.namedItem('area') as HTMLSelectElement;
+    const note = document.getElementById('area-note')!;
+    const errorsBox = document.getElementById('form-errors')!;
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+    const submit = form.querySelector<HTMLButtonElement>('.form__submit')!;
+    const submitHtml = submit.innerHTML;
+
+    // Preserve the service the visitor came from (?service=slug).
+    const params = new URLSearchParams(location.search);
+    const pre = params.get('service');
+    if (pre && Array.from(area.options).some((o) => o.value === pre)) {
+      area.value = pre;
+      note.hidden = false;
+      note.querySelector('strong')!.textContent = area.selectedOptions[0].textContent;
+    }
+
+    const fieldLabel = (el: HTMLElement) => {
+      if (el.dataset.label) return el.dataset.label;
+      const fs = el.closest('fieldset');
+      if (fs) return fs.querySelector('legend')!.childNodes[0].textContent!.trim();
+      const lab = form.querySelector(`label[for="${el.id}"]`) ?? el.closest('label');
+      return (lab?.childNodes[0].textContent || '').trim();
+    };
+    const messageFor = (el: HTMLInputElement) => {
+      if (el.type === 'checkbox') return msgs.consent;
+      if (el.validity.typeMismatch) return msgs.typeMismatch;
+      if (el.validity.tooShort) return msgs.tooShort;
+      return msgs.valueMissing;
+    };
+    const clearErrors = () => {
+      form.querySelectorAll('.field--error').forEach((f) => f.classList.remove('field--error'));
+      form.querySelectorAll('.error-msg').forEach((m) => m.remove());
+      form.querySelectorAll('[aria-invalid]').forEach((m) => {
+        m.removeAttribute('aria-invalid');
+        const rest = (m.getAttribute('aria-describedby') || '').split(' ').filter((id) => id && !id.startsWith('err-'));
+        rest.length ? m.setAttribute('aria-describedby', rest.join(' ')) : m.removeAttribute('aria-describedby');
+      });
+      errorsBox.hidden = true;
+    };
+    const validate = () => {
+      clearErrors();
+      const invalid = Array.from(form.querySelectorAll<HTMLInputElement>('input, select, textarea')).filter((el) => !el.checkValidity());
+      const seen = new Set<string>();
+      const list = errorsBox.querySelector('ul')!;
+      list.innerHTML = '';
+      invalid.forEach((el) => {
+        if (seen.has(el.name)) return;
+        seen.add(el.name);
+        const field = el.closest('.field')!;
+        field.classList.add('field--error');
+        el.setAttribute('aria-invalid', 'true');
+        const id = `err-${el.name}`;
+        const p = document.createElement('p');
+        p.className = 'error-msg';
+        p.id = id;
+        p.textContent = messageFor(el);
+        field.appendChild(p);
+        el.setAttribute('aria-describedby', [el.getAttribute('aria-describedby'), id].filter(Boolean).join(' '));
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${el.id || el.name}`;
+        a.textContent = `${fieldLabel(el)} — ${messageFor(el)}`;
+        a.addEventListener('click', (e) => { e.preventDefault(); el.focus(); });
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      if (invalid.length) { errorsBox.hidden = false; errorsBox.focus(); }
+      return invalid.length === 0;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      if (!validate()) return;
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      // Silently drop likely spam: honeypot filled or submitted implausibly fast.
+      if (data.website || Date.now() - startedAt < 3000) { location.href = form.dataset.thanks!; return; }
+      delete data.website;
+      const areaLabel = area.selectedOptions[0]?.textContent || data.area;
+      const payload = {
+        ...data,
+        area_label: areaLabel,
+        language: form.dataset.lang,
+        page: location.href,
+        subject: `Advisory request — ${areaLabel} — ${data.organisation}`,
+        ...(form.dataset.accessKey ? { access_key: form.dataset.accessKey } : {}),
+      };
+      const thanks = `${form.dataset.thanks}?service=${encodeURIComponent(data.area)}`;
+      const w = window as any;
+      const track = () => typeof w.plausible === 'function' && w.plausible('Inquiry Submitted', { props: { area: data.area, sector: data.sector, timeframe: data.timeframe } });
+
+      if (form.dataset.endpoint) {
+        submit.disabled = true;
+        submit.textContent = submit.dataset.sending!;
+        try {
+          const res = await fetch(form.dataset.endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+          track();
+          location.href = thanks;
+        } catch {
+          status.textContent = submit.dataset.fail!;
+          submit.disabled = false;
+          submit.innerHTML = submitHtml;
+        }
+      } else if (form.dataset.email) {
+        const body = Object.entries(payload).filter(([k]) => !['subject', 'consent'].includes(k)).map(([k, v]) => `${k}: ${v}`).join('\n');
+        track();
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
+        setTimeout(() => (location.href = `${thanks}&via=email`), 800);
+      } else {
+        status.textContent = submit.dataset.unconfigured!;
+      }
+    });
+  }
+</script>
+
+<style>
+  .consult { display: grid; gap: clamp(32px, 5vw, 72px); }
+  @media (min-width: 980px) { .consult { grid-template-columns: 1.6fr 1fr; } }
+  .form { display: grid; gap: 1.4rem; }
+  .form__row { display: grid; gap: 1.4rem; }
+  @media (min-width: 640px) { .form__row { grid-template-columns: 1fr 1fr; } }
+  .field { display: grid; align-content: start; gap: 0.45rem; border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .field label, .field legend { font-weight: 600; color: var(--navy); font-size: 0.95rem; padding: 0; }
+  .field legend { margin-block-end: 0.6rem; }
+  .req { color: #a0461f; }
+  .opt { font-weight: 400; color: var(--slate-2); font-size: 0.88rem; }
+  input[type='text'], input[type='email'], select, textarea {
+    font: inherit;
+    color: var(--navy);
+    background: var(--white);
+    border: 1px solid #a9b6c1;
+    border-radius: var(--radius);
+    padding: 0.75rem 0.9rem;
+    min-height: 48px;
+    inline-size: 100%;
+  }
+  input[type='email'] { text-align: start; }
+  input[type='email']:dir(rtl) { text-align: end; }
+  textarea { resize: vertical; min-height: 150px; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--navy); }
+  .hint { font-size: 0.88rem; color: var(--slate-2); margin: 0; }
+  .radios { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .radio { position: relative; display: inline-flex; }
+  .radio input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .radio span { border: 1px solid #a9b6c1; border-radius: 999px; padding: 0.6rem 1.1rem; font-weight: 500; font-size: 0.95rem; min-height: 44px; display: inline-flex; align-items: center; }
+  .radio input:checked + span { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .radio input:focus-visible + span { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .checkbox { display: flex; gap: 0.7rem; align-items: start; font-weight: 400 !important; color: var(--slate) !important; }
+  .checkbox input { inline-size: 20px; block-size: 20px; margin-block-start: 0.3rem; accent-color: var(--teal); flex: none; }
+  .hp { position: absolute; inset-inline-start: -10000px; inline-size: 1px; block-size: 1px; overflow: hidden; }
+  .field--error input, .field--error select, .field--error textarea, .field--error .radio span { border-color: #a0461f; }
+  :global(.error-msg) { color: #a0461f; font-size: 0.88rem; margin: 0; font-weight: 600; }
+  .form__errors { border: 1px solid #a0461f; border-inline-start-width: 4px; padding: 1rem 1.2rem; background: #fdf4f0; }
+  .form__errors ul { margin: 0.4rem 0 0; padding-inline-start: 1.2rem; }
+  .form__errors a { color: #7d3415; }
+  .form__status { margin: 0; font-weight: 600; color: #7d3415; }
+  .form__status:empty { display: none; }
+  .form__submit { justify-self: start; min-width: 200px; }
+  .form__submit:disabled { opacity: 0.7; cursor: progress; }
+  .consult__aside h2 { font-size: 1.3rem; }
+  .next-steps { list-style: none; margin: 0 0 2rem; padding: 0; counter-reset: n; display: grid; gap: 1.1rem; }
+  .next-steps li { counter-increment: n; display: grid; grid-template-columns: 2rem 1fr; gap: 0 0.8rem; }
+  .next-steps li::before { content: counter(n); grid-row: span 2; inline-size: 2rem; block-size: 2rem; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold-dark); display: grid; place-items: center; font-weight: 700; font-size: 0.85rem; }
+  :global(:root[lang='fa']) .next-steps li::before { content: counter(n, persian); }
+  .next-steps strong { color: var(--navy); }
+  .next-steps span { font-size: 0.95rem; }
+  .consult__aside .note p { margin: 0 0 0.4rem; display: flex; gap: 0.4rem; align-items: center; }
+  .consult__aside .note p:last-child { display: block; margin: 0; }
+</style>

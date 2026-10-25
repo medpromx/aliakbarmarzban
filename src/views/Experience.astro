@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import credentials from '../data/credentials.json';
+import { ui } from '../data/site';
+import { t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & Credentials';
+---
+<Base lang={lang} title={title} description={fa ? 'سوابق حرفه‌ای، سمت‌های سابق، تحصیلات و عضویت‌ها؛ منتشرشده پس از تأیید.' : 'Professional history, former appointments, education and memberships — published after verification.'}>
+  <PageHero
+    lang={lang}
+    eyebrow={title}
+    title={fa ? 'اعتبار حرفه‌ای، با شواهد قابل تأیید' : 'Professional credibility, with verifiable evidence'}
+    lead={fa ? 'سوابق در این وب‌سایت نقش اثبات اعتبار را دارند. هر ادعا تنها پس از تطبیق با مستندات رسمی منتشر می‌شود.' : 'Credentials on this site serve as evidence. Each claim is published only after verification against official records.'}
+    crumbs={[{ label: title }]}
+  />
+  <section class="section section--white">
+    <div class="container">
+      <p class="note notice">{t(credentials.notice as any, lang)}</p>
+      <div class="cred-groups">
+        {credentials.groups.map((g) => (
+          <section class="cred-group" aria-labelledby={`g-${g.id}`}>
+            <h2 id={`g-${g.id}`}>{t(g.title as any, lang)}</h2>
+            <ol class="timeline">
+              {g.items.map((it) => (
+                <li class:list={['timeline__item', { 'timeline__item--pending': !it.verified }]}>
+                  <span class="timeline__period ltr">{it.period}</span>
+                  <div>
+                    <h3>{t(it.title as any, lang)}</h3>
+                    <p>{t(it.org as any, lang)}</p>
+                    {!it.verified && <span class="tag">{t(ui.placeholder, lang)}</span>}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'پروژه‌ها' : 'Engagements'}</p>
+        <h2>{fa ? 'نمونه پروژه‌های قابل انتشار' : 'Publishable case studies'}</h2>
+        <p>{fa ? 'نمونه پروژه‌ها تنها با اجازه کارفرما و بدون افشای اطلاعات محرمانه منتشر می‌شوند. هیچ توصیه‌نامه یا نمونه پروژه ساختگی در این وب‌سایت منتشر نمی‌شود.' : 'Case studies are published only with client approval and without confidential details. No fabricated testimonials or case studies appear on this site.'}</p>
+      </div>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={fa ? 'درباره مسئله خود گفت‌وگو کنید' : 'Discuss your challenge'} text={fa ? 'بررسی کنیم که تجربه مشاور تا چه حد با نیاز سازمان شما منطبق است.' : "Let's explore how the advisor's experience fits your organisation's needs."} cta={t(ui.primaryCta, lang)} track="experience-final" />
+</Base>
+<style>
+  .notice { max-width: 52rem; margin-block-end: 3rem; }
+  .cred-groups { display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); }
+  .cred-group h2 { font-size: 1.35rem; }
+  .timeline { list-style: none; margin: 0; padding: 0; border-inline-start: 1px solid var(--line); }
+  .timeline__item { position: relative; display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0 0 1.6rem 1.4rem; padding-inline-start: 1.4rem; padding-inline-end: 0; }
+  .timeline__item::before { content: ''; position: absolute; inset-inline-start: -5px; inset-block-start: 0.55rem; inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--teal); }
+  .timeline__item--pending::before { background: var(--white); border: 1px dashed var(--gold-dark); }
+  .timeline__item--pending h3, .timeline__item--pending p { color: var(--slate-2); }
+  .timeline__period { font-size: 0.88rem; font-weight: 700; color: var(--gold-dark); padding-block-start: 0.2rem; }
+  .timeline__item h3 { font-size: 1.05rem; margin: 0 0 0.2rem; }
+  .timeline__item p { margin: 0 0 0.3rem; font-size: 0.95rem; }
+  .timeline__period:dir(rtl) { text-align: end; }
+</style>

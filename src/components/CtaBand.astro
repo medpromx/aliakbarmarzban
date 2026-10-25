@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+import SeaLines from './SeaLines.astro';
+import { href, type Lang } from '../lib/i18n';
+interface Props {
+  lang: Lang;
+  title: string;
+  text: string;
+  cta: string;
+  service?: string;
+  track?: string;
+}
+const { lang, title, text, cta, service, track = 'cta-band' } = Astro.props;
+const target = href(lang, '/consultation/') + (service ? `?service=${service}` : '');
+---
+<section class="cta-band section section--navy">
+  <SeaLines variant="band" />
+  <div class="container cta-band__inner">
+    <div>
+      <p class="eyebrow">{lang === 'fa' ? 'گفت‌وگوی محرمانه' : 'Confidential discussion'}</p>
+      <h2>{title}</h2>
+      <p class="lead">{text}</p>
+    </div>
+    <div class="cta-band__action">
+      <a class="btn btn--primary" href={target} data-track={track}>{cta} <Icon name="arrow" size={18} /></a>
+      <p class="cta-band__small"><Icon name="lock" size={16} /> {lang === 'fa' ? 'پاسخ‌گویی محرمانه، معمولاً ظرف دو روز کاری' : 'Handled confidentially, usually answered within two working days'}</p>
+    </div>
+  </div>
+</section>
+<style>
+  .cta-band { position: relative; overflow: hidden; }
+  .cta-band__inner { position: relative; z-index: 1; display: grid; gap: 2rem; align-items: end; }
+  @media (min-width: 900px) { .cta-band__inner { grid-template-columns: 1.6fr 1fr; } }
+  .cta-band h2 { max-width: 24ch; }
+  .cta-band__action { display: grid; gap: 0.9rem; justify-items: start; }
+  .cta-band__small { display: flex; gap: 0.5rem; align-items: center; font-size: 0.88rem; margin: 0; }
+</style>

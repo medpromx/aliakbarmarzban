@@ -1,0 +1,233 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import SeaLines from '../components/SeaLines.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import JourneySelector from '../components/JourneySelector.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Placeholder from '../components/Placeholder.astro';
+import InsightCard from '../components/InsightCard.astro';
+import { site, ui } from '../data/site';
+import { services } from '../data/services';
+import { methodology, differentiators } from '../data/common';
+import { getInsights } from '../lib/insights';
+import { href, num, t, type Lang } from '../lib/i18n';
+import { organizationLd, personLd } from '../lib/schema';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const insights = getInsights(lang).slice(0, 3);
+
+const challenges = [
+  { slug: 'imo-regulation', label: { en: 'IMO Regulations', fa: 'مقررات IMO' }, q: { en: 'New IMO obligations, an upcoming audit or unclear implementation responsibilities.', fa: 'تعهدات جدید IMO، ممیزی پیش‌رو یا مسئولیت‌های نامشخص در اجرا.' } },
+  { slug: 'port-governance', label: { en: 'Port Governance', fa: 'حکمرانی بندری' }, q: { en: 'Overlapping mandates, weak concession oversight or lagging port performance.', fa: 'هم‌پوشانی مأموریت‌ها، نظارت ضعیف بر امتیازها یا عملکرد ضعیف بندر.' } },
+  { slug: 'maritime-contracts', label: { en: 'Maritime Contracts', fa: 'قراردادهای دریایی' }, q: { en: 'A tender, concession or service contract with risks you need to see clearly.', fa: 'مناقصه، امتیاز یا قرارداد خدماتی که ریسک‌های آن باید شفاف دیده شود.' } },
+  { slug: 'seafarers-stcw', label: { en: 'STCW & Seafarers', fa: 'STCW و دریانوردان' }, q: { en: 'STCW evaluation, certificate recognition or training oversight gaps.', fa: 'ارزیابی STCW، شناسایی گواهینامه‌ها یا شکاف در نظارت بر آموزش.' } },
+  { slug: 'international-negotiation', label: { en: 'International Negotiations', fa: 'مذاکرات بین‌المللی' }, q: { en: 'A bilateral or regional negotiation that needs a prepared, unified position.', fa: 'مذاکره دوجانبه یا منطقه‌ای که به موضعی آماده و یکپارچه نیاز دارد.' } },
+  { slug: 'executive-training', label: { en: 'Executive Training', fa: 'آموزش مدیران' }, q: { en: 'Senior teams who must lead regulatory or governance work with confidence.', fa: 'تیم‌های ارشدی که باید کار مقرراتی یا حکمرانی را با اطمینان رهبری کنند.' } },
+];
+---
+<Base lang={lang} title={t(site.brand, lang)} jsonLd={[organizationLd(lang), personLd(lang)]}>
+  <!-- 1. Hero -->
+  <section class="hero">
+    <SeaLines />
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">{fa ? 'مشاوره دریایی' : 'Maritime Advisory'}</p>
+        <h1>
+          {fa ? <>هدایت در مسیر مقررات دریایی.<br /> ارتقای حکمرانی.</> : <>Navigating Maritime Regulation.<br /> Advancing Governance.</>}
+        </h1>
+        <p class="lead">
+          {fa
+            ? 'مشاوره راهبردی مستقل برای سازمان‌های دریایی، سازمان‌های بنادر و مدیران صنعت؛ از سیاست‌ها و تعهدات بین‌المللی تا تصمیمات مدیریتی و برنامه‌های اجرایی.'
+            : 'Independent strategic advisory for maritime administrations, port authorities and industry leaders — turning international policy and obligations into management decisions and implementation plans.'}
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={href(lang, '/consultation/')} data-track="hero-primary">{t(ui.primaryCta, lang)} <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--ghost" href={href(lang, '/services/')} data-track="hero-secondary">{t(ui.secondaryCta, lang)}</a>
+        </div>
+      </div>
+      <aside class="hero__panel" aria-label={fa ? 'جایگاه' : 'Positioning'}>
+        <p class="hero__pillars">{t(site.pillars, lang)}</p>
+        <p class="hero__position">{t(site.positioning, lang)}</p>
+        <ul class="hero__chips">
+          <li><span class="ltr">B2B / B2G</span></li>
+          <li>{fa ? 'مشاوره مدیران ارشد' : 'Executive Advisory'}</li>
+          <li>{fa ? 'مشتریان بین‌المللی' : 'International Clients'}</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 2. Challenges -->
+  <section class="section section--white" aria-labelledby="challenges-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'چالش‌هایی که به آنها می‌پردازیم' : 'Challenges we address'}</p>
+        <h2 id="challenges-h">{fa ? 'با چه چالش دریایی‌ای روبه‌رو هستید؟' : 'What maritime challenge are you facing?'}</h2>
+      </div>
+      <ul class="challenges">
+        {challenges.map((c) => (
+          <li class="challenge card--link">
+            <a class="stretched" href={href(lang, `/services/${c.slug}/`)} data-track={`challenge-${c.slug}`}>
+              <span class="challenge__label">{t(c.label, lang)}</span>
+            </a>
+            <span class="challenge__q">{t(c.q, lang)}</span>
+            <Icon name="arrow" size={20} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Six core services -->
+  <section class="section" aria-labelledby="services-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{t(ui.services, lang)}</p>
+        <h2 id="services-h">{fa ? 'شش حوزه اصلی مشاوره' : 'Six core advisory practices'}</h2>
+        <p class="lead">{fa ? 'هر خدمت با مسئله مشخص، خروجی قابل تحویل و مسیر روشن آغاز همکاری تعریف شده است.' : 'Each practice is defined by a clear problem, concrete deliverables and an explicit way to begin.'}</p>
+      </div>
+      <div class="grid grid--3">
+        {services.map((s, i) => <ServiceCard lang={lang} service={s} index={i} />)}
+      </div>
+      <p class="specialist-link">
+        {fa ? 'سرمایه‌گذاری و PPP بندری، کربن‌زدایی، دیجیتالی‌سازی و مشاوره مستقل اختلافات: ' : 'Port investment & PPP, decarbonisation, digitalisation and independent dispute advisory:'}{' '}
+        <a href={href(lang, '/specialist-advisory/')}>{t(ui.specialist, lang)}</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Who we work with -->
+  <section class="section section--white" aria-labelledby="who-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'با چه کسانی کار می‌کنیم' : 'Who we work with'}</p>
+        <h2 id="who-h">{fa ? 'مسیری متناسب با نقش سازمانی شما' : 'A path designed around your role'}</h2>
+      </div>
+      <JourneySelector lang={lang} id="home-journeys" />
+      <p class="more-link"><a href={href(lang, '/sectors/')}>{fa ? 'همه مشتریان و بخش‌ها' : 'All clients & sectors'}</a></p>
+    </div>
+  </section>
+
+  <!-- 5. Credentials -->
+  <section class="section" aria-labelledby="why-h">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{fa ? 'چرا با ما' : 'Why work with us'}</p>
+        <h2 id="why-h">{fa ? 'تخصص مستقل. نتایج عملی.' : 'Independent expertise. Practical outcomes.'}</h2>
+        <p>{fa ? 'سوابق و مدارک، اثبات اعتبارند؛ نه محور گفت‌وگو. محور، مسئله شماست.' : 'Credentials are the evidence, not the headline. The starting point is always your problem.'}</p>
+        <a class="btn btn--outline" href={href(lang, '/experience/')}>{fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & credentials'}</a>
+      </div>
+      <div class="grid">
+        <div class="grid grid--2 diffs">
+          {differentiators.map((d) => (
+            <div class="diff">
+              <div class="icon-badge"><Icon name={d.icon} /></div>
+              <h3>{t(d.title, lang)}</h3>
+              <p>{t(d.text, lang)}</p>
+            </div>
+          ))}
+        </div>
+        <Placeholder lang={lang} label={fa ? 'سوابق حرفه‌ای تأییدشده' : 'Verified career evidence'}>
+          {fa ? 'سمت‌های سابق، سال‌ها، عضویت‌ها و شواهد قابل تأیید پس از تطبیق با مستندات رسمی در این بخش درج می‌شود.' : 'Former appointments, years of experience, memberships and verifiable evidence will appear here once checked against official records.'}
+        </Placeholder>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Methodology -->
+  <section class="section section--navy method" aria-labelledby="how-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'نحوه همکاری' : 'How we work'}</p>
+        <h2 id="how-h">{fa ? 'از شناخت مسئله تا اجرا' : 'From understanding the problem to implementation'}</h2>
+      </div>
+      <ol class="steps" role="list">
+        {methodology.map((m, i) => (
+          <li class="step">
+            <span class="step__num">{num(`0${i + 1}`, lang)}</span>
+            <h3>{t(m.title, lang)}</h3>
+            <p>{t(m.text, lang)}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7. Selected experience -->
+  <section class="section section--white" aria-labelledby="exp-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'تجربیات منتخب' : 'Selected experience'}</p>
+        <h2 id="exp-h">{fa ? 'تجربیات و پروژه‌های قابل انتشار' : 'Approved experience and case studies'}</h2>
+      </div>
+      <div class="grid grid--3">
+        {[1, 2, 3].map((n) => (
+          <Placeholder lang={lang} label={fa ? `نمونه تجربه ${num(n, lang)}` : `Case study ${n}`}>
+            {fa ? 'فقط پروژه‌های واقعی با مجوز انتشار: مسئله مشتری، نقش مشاور، خروجی و نتیجه.' : 'Only real, approved engagements: client challenge, advisory role, deliverable and outcome.'}
+          </Placeholder>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Latest insights -->
+  <section class="section" aria-labelledby="insights-h">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="eyebrow">{t(ui.insights, lang)}</p>
+          <h2 id="insights-h">{fa ? 'آخرین تحلیل‌های مقرراتی' : 'Latest regulatory insights'}</h2>
+        </div>
+        <a href={href(lang, '/insights/')}>{t(ui.allInsights, lang)}</a>
+      </div>
+      <div class="grid grid--3">
+        {insights.map((i) => <InsightCard lang={lang} insight={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CTA -->
+  <CtaBand
+    lang={lang}
+    title={fa ? 'درباره نیازهای مشاوره دریایی خود گفت‌وگو کنید' : 'Discuss your maritime advisory needs'}
+    text={fa ? 'گفت‌وگویی محرمانه درباره چالش‌های سازمان شما.' : "A confidential conversation about your organisation's challenges."}
+    cta={t(ui.requestConsultation, lang)}
+    track="home-final"
+  />
+</Base>
+
+<style>
+  .hero { position: relative; overflow: hidden; background: radial-gradient(120% 90% at 85% 10%, var(--navy-2), var(--navy) 60%); color: #c9d5df; padding-block: clamp(72px, 11vw, 150px) clamp(64px, 9vw, 120px); }
+  .hero__inner { position: relative; z-index: 1; display: grid; gap: clamp(32px, 5vw, 64px); align-items: end; }
+  @media (min-width: 1000px) { .hero__inner { grid-template-columns: 1.7fr 1fr; } }
+  .hero h1 { color: var(--white); }
+  .hero .lead { margin-block-end: 2rem; }
+  .hero__panel { border-inline-start: 1px solid var(--gold); padding-inline-start: 1.6rem; display: grid; gap: 0.9rem; }
+  .hero__pillars { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 0; }
+  :global(:root[lang='fa']) .hero__pillars { letter-spacing: normal; font-size: 0.95rem; }
+  .hero__position { color: var(--white); font-size: 1.35rem; font-weight: 600; line-height: 1.4; margin: 0; }
+  .hero__chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .hero__chips li { border: 1px solid rgb(255 255 255 / 22%); border-radius: 999px; padding: 0.25rem 0.8rem; font-size: 0.85rem; }
+
+  .challenges { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); border-block-start: 1px solid var(--line); }
+  .challenge { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 0.3rem 1rem; padding: 1.5rem 0.25rem; border-block-end: 1px solid var(--line); align-items: center; color: var(--teal); }
+  @media (min-width: 760px) { .challenge { padding-inline: 1rem; } }
+  .challenge a.stretched { color: var(--navy); text-decoration: none; font-weight: 700; font-size: 1.15rem; grid-column: 1; }
+  .challenge a.stretched::after { content: ''; position: absolute; inset: 0; }
+  .challenge__q { grid-column: 1; color: var(--slate); font-size: 0.97rem; }
+  .challenge :global(.arrow) { grid-column: 2; grid-row: 1 / span 2; }
+  .challenge:hover { background: var(--off-white); }
+  .challenge:hover a.stretched { color: var(--teal-dark); }
+  .challenge:focus-within { outline: 3px solid var(--gold); outline-offset: -3px; }
+  .challenge a.stretched:focus-visible { outline: none; }
+
+  .specialist-link, .more-link { margin-block-start: 2rem; }
+  .diffs { gap: 1.8rem; }
+  .diff h3 { margin-block-end: 0.3rem; }
+  .diff p { margin: 0; font-size: 0.98rem; }
+  .section-head--row { max-width: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; }
+  .method .steps { list-style: none; padding: 0; margin: 0; }
+</style>

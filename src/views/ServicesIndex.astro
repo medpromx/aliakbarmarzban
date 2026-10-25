@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { services, specialistAreas } from '../data/services';
+import { ui } from '../data/site';
+import { href, t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = t(ui.services, lang);
+---
+<Base lang={lang} title={title} description={fa ? 'شش خدمت اصلی مشاوره دریایی و خدمات تخصصی تکمیلی.' : 'Six core maritime advisory practices and complementary specialist advisory.'}>
+  <PageHero
+    lang={lang}
+    eyebrow={fa ? 'از سیاست تا اجرا' : 'From policy to implementation'}
+    title={fa ? 'خدماتی که از مسئله شما آغاز می‌شود' : 'Advisory that starts from your problem'}
+    lead={fa ? 'هر خدمت پاسخ سه پرسش را روشن می‌کند: چه مشکلی حل می‌شود، چه خروجی مشخصی تحویل می‌شود و همکاری چگونه آغاز می‌شود.' : 'Every practice answers three questions: what problem it solves, what you receive, and how to begin.'}
+    crumbs={[{ label: title }]}
+  />
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'خدمات اصلی' : 'Core advisory'}</p>
+        <h2>{fa ? 'شش حوزه اصلی' : 'Six core practices'}</h2>
+      </div>
+      <div class="grid grid--3">
+        {services.map((s, i) => <ServiceCard lang={lang} service={s} index={i} />)}
+      </div>
+    </div>
+  </section>
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{t(ui.specialist, lang)}</p>
+        <h2>{fa ? 'حوزه‌های تخصصی تکمیلی' : 'Specialist practice areas'}</h2>
+        <p>{fa ? 'این حوزه‌ها در صورت نیاز و با نقش شفاف متخصصان همکار ارائه می‌شوند.' : 'Offered where relevant, with the role of associate specialists stated transparently.'}</p>
+      </div>
+      <div class="grid grid--4">
+        {specialistAreas.map((a) => (
+          <article class="card card--link">
+            <h3><a class="stretched" href={href(lang, `/specialist-advisory/#${a.slug}`)}>{t(a.title, lang)}</a></h3>
+            <p>{t(a.text, lang)}</p>
+            <span class="more" aria-hidden="true">{fa ? 'جزئیات' : 'Details'} <Icon name="arrow" size={16} /></span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBand
+    lang={lang}
+    title={fa ? 'مطمئن نیستید کدام خدمت مناسب شماست؟' : 'Not sure which practice fits?'}
+    text={fa ? 'مسئله خود را به‌اختصار شرح دهید؛ مسیر مناسب را با هم مشخص می‌کنیم.' : 'Describe your challenge briefly and we will identify the right approach together.'}
+    cta={t(ui.primaryCta, lang)}
+    track="services-index"
+  />
+</Base>
