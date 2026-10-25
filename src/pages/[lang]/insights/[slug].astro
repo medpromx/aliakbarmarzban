@@ -1,11 +1,9 @@
 ---
-import { otherLangs, type Lang } from '../../../lib/i18n';
-import View from '../../../views/InsightDetail.astro';
-import { getInsights } from '../../../lib/insights';
+import Redirect from '../../../components/Redirect.astro';
+import { href, otherLangs, type Lang } from '../../../lib/i18n';
+import { movedInsights } from '../../../lib/redirects';
 export function getStaticPaths() {
-  return otherLangs.flatMap((lang) => getInsights(lang).map((insight) => ({ params: { lang, slug: insight.slug }, props: { insight } })));
+  return otherLangs.flatMap((lang) => Object.entries(movedInsights).map(([slug, to]) => ({ params: { lang, slug }, props: { to: href(lang, to) } })));
 }
-const { insight } = Astro.props;
-const lang = Astro.params.lang as Lang;
 ---
-<View lang={lang} insight={insight} />
+<Redirect to={Astro.props.to} />

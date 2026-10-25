@@ -5,12 +5,11 @@ import SeaLines from '../components/SeaLines.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import JourneySelector from '../components/JourneySelector.astro';
 import CtaBand from '../components/CtaBand.astro';
-import InsightCard from '../components/InsightCard.astro';
 import { site, ui } from '../data/site';
 import { services } from '../data/services';
 import { methodology, differentiators } from '../data/common';
 import { highlights, stats } from '../data/profile';
-import { getInsights } from '../lib/insights';
+import { atlasPath, atlasSrc, getAtlasItem } from '../lib/atlas';
 import { href, num, t, type Lang, makeTr } from '../lib/i18n';
 import { organizationLd, personLd } from '../lib/schema';
 
@@ -18,7 +17,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
 const tr = makeTr(lang);
-const insights = getInsights(lang).slice(0, 3);
+const featured = ['01', '03', '05', '09'].map(getAtlasItem);
 
 const challenges = [
   { slug: 'imo-regulation', label: { en: 'IMO Regulations', fa: 'مقررات IMO' }, q: { en: 'New IMO obligations, an upcoming audit or unclear implementation responsibilities.', fa: 'تعهدات جدید IMO، ممیزی پیش‌رو یا مسئولیت‌های نامشخص در اجرا.' } },
@@ -180,23 +179,60 @@ const challenges = [
     </div>
   </section>
 
-  <!-- 8. Latest insights -->
-  <section class="section" aria-labelledby="insights-h">
+  <!-- 8. Maritime governance in images -->
+  <section class="section section--white" aria-labelledby="atlas-h">
     <div class="container">
       <div class="section-head section-head--row">
         <div>
-          <p class="eyebrow">{t(ui.insights, lang)}</p>
-          <h2 id="insights-h">{tr('آخرین تحلیل‌های مقرراتی', 'Latest regulatory insights')}</h2>
+          <p class="eyebrow">{tr('اطلس تصویری', 'Visual atlas')}</p>
+          <h2 id="atlas-h">{tr('حکمرانی دریایی به زبان تصویر', 'Maritime governance in pictures')}</h2>
+          <p>{tr('یازده چارچوب تخصصی برای شناخت نظام مقرراتی، مدیریت ریسک و آینده صنعت دریایی', 'Eleven specialist frameworks for understanding the regulatory system, risk management and the future of the maritime industry')}</p>
         </div>
-        <a href={href(lang, '/insights/')}>{t(ui.allInsights, lang)}</a>
+        <a href={href(lang, atlasPath)}>{tr('مشاهده اطلس کامل ۱۱ تصویر', 'View the full 11-image atlas')}</a>
+      </div>
+      <ul class="home-atlas">
+        {featured.map((item) => (
+          <li class="card card--link">
+            <img src={atlasSrc(item.n, 'sm')} width="600" height="600" alt={t(item.alt, lang)} loading="lazy" decoding="async" />
+            <span class="home-atlas__n">{num(item.n, lang)}</span>
+            <h3><a class="stretched" href={`${href(lang, atlasPath)}#image-${item.n}`}>{t(item.title, lang)}</a></h3>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9. Encyclopedia and training -->
+  <section class="section" aria-labelledby="knowledge-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{tr('دانش و آموزش', 'Knowledge and training')}</p>
+        <h2 id="knowledge-h">{tr('از دانش تخصصی تا تصمیم اجرایی', 'From specialist knowledge to executive decisions')}</h2>
       </div>
       <div class="grid grid--3">
-        {insights.map((i) => <InsightCard lang={lang} insight={i} />)}
+        <a class="card card--link home-path" href={href(lang, '/encyclopedia/')}>
+          <div class="icon-badge"><Icon name="doc" /></div>
+          <h3>{t(ui.encyclopedia, lang)}</h3>
+          <p>{tr('۴۰ مقاله مستند در ۱۰ حوزه: مقررات IMO، بنادر، STCW، قراردادها، دیجیتالی‌سازی و کربن‌زدایی.', '40 documented articles in 10 areas: IMO regulation, ports, STCW, contracts, digitalisation and decarbonisation.')}</p>
+          <span class="more">{tr('مشاهده دانشنامه', 'Open the encyclopedia')} <Icon name="arrow" size={16} /></span>
+        </a>
+        <a class="card card--link home-path" href={href(lang, '/training/')}>
+          <div class="icon-badge"><Icon name="training" /></div>
+          <h3>{tr('آموزش مدیران', 'Executive education')}</h3>
+          <p>{tr('۱۲ دوره، ۵۶ جلسه و ۱۱۲ ساعت؛ کارگاه، توجیه هیئت‌مدیره، شبیه‌سازی مذاکره و تربیت مدرس.', '12 courses, 56 sessions and 112 hours: workshops, board briefings, negotiation simulation and train-the-trainer.')}</p>
+          <span class="more">{tr('مشاهده دوره‌ها', 'View the courses')} <Icon name="arrow" size={16} /></span>
+        </a>
+        <a class="card card--link home-path" href={href(lang, '/magazine/')}>
+          <div class="icon-badge"><Icon name="chart" /></div>
+          <h3>{t(ui.magazine, lang)}</h3>
+          <p>{tr('روایت تحلیلی یازده چارچوب کلیدی مدیریت و تنظیم‌گری دریایی و پیامد آن‌ها برای تصمیم مدیران.', 'An analytical narrative of eleven key frameworks of maritime management and regulation, and what they mean for decisions.')}</p>
+          <span class="more">{tr('مطالعه مجله', 'Read the magazine')} <Icon name="arrow" size={16} /></span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 9. CTA -->
+  <!-- 10. CTA -->
   <CtaBand
     lang={lang}
     title={tr('درباره نیازهای مشاوره دریایی خود گفت‌وگو کنید', 'Discuss your maritime advisory needs')}
@@ -243,6 +279,12 @@ const challenges = [
   .diffs { gap: 1.8rem; }
   .diff h3 { margin-block-end: 0.3rem; }
   .diff p { margin: 0; font-size: 0.98rem; }
+  .home-atlas { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.4vw, 24px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .home-atlas li { padding: 0; overflow: hidden; gap: 0; }
+  .home-atlas img { inline-size: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; border-block-end: 1px solid var(--line); }
+  .home-atlas__n { padding: 0.9rem 1.1rem 0; font-weight: 800; color: var(--gold-dark); }
+  .home-atlas h3 { padding: 0 1.1rem 1.1rem; font-size: 1rem; }
+  .home-path { text-decoration: none; color: inherit; }
   .section-head--row { max-width: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; }
   .method .steps { list-style: none; padding: 0; margin: 0; }
 </style>

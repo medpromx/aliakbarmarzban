@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+import type { Article } from '../lib/magazine';
+import { getService } from '../data/services';
+import { ui } from '../data/site';
+import { formatDate, href, t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang; article: Article }
+const { lang, article } = Astro.props;
+// An untranslated article is shown in English.
+const fb = article.lang !== lang ? { lang: article.lang, dir: 'ltr' as const } : {};
+const service = article.service ? getService(article.service) : undefined;
+---
+<article class="card card--link article-card">
+  <p class="article-card__meta">
+    {service && <span class="tag">{t(service.title, lang)}</span>}
+    <time datetime={article.date}>{formatDate(article.date, lang)}</time>
+  </p>
+  <h3 {...fb}><a class="stretched" href={href(lang, `/magazine/${article.slug}/`)}>{article.title}</a></h3>
+  <p {...fb}>{article.summary}</p>
+  <span class="more" aria-hidden="true">{t(ui.readMore, lang)} <Icon name="arrow" size={16} /></span>
+</article>
+<style>
+  .article-card__meta { display: grid; gap: 0.2rem; font-size: 0.85rem; color: var(--slate-2); margin: 0 0 0.4rem !important; }
+</style>

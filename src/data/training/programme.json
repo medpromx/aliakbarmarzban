@@ -1,0 +1,108 @@
+{
+ "references": [
+  {
+   "key": "imo-structure",
+   "url": "https://www.imo.org/en/about/pages/structure.aspx",
+   "name": {
+    "fa": "ساختار IMO",
+    "en": "IMO structure"
+   }
+  },
+  {
+   "key": "imo-conventions",
+   "url": "https://www.imo.org/en/about/conventions/pages/default.aspx",
+   "name": {
+    "fa": "کنوانسیون‌های IMO",
+    "en": "IMO conventions"
+   }
+  },
+  {
+   "key": "iii-code",
+   "url": "https://wwwcdn.imo.org/localresources/en/OurWork/IIIS/Documents/1070.pdf",
+   "name": {
+    "fa": "کد III، قطعنامه A.1070(28)",
+    "en": "III Code, Resolution A.1070(28)"
+   }
+  },
+  {
+   "key": "stcw",
+   "url": "https://www.imo.org/en/ourwork/humanelement/pages/stcw-convention.aspx",
+   "name": {
+    "fa": "کنوانسیون STCW",
+    "en": "STCW Convention"
+   }
+  },
+  {
+   "key": "imo-training",
+   "url": "https://www.imo.org/en/ourwork/humanelement/pages/trainingcertification-default.aspx",
+   "name": {
+    "fa": "آموزش و صدور گواهینامه — IMO",
+    "en": "IMO: training and certification"
+   }
+  },
+  {
+   "key": "ilo-mlc",
+   "url": "https://www.ilo.org/international-labour-standards/maritime-labour-convention-2006",
+   "name": {
+    "fa": "کنوانسیون کار دریایی MLC 2006 — ILO",
+    "en": "ILO: Maritime Labour Convention, 2006"
+   }
+  },
+  {
+   "key": "worldbank",
+   "url": "https://www.worldbank.org/en/topic/transport/publication/port-reform-toolkit",
+   "name": {
+    "fa": "Port Reform Toolkit — بانک جهانی",
+    "en": "World Bank: Port Reform Toolkit"
+   }
+  },
+  {
+   "key": "imo-msw",
+   "url": "https://www.imo.org/en/ourwork/facilitation/pages/maritimesinglewindow-default.aspx",
+   "name": {
+    "fa": "Maritime Single Window — IMO",
+    "en": "IMO: Maritime Single Window"
+   }
+  },
+  {
+   "key": "imo-ghg",
+   "url": "https://www.imo.org/en/ourwork/environment/pages/2023-imo-strategy-on-reduction-of-ghg-emissions-from-ships.aspx",
+   "name": {
+    "fa": "راهبرد ۲۰۲۳ کاهش گازهای گلخانه‌ای — IMO",
+    "en": "IMO: 2023 Strategy on Reduction of GHG Emissions from Ships"
+   }
+  },
+  {
+   "key": "imo-nzf",
+   "url": "https://www.imo.org/en/mediacentre/hottopics/pages/faqs-the-imo-net-zero-framework.aspx",
+   "name": {
+    "fa": "وضعیت IMO Net-Zero Framework — IMO",
+    "en": "IMO: status of the Net-Zero Framework"
+   }
+  },
+  {
+   "key": "bimco",
+   "url": "https://www.bimco.org/contractual-affairs/bimco-contracts/",
+   "name": {
+    "fa": "BIMCO Contracts",
+    "en": "BIMCO contracts"
+   }
+  }
+ ],
+ "meta": {
+  "title_fa": "برنامه آموزش تخصصی مدیریت و حکمرانی دریایی",
+  "title_en": "International Maritime Governance & Executive Education Programme",
+  "courses": 12,
+  "sessions": 56,
+  "hours": 112,
+  "core_courses": 8,
+  "core_hours": 82,
+  "elective_courses": 4,
+  "elective_hours": 30,
+  "version": "2.1 Editorial Draft",
+  "checked_on": "2026-10-25",
+  "official_imo_approval": false,
+  "public_training_url": "https://aliakbarmarzban.ir/fa/training/",
+  "disclaimer": "برنامه مستقل آموزش مدیران؛ بدون ادعای تأیید یا اعتباربخشی IMO و بدون جایگزینی دوره‌های صلاحیت STCW."
+ }
+}

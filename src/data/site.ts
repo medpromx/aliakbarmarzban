@@ -33,11 +33,18 @@ export type NavItem = { label: L; path: string };
 
 export const nav: NavItem[] = [
   { label: { en: 'Advisory Services', fa: 'خدمات مشاوره' }, path: '/services/' },
-  { label: { en: 'Clients & Sectors', fa: 'مشتریان و بخش‌ها' }, path: '/sectors/' },
-  { label: { en: 'Experience', fa: 'سوابق و اعتبار' }, path: '/experience/' },
-  { label: { en: 'Insights', fa: 'تحلیل‌ها' }, path: '/insights/' },
+  { label: { en: 'Encyclopedia', fa: 'دانشنامه' }, path: '/encyclopedia/' },
+  { label: { en: 'Magazine', fa: 'مجله' }, path: '/magazine/' },
+  { label: { en: 'Books', fa: 'کتاب‌ها' }, path: '/books/' },
   { label: { en: 'Training & Speaking', fa: 'آموزش و سخنرانی' }, path: '/training/' },
   { label: { en: 'About', fa: 'درباره مشاور' }, path: '/about/' },
+];
+
+/** Pages listed in the footer only. */
+export const footerNav: NavItem[] = [
+  { label: { en: 'Visual Atlas', fa: 'اطلس تصویری' }, path: '/maritime-visual-atlas/' },
+  { label: { en: 'Clients & Sectors', fa: 'مشتریان و بخش‌ها' }, path: '/sectors/' },
+  { label: { en: 'Experience', fa: 'سوابق و اعتبار' }, path: '/experience/' },
 ];
 
 export const ui = {
@@ -49,10 +56,11 @@ export const ui = {
   requestConsultation: { en: 'Request a Consultation', fa: 'درخواست مشاوره' },
   learnMore: { en: 'View service', fa: 'مشاهده خدمت' },
   readMore: { en: 'Read article', fa: 'مطالعه مقاله' },
-  allInsights: { en: 'All insights', fa: 'همه تحلیل‌ها' },
+  allArticles: { en: 'All magazine articles', fa: 'همه مقاله‌های مجله' },
   home: { en: 'Home', fa: 'خانه' },
   services: { en: 'Advisory Services', fa: 'خدمات مشاوره' },
-  insights: { en: 'Insights', fa: 'تحلیل‌ها' },
+  magazine: { en: 'Magazine', fa: 'مجله' },
+  encyclopedia: { en: 'Encyclopedia', fa: 'دانشنامه' },
   privacy: { en: 'Privacy Policy', fa: 'حریم خصوصی' },
   legal: { en: 'Legal Notices', fa: 'اطلاعیه‌های حقوقی' },
   specialist: { en: 'Specialist Advisory', fa: 'مشاوره تخصصی تکمیلی' },

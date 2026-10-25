@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AtlasFigure from '../components/AtlasFigure.astro';
+import AtlasLightbox from '../components/AtlasLightbox.astro';
+import AtlasDisclaimer from '../components/AtlasDisclaimer.astro';
+import type { Article } from '../lib/magazine';
+import { getAtlasItem } from '../lib/atlas';
+import { getService } from '../data/services';
+import { site, ui } from '../data/site';
+import { formatDate, href, t, type Lang, makeTr } from '../lib/i18n';
+import { articleLd } from '../lib/schema';
+interface Props { lang: Lang; article: Article }
+const { lang, article } = Astro.props;
+const tr = makeTr(lang);
+const service = article.service ? getService(article.service) : undefined;
+// A paragraph reading [[atlas:NN]] places atlas image NN at that point in the text.
+const parts = (await article.html()).split(/<p>\[\[atlas:(\d\d)\]\]<\/p>/);
+const hasFigures = parts.length > 1;
+// The figures follow the language of the text, so an English fallback stays consistent.
+const textLang = article.lang;
+const fb = textLang !== lang ? { lang: textLang, dir: 'ltr' as const } : {};
+---
+<Base lang={lang} title={article.title} description={article.summary} ogType="article" jsonLd={articleLd(lang, article)}>
+  <PageHero lang={lang} eyebrow={service ? t(service.title, lang) : t(ui.magazine, lang)} title={article.title} lead={article.summary} crumbs={[{ label: t(ui.magazine, lang), path: '/magazine/' }, { label: article.title }]}>
+    <p class="byline">{t(site.advisorName, lang)} · <time datetime={article.date}>{formatDate(article.date, lang)}</time></p>
+  </PageHero>
+  <article class="section section--white">
+    <div class="container">
+      {textLang !== lang && <p class="note fallback">{tr('این مقاله هنوز به این زبان ترجمه نشده و به انگلیسی نمایش داده می‌شود.', 'This article has not been translated yet and is shown in English.')}</p>}
+      <div class="prose" {...fb}>
+        {parts.map((part, i) => (i % 2 === 0
+          ? <Fragment set:html={part} />
+          : <div id={`figure-${part}`} class="mag-figure"><AtlasFigure lang={textLang} item={getAtlasItem(part)} eager={i === 1} sizes="(min-width: 760px) 704px, 100vw" /></div>))}
+      </div>
+      {hasFigures && <div class="prose"><AtlasDisclaimer lang={lang} /></div>}
+      {service && (
+        <aside class="related-service">
+          <p class="eyebrow">{tr('خدمت مرتبط', 'Related advisory service')}</p>
+          <h2><a href={href(lang, `/services/${service.slug}/`)}>{t(service.title, lang)}</a></h2>
+          <p>{t(service.short, lang)}</p>
+        </aside>
+      )}
+    </div>
+  </article>
+  <CtaBand lang={lang} title={service ? t(service.cta, lang) : t(ui.requestConsultation, lang)} text={tr('درباره پیامدهای این موضوع برای سازمان خود گفت‌وگو کنید.', 'Discuss what this means for your organisation.')} cta={service ? t(service.cta, lang) : t(ui.requestConsultation, lang)} service={service?.slug} track={`article-${article.slug}`} />
+  {hasFigures && <AtlasLightbox lang={textLang} />}
+</Base>
+<style>
+  .byline { margin-block-start: 1.5rem; font-size: 0.92rem; color: var(--gold); }
+  .prose { font-size: 1.08rem; }
+  .prose :global(h2) { scroll-margin-block-start: 90px; }
+  .mag-figure { scroll-margin-block-start: 90px; }
+  .fallback { max-width: 44rem; margin-block-end: 2rem; }
+  .related-service { max-width: 44rem; margin-block-start: 3.5rem; padding-block-start: 2rem; border-block-start: 1px solid var(--line); }
+  .related-service h2 { font-size: 1.4rem; }
+</style>

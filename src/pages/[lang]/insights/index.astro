@@ -1,9 +1,8 @@
 ---
-import { otherLangs, type Lang } from '../../../lib/i18n';
-import View from '../../../views/InsightsIndex.astro';
+import Redirect from '../../../components/Redirect.astro';
+import { href, otherLangs, type Lang } from '../../../lib/i18n';
 export function getStaticPaths() {
   return otherLangs.map((lang) => ({ params: { lang } }));
 }
-const lang = Astro.params.lang as Lang;
 ---
-<View lang={lang} />
+<Redirect to={href(Astro.params.lang as Lang, '/encyclopedia/')} />

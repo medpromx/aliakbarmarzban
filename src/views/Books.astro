@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { books } from '../data/books';
+import { coursePath, getCourse } from '../data/courses';
+import { categoryPath, getCategory } from '../lib/encyclopedia';
+import { site, ui } from '../data/site';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const title = tr('کتاب‌ها', 'Books');
+const ld = books.map((b) => ({ '@context': 'https://schema.org', '@type': 'Book', name: b.title.en, alternateName: b.title.fa, datePublished: String(b.year), author: { '@id': `${site.url}/#advisor`, '@type': 'Person', name: 'Ali Akbar Marzban' } }));
+---
+<Base lang={lang} title={title} description={tr('کتاب‌های علی‌اکبر مرزبان درباره سازمان بین‌المللی دریانوردی، حقوق بین‌الملل دریایی و مناقصات و قراردادهای بندری.', 'Books by Ali Akbar Marzban on the International Maritime Organization, international maritime law, and port tenders and contracts.')} jsonLd={ld}>
+  <PageHero lang={lang} eyebrow={title} title={tr('کتاب‌ها و پژوهش‌ها', 'Books and research')} lead={tr('دو کتاب که تجربه نمایندگی در IMO و مدیریت امور حقوقی و قراردادهای بندری را به دانش مکتوب تبدیل کرده‌اند.', 'Two books that turn experience at IMO and in heading port legal affairs and contracts into written knowledge.')} crumbs={[{ label: title }]} />
+  <section class="section section--white">
+    <div class="container books">
+      {books.map((b) => (
+        <article class="book">
+          <div class="book__cover" aria-hidden="true">
+            <span class="book__year">{num(b.year, lang)}</span>
+            <span class="book__title">{t(b.title, lang)}</span>
+            <span class="book__author">{t(site.advisorName, lang)}</span>
+          </div>
+          <div>
+            <p class="tag">{t(b.kind, lang)} · {num(b.year, lang)}</p>
+            <h2>{t(b.title, lang)}</h2>
+            {lang !== 'en' && <p class="book__alt" lang="en" dir="ltr">{b.title.en}</p>}
+            <p>{t(b.text, lang)}</p>
+            <h3>{tr('محورهای کتاب', 'Main themes')}</h3>
+            <ul class="check-list">{b.topics.map((x) => <li>{t(x, lang)}</li>)}</ul>
+            <p class="book__links">
+              <a href={href(lang, categoryPath(b.category))}><Icon name="doc" size={18} /> {t(getCategory(b.category).title, lang)}</a>
+              {b.courses.map((c) => <a href={href(lang, coursePath(c))}><Icon name="training" size={18} /> <span class="ltr">{c}</span> · {t(getCourse(c)!.title, lang)}</a>)}
+            </p>
+          </div>
+        </article>
+      ))}
+      <p class="note">{tr('برای تهیه نسخه‌ای از کتاب‌ها یا دعوت به معرفی و نقد کتاب، از راه فرم تماس یا واتس‌اپ پیام دهید.', 'To obtain a copy, or to invite the author to present or discuss a book, use the contact form or WhatsApp.')}</p>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={t(ui.requestConsultation, lang)} text={tr('درباره موضوعات این کتاب‌ها برای سازمان خود گفت‌وگو کنید.', 'Discuss the subjects of these books for your organisation.')} cta={t(ui.requestConsultation, lang)} track="books" />
+</Base>
+<style>
+  .books { display: grid; gap: clamp(40px, 6vw, 72px); }
+  .book { display: grid; gap: clamp(24px, 4vw, 56px); align-items: start; }
+  @media (min-width: 820px) { .book { grid-template-columns: 260px 1fr; } }
+  .book__cover {
+    aspect-ratio: 2 / 3; max-inline-size: 260px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;
+    padding: 1.6rem 1.4rem; border-radius: 3px 8px 8px 3px; color: var(--white);
+    background: linear-gradient(160deg, var(--navy-2), var(--navy) 60%, #0b1d2d); box-shadow: var(--shadow), inset 6px 0 0 rgb(255 255 255 / 8%);
+    border-block-start: 4px solid var(--gold);
+  }
+  .book__year { color: var(--gold); font-weight: 800; }
+  .book__title { font-size: 1.05rem; font-weight: 700; line-height: 1.6; }
+  .book__author { font-size: 0.85rem; color: #c9d5df; }
+  .book h2 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); line-height: 1.45; }
+  .book__alt { color: var(--slate-2); font-size: 0.95rem; font-style: italic; }
+  .book h3 { font-size: 1rem; margin-block-start: 1.4rem; }
+  .book__links { display: grid; gap: 0.4rem; margin-block-start: 1.4rem; font-weight: 600; }
+  .book__links a { display: inline-flex; gap: 0.4rem; align-items: center; }
+</style>

@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { categories, contentLang, entriesIn, entryPath, categoryPath, getEntries } from '../lib/encyclopedia';
+import { atlasItems, atlasPath, atlasSrc } from '../lib/atlas';
+import { ui } from '../data/site';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const entries = getEntries(lang);
+const fb = contentLang(lang) !== lang ? { lang: 'en', dir: 'ltr' as const } : {};
+const title = tr('دانشنامه حکمرانی و مقررات دریایی', 'Encyclopedia of Maritime Governance and Regulation');
+const lead = tr(
+  'مرجعی تخصصی برای فهم مقررات بین‌المللی، طراحی حکمرانی بندری و تبدیل دانش به تصمیم اجرایی؛ با مقالات مستند، چک‌لیست‌های مدیریتی و منابع اولیه قابل پیگیری.',
+  'A specialist reference for understanding international regulation, designing port governance and turning knowledge into executive decisions, with documented articles, management checklists and traceable primary sources.',
+);
+---
+<Base lang={lang} title={title} description={lead}>
+  <PageHero lang={lang} eyebrow={t(ui.encyclopedia, lang)} title={title} lead={lead} crumbs={[{ label: t(ui.encyclopedia, lang) }]}>
+    <ul class="enc-facts">
+      <li><strong>{num(entries.length, lang)}</strong> {tr('مقاله تخصصی', 'specialist articles')}</li>
+      <li><strong>{num(categories.length, lang)}</strong> {tr('حوزه موضوعی', 'subject areas')}</li>
+      <li><strong>{num(atlasItems.length, lang)}</strong> {tr('چارچوب تصویری', 'visual frameworks')}</li>
+    </ul>
+    {contentLang(lang) !== lang && <p class="enc-langnote">{tr('', 'Encyclopedia articles are currently available in English and Persian.')}</p>}
+  </PageHero>
+
+  <section class="section section--white" aria-labelledby="paths-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{tr('مسیرهای مطالعه', 'Reading paths')}</p>
+        <h2 id="paths-h">{tr('ده حوزه، از قاعده تا اجرا', 'Ten subject areas, from rule to implementation')}</h2>
+        <p>{tr('هر حوزه یک مسیر مطالعه مرتب است: از مفاهیم پایه شروع می‌شود و به تصمیم‌های اجرایی می‌رسد.', 'Each area is an ordered reading path that starts with the basics and ends with executive decisions.')}</p>
+      </div>
+      <ol class="enc-cats">
+        {categories.map((c, i) => (
+          <li class="card card--link">
+            <div class="enc-cats__top"><div class="icon-badge"><Icon name={c.icon} /></div><span class="enc-cats__n">{num(String(i + 1).padStart(2, '0'), lang)}</span></div>
+            <h3><a class="stretched" href={href(lang, categoryPath(c.key))}>{t(c.title, lang)}</a></h3>
+            <p>{t(c.text, lang)}</p>
+            <span class="more" aria-hidden="true">{num(entriesIn(lang, c.key).length, lang)} {tr('مقاله', 'articles')} <Icon name="arrow" size={16} /></span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="library-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{tr('کتابخانه', 'Library')}</p>
+        <h2 id="library-h">{tr('همه مقاله‌های دانشنامه', 'All encyclopedia articles')}</h2>
+      </div>
+      <div class="enc-filter" data-enc-filter>
+        <label class="sr-only" for="enc-q">{tr('جست‌وجو در دانشنامه', 'Search the encyclopedia')}</label>
+        <input id="enc-q" type="search" placeholder={tr('جست‌وجو: IMO، STCW، بندر، قرارداد…', 'Search: IMO, STCW, port, contract…')} autocomplete="off" />
+        <div class="enc-chips" role="group" aria-label={tr('فیلتر بر اساس حوزه', 'Filter by subject area')}>
+          <button type="button" aria-pressed="true" data-cat="">{tr('همه', 'All')}</button>
+          {categories.map((c) => <button type="button" aria-pressed="false" data-cat={c.key}>{t(c.title, lang)}</button>)}
+        </div>
+        <p class="enc-count" aria-live="polite"><span data-count>{num(entries.length, lang)}</span> {tr('مقاله', 'articles')}</p>
+      </div>
+      <ul class="enc-list">
+        {entries.map((e) => (
+          <li class="card card--link enc-item" data-cat={e.category} data-text={`${e.title} ${e.summary} ${e.course ?? ''}`.toLowerCase()}>
+            <img src={atlasSrc(e.atlas, 'sm')} width="600" height="600" alt="" loading="lazy" decoding="async" />
+            <div>
+              <p class="enc-item__meta"><span class="tag">{t(categories.find((c) => c.key === e.category)!.title, lang)}</span> <span>{num(e.readingMinutes, lang)} {tr('دقیقه', 'min')}</span></p>
+              <h3 {...fb}><a class="stretched" href={href(lang, entryPath(e))}>{e.title}</a></h3>
+              <p {...fb}>{e.summary}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="enc-empty" hidden>{tr('مقاله‌ای با این عبارت پیدا نشد.', 'No article matches this search.')}</p>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="atlas-h">
+    <div class="container enc-atlas">
+      <div>
+        <p class="eyebrow">{tr('چارچوب‌های حکمرانی و مدیریت دریایی', 'Maritime governance and management frameworks')}</p>
+        <h2 id="atlas-h">{tr('یازده چارچوب تصویری، هر کدام با مدخل دانشنامه', 'Eleven visual frameworks, each with an encyclopedia entry')}</h2>
+        <p>{tr('هر مقاله دانشنامه یکی از تصاویر اطلس را به‌عنوان تصویر مرجع دارد. اطلس، مسیر کامل یازده تصویر را به ترتیب علمی نشان می‌دهد.', 'Every encyclopedia article uses one of the atlas images as its reference figure. The atlas presents all eleven images in learning order.')}</p>
+        <a class="btn btn--teal" href={href(lang, atlasPath)}>{tr('مشاهده اطلس تصویری', 'View the visual atlas')} <Icon name="arrow" size={18} /></a>
+      </div>
+      <ol class="enc-atlas__list">
+        {atlasItems.map((i) => {
+          const e = entries.find((x) => x.slug === i.entry)!;
+          return <li><span>{num(i.n, lang)}</span><a href={href(lang, entryPath(e))}>{t(i.title, lang)}</a></li>;
+        })}
+      </ol>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={t(ui.requestConsultation, lang)} text={tr('اگر موضوعی از این دانشنامه برای سازمان شما مطرح است، درباره آن گفت‌وگو کنید.', 'If a topic in this encyclopedia is on your organisation\'s agenda, let us discuss it.')} cta={t(ui.requestConsultation, lang)} track="encyclopedia-index" />
+</Base>
+<script>
+  const root = document.querySelector<HTMLElement>('[data-enc-filter]');
+  if (root) {
+    const input = root.querySelector('input')!;
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+    const items = [...document.querySelectorAll<HTMLElement>('.enc-item')];
+    const count = root.querySelector('[data-count]')!;
+    const empty = document.querySelector<HTMLElement>('.enc-empty')!;
+    const fa = document.documentElement.lang === 'fa';
+    let cat = '';
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      let n = 0;
+      for (const it of items) {
+        const show = (!cat || it.dataset.cat === cat) && (!q || it.dataset.text!.includes(q));
+        it.hidden = !show;
+        if (show) n++;
+      }
+      count.textContent = fa ? String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d]) : String(n);
+      empty.hidden = n > 0;
+    };
+    input.addEventListener('input', apply);
+    for (const c of chips) c.addEventListener('click', () => {
+      cat = c.dataset.cat!;
+      chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+      apply();
+    });
+    const fromHash = new URLSearchParams(location.search).get('q');
+    if (fromHash) { input.value = fromHash; apply(); }
+  }
+</script>
+<style>
+  .enc-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; margin: 1.6rem 0 0; padding: 0; }
+  .enc-facts strong { color: var(--gold); font-size: 1.5rem; margin-inline-end: 0.3rem; }
+  .enc-langnote { margin: 1rem 0 0; font-size: 0.92rem; }
+  .enc-langnote:empty { display: none; }
+  .enc-cats { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.4vw, 24px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+  .enc-cats__top { display: flex; justify-content: space-between; align-items: start; }
+  .enc-cats__n { font-weight: 800; color: var(--line); font-size: 1.6rem; line-height: 1; }
+  .enc-cats h3 { font-size: 1.08rem; }
+  .enc-cats p { font-size: 0.95rem; }
+  .enc-filter { display: grid; gap: 0.9rem; margin-block-end: 1.6rem; }
+  .enc-filter input { inline-size: 100%; min-block-size: 50px; padding: 0 1rem; border: 1px solid var(--line); border-radius: var(--radius); font: inherit; background: var(--white); }
+  .enc-filter input:focus { outline: 2px solid var(--teal); outline-offset: 1px; }
+  .enc-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .enc-chips button { min-block-size: 38px; padding: 0.3rem 0.9rem; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--slate); font: inherit; font-size: 0.88rem; cursor: pointer; }
+  .enc-chips button[aria-pressed='true'] { background: var(--navy); border-color: var(--navy); color: var(--white); }
+  .enc-count { margin: 0; font-size: 0.9rem; color: var(--slate-2); }
+  .enc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+  .enc-item { flex-direction: row; gap: 1rem; padding: 1rem; align-items: start; }
+  .enc-item[hidden] { display: none; }
+  .enc-item img { inline-size: 84px; flex-shrink: 0; aspect-ratio: 1; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 3px; }
+  .enc-item__meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: baseline; font-size: 0.82rem; color: var(--slate-2); margin: 0 0 0.3rem !important; }
+  .enc-item h3 { font-size: 1rem; line-height: 1.55; }
+  .enc-item p:last-child { font-size: 0.9rem; color: var(--slate-2); }
+  .enc-empty { padding: 2rem; text-align: center; color: var(--slate-2); }
+  .enc-atlas { display: grid; gap: clamp(28px, 5vw, 64px); }
+  @media (min-width: 900px) { .enc-atlas { grid-template-columns: 5fr 6fr; align-items: start; } }
+  .enc-atlas__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .enc-atlas__list li { display: flex; gap: 0.9rem; padding: 0.7rem 0; border-block-end: 1px solid var(--line); }
+  .enc-atlas__list span { font-weight: 800; color: var(--gold-dark); min-inline-size: 1.8rem; }
+</style>

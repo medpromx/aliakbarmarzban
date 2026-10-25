@@ -79,7 +79,7 @@ export const journeys: Journey[] = [
       fa: 'پیش‌بینی الزامات جدید IMO و اثر آنها بر ناوگان، خدمه و عملیات.',
     },
     steps: [
-      { label: { en: 'Insights', fa: 'تحلیل‌ها' }, path: '/insights/' },
+      { label: { en: 'Magazine', fa: 'مجله' }, path: '/magazine/' },
       { label: { en: 'IMO Advisory', fa: 'مشاوره IMO' }, path: '/services/imo-regulation/' },
       { label: { en: 'Specialist Advisory', fa: 'مشاوره تخصصی' }, path: '/specialist-advisory/' },
     ],

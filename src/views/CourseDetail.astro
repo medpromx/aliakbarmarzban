@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { courseDetails, courseImages, coursePath, references, type CourseDetail } from '../data/courses';
+import { entryPath, getEntries } from '../lib/encyclopedia';
+import { atlasPath, atlasSrc } from '../lib/atlas';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang; course: CourseDetail }
+const { lang, course } = Astro.props;
+const tr = makeTr(lang);
+const textLang = lang === 'fa' ? 'fa' : 'en';
+const fb = textLang !== lang ? { lang: 'en', dir: 'ltr' as const } : {};
+// Section labels follow the language of the course text.
+const L = (fa: string, en: string) => (textLang === 'fa' ? fa : en);
+const parent = tr('آموزش و سخنرانی', 'Training & Speaking');
+const list = courseDetails(lang);
+const i = list.findIndex((c) => c.code === course.code);
+const prev = list[i - 1];
+const next = list[i + 1];
+const refs = references.filter((r) => course.refs.includes(r.key));
+const images = courseImages(course.code);
+const entries = getEntries(lang).filter((e) => e.course === course.code);
+const courseLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  courseCode: course.code,
+  name: course.title,
+  description: course.hook,
+  inLanguage: ['fa', 'en'],
+  provider: { '@type': 'Person', name: 'Ali Akbar Marzban' },
+  hasCourseInstance: { '@type': 'CourseInstance', courseMode: ['onsite', 'online'], courseWorkload: `PT${course.hours}H` },
+};
+---
+<Base lang={lang} title={`${course.code} · ${course.title}`} description={course.hook} jsonLd={courseLd}>
+  <PageHero lang={lang} eyebrow={`${course.code} · ${course.track === 'core' ? tr('دوره اصلی', 'Core course') : tr('دوره تکمیلی مدیران', 'Executive elective')}`} title={course.title} lead={course.hook} crumbs={[{ label: parent, path: '/training/' }, { label: tr('دوره‌ها', 'Courses'), path: '/training/#courses' }, { label: course.code }]}>
+    <ul class="course-facts">
+      <li><strong>{num(course.hours, lang)}</strong> {tr('ساعت', 'hours')}</li>
+      <li><strong>{num(course.count, lang)}</strong> {tr('جلسه ۱۲۰ دقیقه‌ای', '120-minute sessions')}</li>
+      <li>{tr('فارسی یا انگلیسی · حضوری یا آنلاین', 'Persian or English · in person or online')}</li>
+    </ul>
+  </PageHero>
+  <div class="section section--white" {...fb}>
+    <div class="container course-layout">
+      <div class="course-main">
+        <section class="prose">
+          <h2>{L('مسئله مدیریتی', 'The management problem')}</h2>
+          <p>{course.problem}</p>
+          <p><strong>{L('مخاطبان:', 'Audience:')}</strong> {course.audience}</p>
+          <p><strong>{L('هدف دوره:', 'Course aim:')}</strong> {course.learning_outcome}</p>
+          <h2>{L('پرسش‌های اصلی دوره', 'Key questions')}</h2>
+          <ul>{course.editorial_questions.map((q) => <li>{q}</li>)}</ul>
+          <h2>{L('نتایج یادگیری قابل سنجش', 'Measurable learning outcomes')}</h2>
+          <p>{L('در پایان دوره، شرکت‌کننده بتواند:', 'By the end of the course, participants will be able to:')}</p>
+          <ol>{course.measurable_outcomes.map((o) => <li>{o}</li>)}</ol>
+        </section>
+        <section class="sessions" aria-labelledby="sessions-h">
+          <h2 id="sessions-h">{L('ساختار جلسات', 'Sessions')}</h2>
+          <ol class="session-list">
+            {course.sessions.map((s) => (
+              <li class="session">
+                <p class="session__id"><span class="ltr">{course.code}-S{String(s.number).padStart(2, '0')}</span> · {L('۲ ساعت', '2 hours')}</p>
+                <h3>{s.title}</h3>
+                <p>{s.detail}</p>
+                <p class="session__out"><strong>{L('خروجی قابل ارزیابی:', 'Assessed output:')}</strong> {s.deliverable}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section class="prose">
+          <h2>{L('سناریوی محوری (صرفاً آموزشی و فرضی)', 'Core scenario (fictional, for training only)')}</h2>
+          <p>{course.hypothetical_case}</p>
+          <h2>{L('پروژه نهایی دوره', 'Final project')}</h2>
+          <p><strong>{course.capstone}</strong></p>
+          <p>{L('ملاک تحویل: شناسایی دقیق مسئله و منبع، استدلال روشن، مسئولیت‌پذیری سازمانی، اولویت‌بندی اقدامات، بیان محدودیت و امکان ارائه مستقیم به مدیر تصمیم‌گیر.', 'Criteria: precise identification of the problem and sources, clear reasoning, organisational accountability, prioritised actions, stated limitations and readiness for presentation to a decision-maker.')}</p>
+          <h2>{L('روش و ارزیابی', 'Method and assessment')}</h2>
+          <p>{course.method} {L('تدریس تعاملی، تحلیل مورد، کار گروهی و بازخورد مدرس.', 'Interactive teaching, case analysis, group work and trainer feedback.')}</p>
+          <p>{L('آزمون کوتاه ۲۰٪، تمرین‌های جلسات ۴۰٪ و پروژه نهایی ۴۰٪. معیار پیشنهادی گواهی پایان دوره داخلی، حضور دست‌کم ۸۰٪ و نمره ۷۰ از ۱۰۰ است؛ این معیار، استاندارد رسمی IMO یا STCW نیست.', 'Short test 20%, session exercises 40% and final project 40%. The suggested criterion for an internal certificate of completion is at least 80% attendance and a score of 70 out of 100; this is not an official IMO or STCW standard.')}</p>
+          <h2>{L('منابع رسمی', 'Official sources')}</h2>
+          <ul lang="en" dir="ltr">{refs.map((r) => <li><a href={r.url} target="_blank" rel="noopener">{r.name.en}</a></li>)}</ul>
+          <p class="note">{course.scientific_note}</p>
+        </section>
+      </div>
+      <aside class="course-aside" lang={lang} dir={lang === 'fa' || lang === 'ar' ? 'rtl' : 'ltr'}>
+        <div class="card">
+          <h2>{tr('درخواست برگزاری', 'Request this course')}</h2>
+          <p>{tr('زمان‌بندی پس از نیازسنجی و توافق تعیین می‌شود.', 'Scheduled after a needs analysis and agreement.')}</p>
+          <a class="btn btn--teal" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track={`course-${course.code}`}>{tr('درخواست برگزاری', 'Request')} <Icon name="arrow" size={18} /></a>
+        </div>
+        {images.length > 0 && (
+          <div class="card">
+            <h2>{tr('تصاویر مرتبط در اطلس', 'Related atlas images')}</h2>
+            <ul class="aside-imgs">{images.map((im) => <li><a href={`${href(lang, atlasPath)}#image-${im.n}`}><img src={atlasSrc(im.n, 'sm')} width="600" height="600" alt="" loading="lazy" /><span>{num(im.n, lang)} · {t(im.title, lang)}</span></a></li>)}</ul>
+          </div>
+        )}
+        {entries.length > 0 && (
+          <div class="card">
+            <h2>{tr('مطالعه در دانشنامه', 'Read in the encyclopedia')}</h2>
+            <ul class="dash-list">{entries.map((e) => <li><a href={href(lang, entryPath(e))} {...fb}>{e.title}</a></li>)}</ul>
+          </div>
+        )}
+      </aside>
+    </div>
+    <nav class="container course-pager" aria-label={tr('دوره قبلی و بعدی', 'Previous and next course')}>
+      {prev ? <a href={href(lang, coursePath(prev.code))}><span class="ltr">{prev.code}</span> {prev.title}</a> : <span />}
+      {next ? <a class="course-pager__next" href={href(lang, coursePath(next.code))}><span class="ltr">{next.code}</span> {next.title}</a> : <span />}
+    </nav>
+  </div>
+  <CtaBand lang={lang} title={tr('برنامه اختصاصی سازمان خود را طراحی کنید', 'Design a programme for your organisation')} text={tr('این دوره را مستقل یا در قالب یک مسیر آموزشی درخواست کنید.', 'Request this course on its own or as part of a learning path.')} cta={tr('درخواست کارگاه', 'Request a Workshop')} service="executive-training" track={`course-${course.code}-final`} />
+</Base>
+<style>
+  .course-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; margin: 1.6rem 0 0; padding: 0; }
+  .course-facts strong { color: var(--gold); font-size: 1.4rem; margin-inline-end: 0.3rem; }
+  .course-layout { display: grid; gap: clamp(28px, 4vw, 56px); }
+  @media (min-width: 1060px) { .course-layout { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; } .course-aside { position: sticky; inset-block-start: 100px; } }
+  .course-main { min-inline-size: 0; }
+  .course-main .prose { max-inline-size: 46rem; }
+  .sessions { margin-block: 2.5rem; }
+  .sessions h2 { font-size: 1.55rem; }
+  .session-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+  .session { padding: 1.2rem 1.4rem; border: 1px solid var(--line); border-inline-start: 3px solid var(--teal); border-radius: var(--radius); background: var(--white); }
+  .session h3 { font-size: 1.08rem; margin-block-end: 0.3rem; }
+  .session p { margin: 0 0 0.4rem; font-size: 0.97rem; }
+  .session__id { font-size: 0.82rem !important; font-weight: 700; color: var(--gold-dark); }
+  .session__out { color: var(--slate-2); }
+  .course-aside { display: grid; gap: 1rem; }
+  .course-aside h2 { font-size: 1rem; margin-block-end: 0.5rem; }
+  .aside-imgs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .aside-imgs a { display: grid; grid-template-columns: 56px 1fr; gap: 0.7rem; align-items: center; font-size: 0.9rem; }
+  .aside-imgs img { inline-size: 56px; aspect-ratio: 1; object-fit: cover; object-position: top; border: 1px solid var(--line); }
+  .course-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-block-start: 2rem; }
+  .course-pager a { padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; font-weight: 600; }
+  .course-pager a span { font-weight: 800; color: var(--gold-dark); margin-inline-end: 0.4rem; }
+  .course-pager__next { text-align: end; }
+  @media (max-width: 640px) { .course-pager { grid-template-columns: 1fr; } }
+</style>

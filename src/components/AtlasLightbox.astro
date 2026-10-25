@@ -1,0 +1,97 @@
+---
+// One viewer per page for every atlas image. Opened by any element with data-atlas-open="NN".
+import { atlasItems, atlasSrc } from '../lib/atlas';
+import { num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const items = atlasItems.map((i) => ({ n: i.n, label: `${num(i.n, lang)} · ${t(i.title, lang)}`, alt: t(i.alt, lang), src: atlasSrc(i.n, 'full') }));
+---
+<dialog class="lightbox" aria-label={tr('نمایشگر تصویر', 'Image viewer')} data-items={JSON.stringify(items)}>
+  <div class="lightbox__bar">
+    <p class="lightbox__title" aria-live="polite"></p>
+    <div class="lightbox__tools">
+      <button type="button" data-lb="zoom" aria-pressed="false">{tr('اندازه واقعی', 'Actual size')}</button>
+      <button type="button" data-lb="prev" aria-label={tr('تصویر قبلی', 'Previous image')}><span aria-hidden="true">‹</span></button>
+      <button type="button" data-lb="next" aria-label={tr('تصویر بعدی', 'Next image')}><span aria-hidden="true">›</span></button>
+      <button type="button" data-lb="close" aria-label={tr('بستن', 'Close')}><span aria-hidden="true">×</span></button>
+    </div>
+  </div>
+  <div class="lightbox__stage">
+    <img alt="" width="2048" height="2048" />
+  </div>
+</dialog>
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('dialog.lightbox');
+  if (dlg) {
+    const items: { n: string; label: string; alt: string; src: string }[] = JSON.parse(dlg.dataset.items!);
+    const img = dlg.querySelector('img')!;
+    const title = dlg.querySelector('.lightbox__title')!;
+    const zoomBtn = dlg.querySelector<HTMLButtonElement>('[data-lb="zoom"]')!;
+    let index = 0;
+    let opener: HTMLElement | null = null;
+    const setZoom = (on: boolean) => {
+      dlg.classList.toggle('is-zoomed', on);
+      zoomBtn.setAttribute('aria-pressed', String(on));
+    };
+    const show = (i: number) => {
+      index = (i + items.length) % items.length;
+      const it = items[index];
+      img.src = it.src;
+      img.alt = it.alt;
+      title.textContent = it.label;
+      setZoom(false);
+    };
+    document.addEventListener('click', (e) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-atlas-open]');
+      if (!el) return;
+      e.preventDefault();
+      opener = el;
+      show(items.findIndex((it) => it.n === el.dataset.atlasOpen));
+      dlg.showModal();
+    });
+    // In a right-to-left page the "next" arrow points left, so the visual arrows swap.
+    const rtl = document.documentElement.dir === 'rtl';
+    dlg.addEventListener('click', (e) => {
+      const action = (e.target as HTMLElement).closest<HTMLElement>('[data-lb]')?.dataset.lb;
+      if (action === 'close') dlg.close();
+      else if (action === 'next') show(index + 1);
+      else if (action === 'prev') show(index - 1);
+      else if (action === 'zoom') setZoom(!dlg.classList.contains('is-zoomed'));
+      else if (e.target === img) setZoom(!dlg.classList.contains('is-zoomed'));
+      else if (e.target === dlg) dlg.close();
+    });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(index + (rtl ? -1 : 1));
+      else if (e.key === 'ArrowLeft') show(index + (rtl ? 1 : -1));
+      else if (e.key === '+' || e.key === '=') setZoom(true);
+      else if (e.key === '-') setZoom(false);
+      else return;
+      e.preventDefault();
+    });
+    dlg.addEventListener('close', () => opener?.focus());
+  }
+</script>
+<style>
+  .lightbox {
+    inline-size: 100vw; block-size: 100dvh; max-inline-size: none; max-block-size: none; margin: 0; padding: 0;
+    border: 0; background: rgb(8 20 32 / 96%); color: var(--white);
+  }
+  .lightbox[open] { display: grid; grid-template-rows: auto 1fr; }
+  .lightbox::backdrop { background: rgb(8 20 32 / 80%); }
+  .lightbox__bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.6rem var(--gutter); }
+  .lightbox__title { margin: 0; font-size: 0.95rem; color: #d6dfe7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lightbox__tools { display: flex; gap: 0.4rem; flex-shrink: 0; }
+  .lightbox__tools button {
+    min-inline-size: 44px; min-block-size: 44px; padding: 0 0.8rem; border: 1px solid rgb(255 255 255 / 30%); border-radius: var(--radius);
+    background: transparent; color: var(--white); font: inherit; font-size: 0.9rem; cursor: pointer;
+  }
+  .lightbox__tools button span { font-size: 1.5rem; line-height: 1; }
+  .lightbox__tools button:hover, .lightbox__tools button[aria-pressed='true'] { background: rgb(255 255 255 / 12%); }
+  :global(:root[dir='rtl']) [data-lb='prev'] span, :global(:root[dir='rtl']) [data-lb='next'] span { display: inline-block; transform: scaleX(-1); }
+  /* Fit by default; "actual size" shows the 2048px image and lets it pan. Pinch-zoom stays available. */
+  .lightbox__stage { overflow: auto; display: grid; place-items: center; padding: 0 var(--gutter) var(--gutter); touch-action: pan-x pan-y pinch-zoom; }
+  .lightbox__stage img { max-inline-size: 100%; max-block-size: calc(100dvh - 90px); inline-size: auto; block-size: auto; object-fit: contain; cursor: zoom-in; background: var(--white); }
+  .lightbox.is-zoomed .lightbox__stage { place-items: start; }
+  .lightbox.is-zoomed .lightbox__stage img { max-inline-size: none; max-block-size: none; inline-size: 2048px; cursor: zoom-out; }
+</style>

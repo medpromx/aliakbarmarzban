@@ -1,0 +1,9 @@
+---
+import View from '../../../views/CourseDetail.astro';
+import { courseDetails } from '../../../data/courses';
+export function getStaticPaths() {
+  return courseDetails('en').map((course) => ({ params: { code: course.code.toLowerCase() }, props: { course } }));
+}
+const { course } = Astro.props;
+---
+<View lang="en" course={course} />

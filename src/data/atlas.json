@@ -1,0 +1,504 @@
+{
+  "reviewed": "2026-10-25",
+  "chapters": [
+    {
+      "n": 1,
+      "items": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "title": {
+        "en": "Who governs the oceans?",
+        "fa": "چه کسی بر دریاها حکمرانی می‌کند؟"
+      },
+      "intro": {
+        "en": "The story starts with the overall architecture of ocean governance, then moves to the institutions, jurisdictions and the international and national mechanisms that oversee compliance.",
+        "fa": "روایت از ساختار کلان حکمرانی اقیانوس‌ها آغاز می‌شود و سپس به نهادها، صلاحیت‌ها و سازوکارهای نظارت بین‌المللی و ملی می‌رسد."
+      },
+      "closing": {
+        "en": "Drafting international rules is only the beginning. Effective governance depends on identifying jurisdiction correctly and implementing obligations in a way that can be assessed.",
+        "fa": "تدوین مقررات بین‌المللی تنها آغاز کار است؛ اثربخشی حکمرانی به تشخیص درست صلاحیت‌ها و اجرای قابل ارزیابی تعهدات بستگی دارد."
+      }
+    },
+    {
+      "n": 2,
+      "items": [
+        "05",
+        "06",
+        "07"
+      ],
+      "title": {
+        "en": "How do rules become operational management?",
+        "fa": "چگونه قواعد به مدیریت عملیاتی تبدیل می‌شوند؟"
+      },
+      "intro": {
+        "en": "This chapter moves from regulation to the practical questions faced by administrations, ports and companies.",
+        "fa": "این فصل از سطح تنظیم‌گری به مسائل اجرایی سازمان‌ها و بنادر منتقل می‌شود."
+      },
+      "closing": {
+        "en": "Effective compliance is not only about knowing the rules. Data quality, transparent contracts and good dispute management matter just as much.",
+        "fa": "انطباق مؤثر تنها به آگاهی از قوانین محدود نیست؛ کیفیت داده، شفافیت قراردادها و مدیریت اختلافات نیز اهمیت اساسی دارد."
+      }
+    },
+    {
+      "n": 3,
+      "items": [
+        "08"
+      ],
+      "title": {
+        "en": "How does maritime cooperation deliver results?",
+        "fa": "همکاری دریایی چگونه به نتیجه می‌رسد؟"
+      },
+      "intro": {
+        "en": "How international cooperation moves from identifying a need and choosing a partner to an agreement, clear accountability, an implementation plan and performance monitoring. This chapter bridges domestic governance and the international engagement of maritime organisations.",
+        "fa": "همکاری‌های بین‌المللی چگونه از شناسایی نیاز و انتخاب شریک به توافق، مسئولیت‌پذیری، برنامه اجرا و پایش عملکرد تبدیل می‌شوند. این فصل پلی میان حکمرانی داخلی و تعاملات بین‌المللی سازمان‌های دریایی است."
+      },
+      "closing": {
+        "en": "Cooperation creates value only when commitments are owned, resourced and monitored.",
+        "fa": "همکاری زمانی ارزش می‌آفریند که تعهدات آن صاحب، منابع و سازوکار پایش داشته باشند."
+      }
+    },
+    {
+      "n": 4,
+      "items": [
+        "09",
+        "10"
+      ],
+      "title": {
+        "en": "The future of maritime climate regulation",
+        "fa": "آینده تنظیم‌گری اقلیمی دریایی"
+      },
+      "intro": {
+        "en": "First the global and regional architecture of decarbonisation rules, then their financial, contractual and board-level implications. The two figures are complementary, not repetitive.",
+        "fa": "ابتدا معماری مقررات جهانی و منطقه‌ای کربن‌زدایی توضیح داده می‌شود و سپس پیامدهای مالی، قراردادی و تصمیم‌های هیئت‌مدیره بررسی می‌شود. این دو تصویر مکمل یکدیگرند، نه تکرار هم."
+      },
+      "closing": {
+        "en": "Decision-makers have to comply with rules already in force while preparing for global measures that are still being negotiated.",
+        "fa": "تصمیم‌گیران باید هم‌زمان با مقررات لازم‌الاجرای امروز منطبق شوند و برای تدابیر جهانی‌ای که هنوز در حال مذاکره است آماده بمانند."
+      }
+    },
+    {
+      "n": 5,
+      "items": [
+        "11"
+      ],
+      "title": {
+        "en": "Human capacity and quality assurance",
+        "fa": "توسعه ظرفیت انسانی و تضمین کیفیت"
+      },
+      "intro": {
+        "en": "The story ends with people: competence-based training design, assessment of learning and quality assurance in maritime education.",
+        "fa": "روایت با اهمیت تربیت نیروی انسانی، طراحی آموزش مبتنی بر شایستگی، سنجش یادگیری و تضمین کیفیت آموزش دریایی پایان می‌یابد."
+      },
+      "closing": {
+        "en": "Sustainable maritime governance takes shape when rules, institutions, technology, cooperation and human capability are developed as one integrated system.",
+        "fa": "حکمرانی پایدار دریایی زمانی شکل می‌گیرد که مقررات، نهادها، فناوری، همکاری و توانمندی نیروی انسانی به‌صورت یک نظام یکپارچه توسعه یابند."
+      }
+    }
+  ],
+  "items": [
+    {
+      "n": "01",
+      "file": "Global_Maritime_Governance_Framework.png",
+      "courses": [
+        "C01",
+        "C02"
+      ],
+      "title": {
+        "en": "The Architecture of Global Maritime Governance and Compliance",
+        "fa": "معماری جهانی حکمرانی و انطباق دریایی"
+      },
+      "intro": {
+        "en": "Every ship sits at the meeting point of three legal authorities: the State whose flag it flies, the coastal State whose waters it crosses and the port State where it calls. This figure sets out that jurisdictional triad under the 1982 UN Convention on the Law of the Sea and shows how IMO audits and port State control check whether those responsibilities are actually carried out.",
+        "fa": "هر کشتی در نقطه تلاقی سه صلاحیت حقوقی قرار دارد: دولتی که پرچم آن را برافراشته، دولت ساحلی که از آب‌هایش عبور می‌کند و دولت بندری که در آن پهلو می‌گیرد. این تصویر سه‌گانه صلاحیتی را بر پایه کنوانسیون ۱۹۸۲ حقوق دریاها نشان می‌دهد و توضیح می‌دهد که ممیزی‌های IMO و کنترل دولت بندر چگونه اجرای واقعی این مسئولیت‌ها را می‌سنجند."
+      },
+      "caption": {
+        "en": "The jurisdictional triad of flag, coastal and port States under UNCLOS, linked to the IMO audit scheme and port State control as the two main checks on compliance.",
+        "fa": "سه‌گانه صلاحیتی دولت صاحب پرچم، دولت ساحلی و دولت صاحب بندر بر پایه UNCLOS، در پیوند با نظام ممیزی IMO و کنترل دولت بندر به‌عنوان دو سازوکار اصلی سنجش انطباق."
+      },
+      "points": {
+        "en": [
+          "The flag State carries the primary responsibility: UNCLOS Article 94 requires it to exercise effective jurisdiction and control over its ships.",
+          "Coastal State rights grow weaker with distance: full sovereignty in the 12-mile territorial sea, functional rights in the 200-mile exclusive economic zone.",
+          "Port State control is the safety net that catches substandard ships when flag State oversight fails."
+        ],
+        "fa": [
+          "مسئولیت اصلی با دولت صاحب پرچم است؛ ماده ۹۴ UNCLOS اعمال صلاحیت و کنترل مؤثر بر کشتی‌ها را از او می‌خواهد.",
+          "حقوق دولت ساحلی با فاصله از ساحل کمتر می‌شود: حاکمیت کامل در دریای سرزمینی ۱۲ مایلی و حقوق کارکردی در منطقه انحصاری اقتصادی ۲۰۰ مایلی.",
+          "کنترل دولت بندر تور ایمنی‌ای است که هنگام ناکارآمدی نظارت دولت پرچم، کشتی‌های زیر استاندارد را شناسایی می‌کند."
+        ]
+      },
+      "alt": {
+        "en": "Infographic on the architecture of global maritime governance: the flag, coastal and port State triad under UNCLOS, the III Code and IMSAS audit cycles, port State control procedures and action codes, and constructive alignment in maritime education.",
+        "fa": "اینفوگرافیک معماری حکمرانی جهانی دریایی: سه‌گانه دولت پرچم، ساحلی و بندری بر پایه UNCLOS، کد III و دوره‌های ممیزی IMSAS، رویه‌ها و کدهای اقدام کنترل دولت بندر و هم‌ترازی سازنده در آموزش دریایی."
+      },
+      "entry": "port-state-control"
+    },
+    {
+      "n": "02",
+      "file": "Maritime_Governance_and_Regulatory_Framework.png",
+      "courses": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "title": {
+        "en": "Maritime Governance, Regulation and Negotiation Framework",
+        "fa": "چارچوب حکمرانی، تنظیم‌گری و مذاکرات دریایی"
+      },
+      "intro": {
+        "en": "Rules on paper only matter once they are negotiated, adopted, implemented and enforced. This figure connects the foundations of the law of the sea with IMO's implementation and audit architecture, operational enforcement through port State control and the stakeholder dynamics that shape every regulatory negotiation.",
+        "fa": "قواعد روی کاغذ تنها زمانی اثر دارند که مذاکره، تصویب، اجرا و اعمال شوند. این تصویر مبانی حقوق دریاها را به معماری اجرا و ممیزی IMO، اعمال عملیاتی مقررات از راه کنترل دولت بندر و پویایی ذی‌نفعانی که هر مذاکره مقرراتی را شکل می‌دهند پیوند می‌دهد."
+      },
+      "caption": {
+        "en": "Four linked quadrants: the jurisdictional order of the oceans, IMO implementation and audit, port State control enforcement, and stakeholder mapping in regulatory negotiation.",
+        "fa": "چهار بخش به‌هم‌پیوسته: نظم صلاحیتی اقیانوس‌ها، اجرا و ممیزی IMO، اعمال مقررات از راه کنترل دولت بندر و نقشه‌برداری ذی‌نفعان در مذاکرات مقرراتی."
+      },
+      "points": {
+        "en": [
+          "Regulation is a cycle: negotiation, adoption, national implementation, enforcement and review.",
+          "Regional port State control agreements such as the Paris and Indian Ocean MoUs turn shared standards into coordinated inspections.",
+          "A negotiating position is stronger when it is built on a clear map of stakeholders, interests and implementation capacity."
+        ],
+        "fa": [
+          "تنظیم‌گری یک چرخه است: مذاکره، تصویب، اجرای ملی، اعمال و بازنگری.",
+          "توافق‌نامه‌های منطقه‌ای کنترل دولت بندر، مانند تفاهم‌نامه‌های پاریس و اقیانوس هند، استانداردهای مشترک را به بازرسی‌های هماهنگ تبدیل می‌کنند.",
+          "موضع مذاکره‌ای زمانی قوی‌تر است که بر نقشه روشنی از ذی‌نفعان، منافع و ظرفیت اجرا بنا شده باشد."
+        ]
+      },
+      "alt": {
+        "en": "Bilingual infographic in four quadrants on the jurisdictional order of the oceans, the IMO implementation and audit architecture, port State control procedures, and stakeholder mapping for regulatory negotiation.",
+        "fa": "اینفوگرافیک دوزبانه در چهار بخش درباره نظم صلاحیتی اقیانوس‌ها، معماری اجرا و ممیزی IMO، رویه‌های کنترل دولت بندر و نقشه‌برداری ذی‌نفعان در مذاکرات مقرراتی."
+      },
+      "entry": "maritime-convention-accession-vs-implementation"
+    },
+    {
+      "n": "03",
+      "file": "IMO_Regulatory_System_Overview.png",
+      "courses": [
+        "C01"
+      ],
+      "title": {
+        "en": "The IMO Regulatory System",
+        "fa": "نظام مقررات‌گذاری سازمان بین‌المللی دریانوردی"
+      },
+      "intro": {
+        "en": "The International Maritime Organization is the UN specialised agency responsible for the safety and security of shipping and the prevention of pollution by ships. This figure shows how it is organised, from the Assembly and Council to its five committees and seven sub-committees, and which mandatory instruments form the core of its regulatory system.",
+        "fa": "سازمان بین‌المللی دریانوردی، نهاد تخصصی سازمان ملل متحد برای ایمنی و امنیت کشتیرانی و پیشگیری از آلودگی ناشی از کشتی‌هاست. این تصویر ساختار آن را از مجمع و شورا تا پنج کمیته و هفت زیرکمیته نشان می‌دهد و اسناد الزام‌آوری را که هسته نظام مقرراتی آن را تشکیل می‌دهند معرفی می‌کند."
+      },
+      "caption": {
+        "en": "IMO's institutional structure under the UNCLOS umbrella, the jurisdictional triad matrix and the mandatory instruments covered by the III Code.",
+        "fa": "ساختار نهادی IMO زیر چتر UNCLOS، ماتریس سه‌گانه صلاحیتی و اسناد الزام‌آوری که کد III آن‌ها را پوشش می‌دهد."
+      },
+      "points": {
+        "en": [
+          "The Assembly of all Member States is the highest body; the 40-member Council acts as the executive organ between Assembly sessions.",
+          "Most technical work happens in the five committees (MSC, MEPC, LEG, TC and FAL) and seven sub-committees.",
+          "IMO adopts rules but does not enforce them; enforcement belongs to flag, coastal and port States."
+        ],
+        "fa": [
+          "مجمع متشکل از همه کشورهای عضو بالاترین رکن است و شورای ۴۰ عضوی میان اجلاس‌های مجمع نقش رکن اجرایی را دارد.",
+          "بیشتر کار فنی در پنج کمیته (MSC، MEPC، LEG، TC و FAL) و هفت زیرکمیته انجام می‌شود.",
+          "IMO قواعد را تصویب می‌کند اما اجرای آن‌ها با دولت‌های پرچم، ساحلی و بندری است."
+        ]
+      },
+      "alt": {
+        "en": "Infographic of the IMO regulatory system: UNCLOS as the umbrella, the Assembly, Council, five committees and seven sub-committees, a matrix of flag, coastal and port State powers, and the mandatory instruments audited under the III Code.",
+        "fa": "اینفوگرافیک نظام مقرراتی IMO: UNCLOS به‌عنوان چتر حقوقی، مجمع، شورا، پنج کمیته و هفت زیرکمیته، ماتریس اختیارات دولت پرچم، ساحلی و بندری و اسناد الزام‌آور مشمول ممیزی کد III."
+      },
+      "entry": "imo-decision-making"
+    },
+    {
+      "n": "04",
+      "file": "Global_Maritime_Compliance_Architecture_Infographic.png",
+      "courses": [
+        "C02"
+      ],
+      "title": {
+        "en": "From IMO Conventions to National Implementation and Compliance Oversight",
+        "fa": "از کنوانسیون‌های IMO تا اجرای ملی و نظارت بر انطباق"
+      },
+      "intro": {
+        "en": "Ratifying a convention is a promise; implementing it is the work. This figure traces the chain that turns IMO instruments into national law, institutional responsibility, survey and certification, and finally into inspections and audits that test whether the system really works.",
+        "fa": "تصویب یک کنوانسیون یک تعهد است و اجرای آن کار اصلی. این تصویر زنجیره‌ای را دنبال می‌کند که اسناد IMO را به قانون ملی، مسئولیت نهادی، بازرسی و صدور گواهینامه و در نهایت به بازرسی‌ها و ممیزی‌هایی تبدیل می‌کند که کارکرد واقعی نظام را می‌سنجند."
+      },
+      "caption": {
+        "en": "Four phases of compliance: the legal foundation, quality management under the III Code, national transposition and oversight of recognised organisations, and operational enforcement through port State control.",
+        "fa": "چهار مرحله انطباق: مبنای حقوقی، مدیریت کیفیت بر پایه کد III، انتقال به حقوق داخلی و نظارت بر سازمان‌های شناخته‌شده، و اعمال عملیاتی از راه کنترل دولت بندر."
+      },
+      "points": {
+        "en": [
+          "The III Code (Resolution A.1070(28)) has been the audit standard for Member States since IMSAS became mandatory on 1 January 2016.",
+          "Delegating surveys to recognised organisations does not delegate responsibility; the flag State must oversee them.",
+          "Port State control applies the principle of no more favourable treatment, so ships of non-parties are inspected to the same standard."
+        ],
+        "fa": [
+          "کد III (قطعنامه A.1070(28)) از زمان اجباری شدن IMSAS در ۱ ژانویه ۲۰۱۶ معیار ممیزی کشورهای عضو است.",
+          "سپردن بازرسی‌ها به سازمان‌های شناخته‌شده به معنای سپردن مسئولیت نیست؛ دولت پرچم باید بر آن‌ها نظارت کند.",
+          "کنترل دولت بندر اصل «عدم رفتار مساعدتر» را اعمال می‌کند تا کشتی‌های کشورهای غیرعضو نیز با همان معیار بازرسی شوند."
+        ]
+      },
+      "alt": {
+        "en": "Infographic showing four phases from IMO conventions to domestic enforcement: legal foundation under UNCLOS, III Code quality management and IMSAS, national transposition and oversight of recognised organisations, and port State control.",
+        "fa": "اینفوگرافیک چهار مرحله از کنوانسیون‌های IMO تا اجرای داخلی: مبنای حقوقی بر پایه UNCLOS، مدیریت کیفیت کد III و IMSAS، انتقال ملی و نظارت بر سازمان‌های شناخته‌شده و کنترل دولت بندر."
+      },
+      "entry": "iii-code-implementation"
+    },
+    {
+      "n": "05",
+      "file": "Maritime_Single_Window_Executive_Guide.png",
+      "courses": [
+        "E01"
+      ],
+      "title": {
+        "en": "Maritime Single Window and Digital Port Governance",
+        "fa": "پنجره واحد دریایی و حکمرانی دیجیتال بنادر"
+      },
+      "intro": {
+        "en": "Since 1 January 2024, amendments to the FAL Convention have required public authorities to exchange ship clearance information electronically through a single window. This figure is an executive guide to what that means: the legal mandate, the data standards, the governance of data shared between agencies, cyber risk and a phased roadmap.",
+        "fa": "از ۱ ژانویه ۲۰۲۴، اصلاحیه‌های کنوانسیون تسهیلات (FAL) مقامات دولتی را ملزم کرده‌اند اطلاعات ترخیص کشتی را به‌صورت الکترونیکی و از طریق یک پنجره واحد مبادله کنند. این تصویر راهنمایی مدیریتی برای معنای این الزام است: مبنای قانونی، استانداردهای داده، حکمرانی داده میان دستگاه‌ها، ریسک سایبری و نقشه راه مرحله‌ای."
+      },
+      "caption": {
+        "en": "The mandatory maritime single window, the IMO Compendium data model, inter-agency data governance and cyber security, and a four-phase digitalisation roadmap.",
+        "fa": "پنجره واحد دریایی اجباری، مدل داده خلاصه‌نامه IMO، حکمرانی داده میان دستگاه‌ها و امنیت سایبری، و نقشه راه چهارمرحله‌ای دیجیتالی‌سازی."
+      },
+      "points": {
+        "en": [
+          "The single window is a governance project before it is an IT project: someone must own the data and the decisions.",
+          "The IMO Compendium on Facilitation and Electronic Business provides the shared data model that makes systems interoperable.",
+          "Cyber risk must be managed within the ship's safety management system, as required since 2021 under Resolution MSC.428(98)."
+        ],
+        "fa": [
+          "پنجره واحد پیش از آنکه یک پروژه فناوری اطلاعات باشد یک پروژه حکمرانی است: داده‌ها و تصمیم‌ها باید صاحب مشخص داشته باشند.",
+          "خلاصه‌نامه IMO درباره تسهیلات و کسب‌وکار الکترونیکی، مدل داده مشترکی است که سامانه‌ها را با هم سازگار می‌کند.",
+          "ریسک سایبری باید در نظام مدیریت ایمنی کشتی مدیریت شود؛ این الزام از ۲۰۲۱ بر پایه قطعنامه MSC.428(98) برقرار است."
+        ]
+      },
+      "alt": {
+        "en": "Executive guide infographic to the maritime single window: regulatory mandate since 2024, data architecture and interoperability, inter-agency governance and cyber security, and a four-phase implementation roadmap.",
+        "fa": "اینفوگرافیک راهنمای مدیریتی پنجره واحد دریایی: الزام قانونی از ۲۰۲۴، معماری داده و سازگاری، حکمرانی میان‌دستگاهی و امنیت سایبری و نقشه راه چهارمرحله‌ای اجرا."
+      },
+      "entry": "maritime-single-window"
+    },
+    {
+      "n": "06",
+      "file": "Maritime_Procurement_and_Risk_Framework.png",
+      "courses": [
+        "C04",
+        "E02"
+      ],
+      "title": {
+        "en": "Procurement, Contract Governance and Maritime Risk",
+        "fa": "حکمرانی مناقصات، قراردادها و مدیریت ریسک دریایی"
+      },
+      "intro": {
+        "en": "Who carries the risk when a port becomes unsafe, a voyage is delayed or a concessionaire underperforms? The answer is usually decided long before the problem appears, in the tender and the contract. This figure brings together standard contract forms, port governance and concession models, commercial risk allocation and the compliance checks that sit around them.",
+        "fa": "وقتی بندری ناامن می‌شود، سفری به تأخیر می‌افتد یا بهره‌بردار امتیاز عملکرد ضعیفی دارد، ریسک بر عهده کیست؟ پاسخ معمولاً خیلی پیش از بروز مشکل، در مناقصه و قرارداد تعیین می‌شود. این تصویر فرم‌های استاندارد قرارداد، مدل‌های حکمرانی بندری و امتیاز، تخصیص ریسک تجاری و کنترل‌های انطباق پیرامون آن‌ها را کنار هم می‌گذارد."
+      },
+      "caption": {
+        "en": "Standard maritime contract forms, a comparison of port governance models, commercial risk allocation and the regulatory controls that frame procurement.",
+        "fa": "فرم‌های استاندارد قراردادهای دریایی، مقایسه مدل‌های حکمرانی بندری، تخصیص ریسک تجاری و کنترل‌های مقرراتی که چارچوب تدارکات را می‌سازند."
+      },
+      "points": {
+        "en": [
+          "Standard forms such as BIMCO's are a starting point; the real risk sits in the amendments and rider clauses.",
+          "In the landlord port model, the authority keeps the land and regulation while private operators invest in and run terminals.",
+          "A concession is only as good as the performance obligations the authority can actually monitor and enforce."
+        ],
+        "fa": [
+          "فرم‌های استاندارد، مانند فرم‌های BIMCO، نقطه شروع‌اند؛ ریسک واقعی در اصلاحات و شروط الحاقی نهفته است.",
+          "در مدل بندر مالک (Landlord)، مرجع بندری مالکیت زمین و تنظیم‌گری را حفظ می‌کند و بهره‌برداران خصوصی در پایانه‌ها سرمایه‌گذاری و آن‌ها را اداره می‌کنند.",
+          "ارزش یک امتیاز به تعهدات عملکردی‌ای بستگی دارد که مرجع بندری واقعاً بتواند پایش و اجرا کند."
+        ]
+      },
+      "alt": {
+        "en": "Infographic on maritime procurement and contract risk: standard BIMCO contract forms, service, tool, landlord and private port models, commercial risk allocation and regulatory controls.",
+        "fa": "اینفوگرافیک تدارکات و ریسک قراردادهای دریایی: فرم‌های استاندارد BIMCO، مدل‌های بندر خدماتی، ابزاری، مالک و خصوصی، تخصیص ریسک تجاری و کنترل‌های مقرراتی."
+      },
+      "entry": "maritime-tender-risk"
+    },
+    {
+      "n": "07",
+      "file": "Maritime_Dispute_Advisory_Framework.png",
+      "courses": [
+        "E03"
+      ],
+      "title": {
+        "en": "Expert Advisory and Prevention of Maritime Disputes",
+        "fa": "مشاوره تخصصی و پیشگیری از اختلافات دریایی"
+      },
+      "intro": {
+        "en": "Many maritime disputes are decided by the quality of the technical evidence and the independence of the person who assesses it. This figure sets out the ethics of expert work, a method for building a technical opinion, a matrix linking disputed issues to the evidence that resolves them, and how the same discipline can be taught to executives.",
+        "fa": "بسیاری از اختلافات دریایی با کیفیت مستندات فنی و استقلال کارشناسی که آن‌ها را ارزیابی می‌کند تعیین می‌شوند. این تصویر اخلاق حرفه‌ای کار کارشناسی، روشی برای تدوین نظر فنی، ماتریسی که موضوع مورد اختلاف را به مستندات حل‌کننده آن پیوند می‌دهد و شیوه آموزش همین انضباط به مدیران را نشان می‌دهد."
+      },
+      "caption": {
+        "en": "Professional ethics and independence, a technical evidence methodology, an issue-to-evidence dispute matrix and an executive education framework.",
+        "fa": "اخلاق حرفه‌ای و استقلال، روش‌شناسی مستندات فنی، ماتریس پیوند موضوع اختلاف به مستندات و چارچوب آموزش مدیران."
+      },
+      "points": {
+        "en": [
+          "An expert's value depends on independence: advisory, expert assessment and legal advocacy are separate roles.",
+          "Good evidence is framed by a precise question, documented with a chain of custody and open to peer review.",
+          "Most disputes can be prevented earlier through clear contracts and records kept as if they will one day be examined."
+        ],
+        "fa": [
+          "ارزش کارشناس به استقلال اوست: مشاوره، ارزیابی کارشناسی و وکالت حقوقی نقش‌هایی جدا هستند.",
+          "مستند خوب با پرسشی دقیق آغاز می‌شود، با زنجیره نگهداری ثبت می‌شود و قابل بازبینی همتا است.",
+          "بیشتر اختلافات را می‌توان زودتر پیشگیری کرد: با قراردادهای روشن و سوابقی که چنان نگهداری شوند که گویی روزی بررسی خواهند شد."
+        ]
+      },
+      "alt": {
+        "en": "Infographic on maritime dispute advisory: expert ethics and independence checklist, technical evidence methodology, a matrix linking disputed issues to legal standards and evidence, and constructive alignment for executive education.",
+        "fa": "اینفوگرافیک مشاوره اختلافات دریایی: فهرست اخلاق و استقلال کارشناس، روش‌شناسی مستندات فنی، ماتریس پیوند موضوعات اختلاف با معیارهای حقوقی و مستندات و هم‌ترازی سازنده در آموزش مدیران."
+      },
+      "entry": "independent-maritime-expert"
+    },
+    {
+      "n": "08",
+      "file": "Maritime_Cooperation_Framework_and_Roadmap.png",
+      "courses": [
+        "C07"
+      ],
+      "title": {
+        "en": "International Maritime Cooperation: Framework and Roadmap",
+        "fa": "چارچوب و نقشه راه همکاری‌های بین‌المللی دریایی"
+      },
+      "intro": {
+        "en": "Memoranda of understanding are easy to sign and hard to bring to life. This figure follows cooperation through four stages: choosing the right partnership model, assessing needs and screening partners, formalising the agreement, and implementing it with clear accountability, performance indicators and a cycle of review.",
+        "fa": "امضای تفاهم‌نامه آسان است و زنده نگه داشتن آن دشوار. این تصویر همکاری را در چهار مرحله دنبال می‌کند: انتخاب مدل مناسب مشارکت، نیازسنجی و غربالگری شرکا، رسمی کردن توافق، و اجرای آن با مسئولیت روشن، شاخص‌های عملکرد و چرخه بازنگری."
+      },
+      "caption": {
+        "en": "A four-stage roadmap for international maritime cooperation, from partnership models and partner screening to formal agreements, accountability and performance tracking.",
+        "fa": "نقشه راه چهارمرحله‌ای همکاری بین‌المللی دریایی، از مدل‌های مشارکت و غربالگری شرکا تا توافق رسمی، مسئولیت‌پذیری و پایش عملکرد."
+      },
+      "points": {
+        "en": [
+          "Cooperation models range from light-touch MoUs and sister-port arrangements to joint ventures and strategic alliances.",
+          "Regional port State control grew out of cooperation: the 1978 Amoco Cadiz disaster led to the Paris MoU in 1982.",
+          "An agreement without owners, budgets and indicators rarely survives the change of the people who signed it."
+        ],
+        "fa": [
+          "مدل‌های همکاری از تفاهم‌نامه‌های سبک و شبکه بنادر خواهرخوانده تا سرمایه‌گذاری مشترک و اتحادهای راهبردی را در بر می‌گیرند.",
+          "کنترل منطقه‌ای دولت بندر از دل همکاری بیرون آمد: فاجعه آموکو کادیز در ۱۹۷۸ به تفاهم‌نامه پاریس در ۱۹۸۲ انجامید.",
+          "توافقی که صاحب، بودجه و شاخص نداشته باشد، معمولاً پس از تغییر امضاکنندگانش دوام نمی‌آورد."
+        ]
+      },
+      "alt": {
+        "en": "Four-stage infographic on managing international maritime cooperation: partnership models, needs assessment and partner screening, formal agreements and MoUs, and an implementation and KPI roadmap.",
+        "fa": "اینفوگرافیک چهارمرحله‌ای مدیریت همکاری‌های بین‌المللی دریایی: مدل‌های مشارکت، نیازسنجی و غربالگری شرکا، توافق‌ها و تفاهم‌نامه‌های رسمی و نقشه راه اجرا و شاخص‌ها."
+      },
+      "entry": "maritime-mou-cooperation"
+    },
+    {
+      "n": "09",
+      "file": "Maritime_Decarbonization_Regulatory_Architecture_Briefing.png",
+      "courses": [
+        "C08"
+      ],
+      "title": {
+        "en": "The Global and Regional Architecture of Maritime Decarbonisation Regulation",
+        "fa": "معماری مقررات جهانی و منطقه‌ای کربن‌زدایی دریایی"
+      },
+      "intro": {
+        "en": "Shipping now faces two layers of climate rules at once: IMO measures that apply worldwide and regional European rules that already put a price on emissions. This board briefing separates measures in force from strategic targets and from drafts still under negotiation, so that decisions are based on the right legal status.",
+        "fa": "کشتیرانی اکنون هم‌زمان با دو لایه مقررات اقلیمی روبه‌روست: تدابیر IMO که در سراسر جهان اعمال می‌شوند و مقررات منطقه‌ای اروپا که هم‌اکنون برای انتشار قیمت تعیین کرده‌اند. این گزارش هیئت‌مدیره، تدابیر لازم‌الاجرا را از اهداف راهبردی و از پیش‌نویس‌های در حال مذاکره جدا می‌کند تا تصمیم‌ها بر پایه وضعیت حقوقی درست گرفته شوند."
+      },
+      "caption": {
+        "en": "The IMO 2023 GHG Strategy and short-term measures, the draft IMO Net-Zero Framework, and the EU ETS and FuelEU Maritime as regional regimes.",
+        "fa": "راهبرد ۲۰۲۳ IMO درباره گازهای گلخانه‌ای و تدابیر کوتاه‌مدت، پیش‌نویس چارچوب Net-Zero IMO و سامانه EU ETS و مقررات FuelEU Maritime به‌عنوان رژیم‌های منطقه‌ای."
+      },
+      "points": {
+        "en": [
+          "In force: EEXI and CII under MARPOL Annex VI since 2023, the EU ETS for shipping since 2024 and FuelEU Maritime since 2025.",
+          "Strategic target: the 2023 IMO Strategy aims for net-zero GHG emissions by or around 2050, with indicative checkpoints for 2030 and 2040.",
+          "Still under negotiation: the IMO Net-Zero Framework; its adoption, planned for October 2025, was postponed."
+        ],
+        "fa": [
+          "لازم‌الاجرا: EEXI و CII بر پایه پیوست ششم مارپل از ۲۰۲۳، EU ETS برای کشتیرانی از ۲۰۲۴ و FuelEU Maritime از ۲۰۲۵.",
+          "هدف راهبردی: راهبرد ۲۰۲۳ IMO صفر خالص انتشار تا حدود ۲۰۵۰ را هدف گرفته و برای ۲۰۳۰ و ۲۰۴۰ نقاط کنترل ارشادی تعیین کرده است.",
+          "در حال مذاکره: چارچوب Net-Zero IMO؛ تصویب آن که برای اکتبر ۲۰۲۵ برنامه‌ریزی شده بود به تعویق افتاد."
+        ]
+      },
+      "alt": {
+        "en": "Board briefing infographic on the maritime decarbonisation regulatory architecture: IMO 2023 GHG Strategy checkpoints, the draft IMO Net-Zero Framework, EU ETS and FuelEU Maritime, and a board action plan.",
+        "fa": "اینفوگرافیک گزارش هیئت‌مدیره درباره معماری مقررات کربن‌زدایی دریایی: نقاط کنترل راهبرد ۲۰۲۳ IMO، پیش‌نویس چارچوب Net-Zero، EU ETS و FuelEU Maritime و برنامه اقدام هیئت‌مدیره."
+      },
+      "entry": "imo-decarbonization-status"
+    },
+    {
+      "n": "10",
+      "file": "Maritime_Decarbonization_Regulations_Briefing.png",
+      "courses": [
+        "C08"
+      ],
+      "title": {
+        "en": "Management and Economic Implications of Decarbonisation Rules",
+        "fa": "پیامدهای مدیریتی و اقتصادی مقررات کربن‌زدایی"
+      },
+      "intro": {
+        "en": "Climate rules show up on the balance sheet: in surcharges, allowance purchases, penalties, retrofit budgets and new clauses in charter parties. This figure translates the regulatory timeline into its commercial consequences for container, dry bulk and tanker operators and sets out a board-level action plan.",
+        "fa": "مقررات اقلیمی در ترازنامه دیده می‌شوند: در هزینه‌های اضافی، خرید سهمیه انتشار، جریمه‌ها، بودجه نوسازی و شروط تازه در قراردادهای اجاره کشتی. این تصویر جدول زمانی مقررات را به پیامدهای تجاری آن برای بهره‌برداران کانتینری، فله خشک و نفتکش ترجمه می‌کند و یک برنامه اقدام در سطح هیئت‌مدیره پیشنهاد می‌دهد."
+      },
+      "caption": {
+        "en": "The regulatory timeline, EU ETS and FuelEU Maritime exposure, a compliance impact matrix by shipping segment, and a board action plan.",
+        "fa": "جدول زمانی مقررات، آثار EU ETS و FuelEU Maritime، ماتریس اثر انطباق به تفکیک بخش‌های کشتیرانی و برنامه اقدام هیئت‌مدیره."
+      },
+      "points": {
+        "en": [
+          "Under the EU ETS, shipping companies surrender allowances for 40% of 2024 emissions, 70% of 2025 emissions and 100% from 2026.",
+          "FuelEU Maritime requires a 2% cut in the GHG intensity of energy used on board from 2025, rising to 80% by 2050.",
+          "Charter parties need explicit clauses on who pays carbon costs and who controls the operational choices that drive them."
+        ],
+        "fa": [
+          "در EU ETS، شرکت‌های کشتیرانی برای ۴۰ درصد انتشار ۲۰۲۴، ۷۰ درصد انتشار ۲۰۲۵ و از ۲۰۲۶ برای ۱۰۰ درصد آن سهمیه تحویل می‌دهند.",
+          "FuelEU Maritime از ۲۰۲۵ کاهش ۲ درصدی شدت گازهای گلخانه‌ای انرژی مصرفی کشتی را الزامی کرده که تا ۲۰۵۰ به ۸۰ درصد می‌رسد.",
+          "قراردادهای اجاره کشتی به شروط صریح نیاز دارند: چه کسی هزینه کربن را می‌پردازد و چه کسی تصمیم‌های عملیاتی مؤثر بر آن را می‌گیرد."
+        ]
+      },
+      "alt": {
+        "en": "Board briefing infographic on global and regional maritime decarbonisation regulations: regulatory timeline, EU ETS phasing and FuelEU Maritime penalties, a compliance impact matrix by segment and a strategic action plan.",
+        "fa": "اینفوگرافیک گزارش هیئت‌مدیره درباره مقررات جهانی و منطقه‌ای کربن‌زدایی: جدول زمانی، مراحل EU ETS و جریمه‌های FuelEU Maritime، ماتریس اثر انطباق به تفکیک بخش و برنامه اقدام راهبردی."
+      },
+      "entry": "eu-ets-fueleu-maritime"
+    },
+    {
+      "n": "11",
+      "file": "Maritime_Education_Quality_Assurance_Framework.png",
+      "courses": [
+        "C05",
+        "E04"
+      ],
+      "title": {
+        "en": "Quality Assurance and Competence Development in Maritime Education",
+        "fa": "تضمین کیفیت و توسعه شایستگی در آموزش دریایی"
+      },
+      "intro": {
+        "en": "Every rule in this atlas is ultimately applied by people. This figure shows how maritime training can be designed around measurable competence: clear learning outcomes, teaching activities aligned with them, assessments that test what really matters, and an institutional quality system of the kind STCW requires.",
+        "fa": "هر قاعده‌ای در این اطلس سرانجام به دست انسان اجرا می‌شود. این تصویر نشان می‌دهد آموزش دریایی چگونه می‌تواند بر محور شایستگی قابل سنجش طراحی شود: پیامدهای یادگیری روشن، فعالیت‌های آموزشی هم‌راستا با آن‌ها، ارزیابی‌هایی که آنچه واقعاً مهم است را می‌سنجند، و نظام کیفیت نهادی از نوعی که STCW الزامی کرده است."
+      },
+      "caption": {
+        "en": "Four phases of constructive alignment: learning outcomes, aligned teaching activities, defensible assessment and institutional quality assurance.",
+        "fa": "چهار مرحله هم‌ترازی سازنده: پیامدهای یادگیری، فعالیت‌های آموزشی هم‌راستا، ارزیابی قابل دفاع و تضمین کیفیت نهادی."
+      },
+      "points": {
+        "en": [
+          "Constructive alignment means outcomes, teaching activities and assessment all point at the same competence.",
+          "STCW Regulation I/8 requires training, assessment and certification to be monitored through a quality standards system.",
+          "Lessons from casualty investigations should feed directly into training content and assessment scenarios."
+        ],
+        "fa": [
+          "هم‌ترازی سازنده یعنی پیامدهای یادگیری، فعالیت‌های آموزشی و ارزیابی همگی به یک شایستگی واحد اشاره کنند.",
+          "مقرره I/8 کنوانسیون STCW پایش آموزش، ارزیابی و صدور گواهینامه را از راه یک نظام استانداردهای کیفیت الزامی کرده است.",
+          "درس‌های حاصل از بررسی سوانح باید مستقیماً به محتوای آموزش و سناریوهای ارزیابی راه پیدا کنند."
+        ]
+      },
+      "alt": {
+        "en": "Infographic on constructive alignment and quality assurance in maritime education: learning outcomes and Bloom's taxonomy, aligned teaching activities, assessment rubrics and institutional quality assurance.",
+        "fa": "اینفوگرافیک هم‌ترازی سازنده و تضمین کیفیت در آموزش دریایی: پیامدهای یادگیری و طبقه‌بندی بلوم، فعالیت‌های آموزشی هم‌راستا، روبریک‌های ارزیابی و تضمین کیفیت نهادی."
+      },
+      "entry": "maritime-training-assurance"
+    }
+  ]
+}

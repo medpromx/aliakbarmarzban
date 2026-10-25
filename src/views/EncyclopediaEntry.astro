@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AtlasFigure from '../components/AtlasFigure.astro';
+import AtlasLightbox from '../components/AtlasLightbox.astro';
+import { categoryPath, entriesIn, entryPath, getCategory, type Entry } from '../lib/encyclopedia';
+import { atlasPath, getAtlasItem, magazineArticleSlug } from '../lib/atlas';
+import { coursePath, getCourse } from '../data/courses';
+import { getService } from '../data/services';
+import { site, ui } from '../data/site';
+import { formatDate, href, num, t, type Lang, makeTr } from '../lib/i18n';
+import { entryLd } from '../lib/schema';
+interface Props { lang: Lang; entry: Entry }
+const { lang, entry } = Astro.props;
+const tr = makeTr(lang);
+const category = getCategory(entry.category);
+const siblings = entriesIn(lang, entry.category);
+const pos = siblings.indexOf(entry);
+const prev = siblings[pos - 1];
+const next = siblings[pos + 1];
+const course = entry.course ? getCourse(entry.course) : undefined;
+const service = entry.service ? getService(entry.service) : undefined;
+const item = getAtlasItem(entry.atlas);
+const fallback = entry.lang !== lang;
+const fb = fallback ? { lang: entry.lang, dir: 'ltr' as const } : {};
+// The reference figure goes after the opening section, before the second heading.
+const html = await entry.html();
+const cut = html.indexOf('<h2', 1);
+const [intro, rest] = cut > 0 ? [html.slice(0, cut), html.slice(cut)] : [html, ''];
+const toc = entry.headings().filter((h) => h.depth === 2);
+const L = (fa: string, en: string) => (entry.lang === 'fa' ? fa : en);
+---
+<Base lang={lang} title={entry.title} description={entry.summary} ogType="article" jsonLd={entryLd(lang, entry)}>
+  <PageHero lang={lang} eyebrow={t(category.title, lang)} title={entry.title} lead={entry.summary} crumbs={[{ label: t(ui.encyclopedia, lang), path: '/encyclopedia/' }, { label: t(category.title, lang), path: categoryPath(category.key) }, { label: entry.title }]}>
+    <p class="entry-meta">
+      <span>{t(site.advisorName, lang)}</span>
+      <span>{num(entry.readingMinutes, lang)} {tr('دقیقه مطالعه', 'min read')}</span>
+      <span>{tr('آخرین بازبینی:', 'Last reviewed:')} <time datetime={entry.updated}>{formatDate(entry.updated, lang)}</time></span>
+      {course && <span>{tr('دوره مرتبط:', 'Course:')} <a class="ltr" href={href(lang, coursePath(course.code))}>{course.code}</a></span>}
+    </p>
+  </PageHero>
+  <div class="section section--white">
+    <div class="container entry-layout">
+      <article class="entry-main" {...fb}>
+        {fallback && <p class="note" lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>{tr('', 'This article is shown in English. Encyclopedia articles are currently written in English and Persian.')}</p>}
+        <div class="prose entry-body">
+          <Fragment set:html={intro} />
+          <AtlasFigure lang={entry.lang} item={item} eager sizes="(min-width: 1100px) 760px, 100vw" />
+          <Fragment set:html={rest} />
+        </div>
+        {entry.checks.length > 0 && (
+          <section class="entry-box" aria-labelledby="checks-h">
+            <h2 id="checks-h">{L('چک‌لیست کاربردی', 'Practical checklist')}</h2>
+            <ul class="check-list">{entry.checks.map((c) => <li>{c}</li>)}</ul>
+          </section>
+        )}
+        {entry.faq && entry.faq.length > 0 && (
+          <section class="entry-faq" aria-labelledby="faq-h">
+            <h2 id="faq-h">{L('پرسش‌های متداول', 'Frequently asked questions')}</h2>
+            {entry.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+          </section>
+        )}
+        {service && (
+          <p class="entry-service">{L('حوزه مرتبط:', 'Related advisory area:')} <a href={href(lang, `/services/${service.slug}/`)}>{t(service.title, lang)}</a></p>
+        )}
+        <p class="entry-notice">{L(
+          'یادداشت تحریریه: این مطلب برای آگاهی و تصمیم‌سازی مدیریتی تهیه شده است. اجرای مقررات تابع نسخه معتبر، وضعیت حقوقی کشور و شرایط واقعی پرونده است. این محتوا مستقل است و به معنای تأیید یا وابستگی نهادی به IMO نیست.',
+          'Editorial note: this article is written for awareness and management decision-making. Applying any rule depends on the authentic current text, the legal position of the State concerned and the facts of the case. The content is independent and implies no endorsement by, or affiliation with, IMO.',
+        )}</p>
+        <section class="entry-sources" aria-labelledby="src-h" lang="en" dir="ltr">
+          <h2 id="src-h" lang={entry.lang} dir={entry.lang === 'fa' ? 'rtl' : 'ltr'}>{L('منابع', 'Sources')}</h2>
+          <ol>{entry.sources.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>)}</ol>
+        </section>
+      </article>
+      <aside class="entry-aside">
+        {toc.length > 1 && (
+          <nav class="card entry-toc" aria-label={tr('فهرست مقاله', 'In this article')}>
+            <h2>{tr('فهرست مقاله', 'In this article')}</h2>
+            <ol {...fb}>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <div class="card entry-links">
+          <h2>{tr('مطالعه تکمیلی', 'Further study')}</h2>
+          <a href={`${href(lang, atlasPath)}#image-${item.n}`}><Icon name="globe" size={18} /> {tr('این تصویر در اطلس', 'This image in the atlas')} ({num(item.n, lang)})</a>
+          <a href={`${href(lang, `/magazine/${magazineArticleSlug}/`)}#figure-${item.n}`}><Icon name="chart" size={18} /> {tr('تحلیل تصویر در مجله', 'Magazine analysis of the image')}</a>
+          {course && <a href={href(lang, coursePath(course.code))}><Icon name="training" size={18} /> <span><span class="ltr">{course.code}</span> · {t(course.title, lang)}</span></a>}
+          <a href={href(lang, categoryPath(category.key))}><Icon name="doc" size={18} /> {tr('همه مقاله‌های این حوزه', 'All articles in this area')}</a>
+        </div>
+      </aside>
+    </div>
+    <nav class="container entry-pager" aria-label={tr('مقاله قبلی و بعدی', 'Previous and next article')}>
+      {prev ? <a href={href(lang, entryPath(prev))} rel="prev"><span>{tr('مقاله قبلی', 'Previous')}</span><strong {...fb}>{prev.title}</strong></a> : <span />}
+      {next ? <a href={href(lang, entryPath(next))} rel="next" class="entry-pager__next"><span>{tr('مقاله بعدی', 'Next')}</span><strong {...fb}>{next.title}</strong></a> : <span />}
+    </nav>
+  </div>
+  <CtaBand lang={lang} title={service ? t(service.cta, lang) : t(ui.requestConsultation, lang)} text={tr('درباره پیامدهای این موضوع برای سازمان خود گفت‌وگو کنید.', 'Discuss what this means for your organisation.')} cta={service ? t(service.cta, lang) : t(ui.requestConsultation, lang)} service={service?.slug} track={`entry-${entry.slug}`} />
+  <AtlasLightbox lang={entry.lang} />
+</Base>
+<style>
+  .entry-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-block-start: 1.5rem; font-size: 0.92rem; color: var(--gold); }
+  .entry-meta a { color: var(--gold); }
+  .entry-layout { display: grid; gap: clamp(28px, 4vw, 56px); }
+  @media (min-width: 1100px) { .entry-layout { grid-template-columns: minmax(0, 1fr) 290px; align-items: start; } .entry-aside { position: sticky; inset-block-start: 100px; } }
+  .entry-main { min-inline-size: 0; max-inline-size: 48rem; }
+  .entry-body { max-inline-size: none; font-size: 1.06rem; }
+  .entry-body :global(h2) { scroll-margin-block-start: 100px; padding-block-end: 0.5rem; border-block-end: 1px solid var(--line); }
+  .entry-body :global(table) { inline-size: 100%; border-collapse: collapse; font-size: 0.93rem; margin-block: 1.4rem; display: block; overflow-x: auto; }
+  .entry-body :global(th), .entry-body :global(td) { border: 1px solid var(--line); padding: 0.55rem 0.7rem; text-align: start; vertical-align: top; }
+  .entry-body :global(th) { background: var(--off-white); color: var(--navy); }
+  .entry-body :global(strong) { color: var(--navy); }
+  .entry-body :global(blockquote) { margin: 1.4rem 0; padding: 0.8rem 1.2rem; border-inline-start: 3px solid var(--teal); background: var(--off-white); }
+  .entry-box { margin-block-start: 2.5rem; padding: 1.6rem 1.8rem; background: rgb(23 125 135 / 6%); border-inline-start: 3px solid var(--teal); border-radius: var(--radius); }
+  .entry-box h2, .entry-faq h2, .entry-sources h2 { font-size: 1.3rem; }
+  .entry-faq { margin-block-start: 2.5rem; }
+  .entry-faq details { border-block-start: 1px solid var(--line); padding: 0.9rem 0; }
+  .entry-faq summary { font-weight: 700; cursor: pointer; color: var(--navy); }
+  .entry-faq p { margin: 0.6rem 0 0; }
+  .entry-service { margin-block-start: 2rem; font-weight: 600; }
+  .entry-notice { margin-block-start: 1.5rem; padding-block-start: 1rem; border-block-start: 1px solid var(--line); font-size: 0.9rem; color: var(--slate-2); }
+  .entry-sources { margin-block-start: 2rem; font-size: 0.92rem; }
+  .entry-sources ol { padding-inline-start: 1.3rem; display: grid; gap: 0.4rem; }
+  .entry-sources a { overflow-wrap: anywhere; }
+  .entry-aside { display: grid; gap: 1rem; }
+  .entry-aside h2 { font-size: 0.95rem; margin-block-end: 0.5rem; }
+  .entry-toc ol { margin: 0; padding-inline-start: 1.1rem; display: grid; gap: 0.35rem; font-size: 0.9rem; }
+  .entry-links a { display: flex; gap: 0.5rem; align-items: start; font-size: 0.92rem; padding-block: 0.25rem; }
+  .entry-links :global(svg) { flex-shrink: 0; margin-block-start: 0.2em; }
+  .entry-pager { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-block-start: 3rem; }
+  .entry-pager a { display: grid; gap: 0.2rem; padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; }
+  .entry-pager a:hover { border-color: var(--teal); }
+  .entry-pager span { font-size: 0.82rem; color: var(--slate-2); }
+  .entry-pager strong { color: var(--navy); font-size: 0.97rem; line-height: 1.5; }
+  .entry-pager__next { text-align: end; }
+  @media (max-width: 640px) { .entry-pager { grid-template-columns: 1fr; } }
+</style>

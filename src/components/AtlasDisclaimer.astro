@@ -1,0 +1,17 @@
+---
+import { formatDate, type Lang, makeTr } from '../lib/i18n';
+import { atlasReviewed } from '../lib/atlas';
+interface Props { lang: Lang; reviewed?: boolean }
+const { lang, reviewed = false } = Astro.props;
+const tr = makeTr(lang);
+---
+<p class="note atlas-disclaimer">
+  {tr(
+    'این اطلس محتوای آموزشی و تحلیلی مستقل است و به معنای تأیید رسمی یا وابستگی نهادی به سازمان بین‌المللی دریانوردی (IMO) یا هر نهاد دیگری نیست. تصاویر خلاصه‌ای آموزشی‌اند؛ برای کاربرد حقوقی همواره به متن رسمی و روزآمد اسناد مراجعه کنید.',
+    'This atlas is independent educational and analytical content. It is not endorsed by, and does not imply any institutional affiliation with, the International Maritime Organization (IMO) or any other body. The images are educational summaries; for legal application always refer to the official, current text of the instruments.',
+  )}
+  {reviewed && <> {tr('آخرین بازبینی حقوقی متن:', 'Text last reviewed for legal accuracy:')} <time datetime={atlasReviewed}>{formatDate(atlasReviewed, lang)}</time>.</>}
+</p>
+<style>
+  .atlas-disclaimer { margin-block-start: 2rem; max-width: 52rem; }
+</style>
