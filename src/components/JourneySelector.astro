@@ -97,7 +97,7 @@ const L = {
   .journey__panel[hidden] { display: none; }
   @media (min-width: 900px) { .journey__panel { grid-template-columns: 1fr 1.3fr 1fr; } }
   .journey__h { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-block-end: 0.7rem; }
-  :global(:root[lang='fa']) .journey__h { letter-spacing: normal; font-size: 0.9rem; }
+  :global(:root:is([dir='rtl'], [lang='zh'])) .journey__h { letter-spacing: normal; font-size: 0.9rem; }
   .journey__need { color: var(--navy); font-size: 1.1rem; font-weight: 600; margin: 0; }
   .journey__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; counter-reset: j; }
   .journey__steps li { counter-increment: j; display: flex; gap: 0.7rem; align-items: baseline; }

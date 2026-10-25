@@ -1,0 +1,11 @@
+---
+import { otherLangs, type Lang } from '../../../lib/i18n';
+import View from '../../../views/ServiceDetail.astro';
+import { services } from '../../../data/services';
+export function getStaticPaths() {
+  return otherLangs.flatMap((lang) => services.map((service) => ({ params: { lang, slug: service.slug }, props: { service } })));
+}
+const { service } = Astro.props;
+const lang = Astro.params.lang as Lang;
+---
+<View lang={lang} service={service} />

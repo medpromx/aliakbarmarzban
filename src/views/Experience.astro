@@ -5,19 +5,20 @@ import CtaBand from '../components/CtaBand.astro';
 import credentials from '../data/credentials.json';
 import { stats } from '../data/profile';
 import { ui } from '../data/site';
-import { t, type Lang, type L } from '../lib/i18n';
+import { t, type Lang, type L, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
-const title = fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & Credentials';
+const tr = makeTr(lang);
+const title = tr('سوابق و اعتبارنامه‌ها', 'Experience & Credentials');
 const tx = (v: unknown) => t(v as L, lang);
 ---
-<Base lang={lang} title={title} description={fa ? 'سوابق شغلی، نقش‌های بین‌المللی، تحصیلات و کتاب‌های علی‌اکبر مرزبان.' : 'Career, international roles, education and books of Ali Akbar Marzban.'}>
+<Base lang={lang} title={title} description={tr('سوابق شغلی، نقش‌های بین‌المللی، تحصیلات و کتاب‌های علی‌اکبر مرزبان.', 'Career, international roles, education and books of Ali Akbar Marzban.')}>
   <PageHero
     lang={lang}
     eyebrow={title}
-    title={fa ? 'از بندر امام خمینی تا مقر IMO در لندن' : 'From Imam Khomeini Port to the IMO in London'}
-    lead={fa ? 'سه دهه کار حقوقی، مدیریتی و بین‌المللی در بنادر و دریانوردی.' : 'Three decades of legal, executive and international work in ports and maritime affairs.'}
+    title={tr('از بندر امام خمینی تا مقر IMO در لندن', 'From Imam Khomeini Port to the IMO in London')}
+    lead={tr('سه دهه کار حقوقی، مدیریتی و بین‌المللی در بنادر و دریانوردی.', 'Three decades of legal, executive and international work in ports and maritime affairs.')}
     crumbs={[{ label: title }]}
   />
   <section class="section section--navy stats-band">
@@ -52,16 +53,16 @@ const tx = (v: unknown) => t(v as L, lang);
   <section class="section">
     <div class="container grid grid--2">
       <div class="card">
-        <h2>{fa ? 'سخنرانی و حضور بین‌المللی' : 'Speaking and international presence'}</h2>
+        <h2>{tr('سخنرانی و حضور بین‌المللی', 'Speaking and international presence')}</h2>
         <p>{tx(credentials.speaking)}</p>
       </div>
       <div class="card">
-        <h2>{fa ? 'رویدادها' : 'Events'}</h2>
+        <h2>{tr('رویدادها', 'Events')}</h2>
         <p>{tx(credentials.events)}</p>
       </div>
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'این تجربه را برای سازمان خود به کار بگیرید' : 'Put this experience to work for your organisation'} text={fa ? 'مسئله خود را بنویسید تا درباره مسیر همکاری گفت‌وگو کنیم.' : "Describe your challenge and let's discuss how to work together."} cta={t(ui.primaryCta, lang)} track="experience-final" />
+  <CtaBand lang={lang} title={tr('این تجربه را برای سازمان خود به کار بگیرید', 'Put this experience to work for your organisation')} text={tr('مسئله خود را بنویسید تا درباره مسیر همکاری گفت‌وگو کنیم.', "Describe your challenge and let's discuss how to work together.")} cta={t(ui.primaryCta, lang)} track="experience-final" />
 </Base>
 <style>
   .stats-band { padding-block: clamp(40px, 6vw, 72px); }

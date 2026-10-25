@@ -6,12 +6,13 @@ import Icon from '../components/Icon.astro';
 import { site, ui, whatsappLink } from '../data/site';
 import { differentiators } from '../data/common';
 import { bio, stats } from '../data/profile';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 import { profilePageLd } from '../lib/schema';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
-const title = fa ? 'درباره مشاور' : 'About the Advisor';
+const tr = makeTr(lang);
+const title = tr('درباره مشاور', 'About the Advisor');
 ---
 <Base lang={lang} title={title} ogType="profile" jsonLd={profilePageLd(lang)} description={t(site.description, lang)}>
   <PageHero
@@ -27,15 +28,15 @@ const title = fa ? 'درباره مشاور' : 'About the Advisor';
         <img src={site.portrait} alt={t(site.advisorName, lang)} width="640" height="800" loading="eager" />
         <figcaption>
           <strong>{t(site.advisorName, lang)}</strong>
-          <span>{fa ? 'مشاور امور دریایی، بندری و بین‌المللی' : 'Maritime, port and international affairs advisor'}</span>
+          <span>{tr('مشاور امور دریایی، بندری و بین‌المللی', 'Maritime, port and international affairs advisor')}</span>
         </figcaption>
       </figure>
       <div class="prose">
-        <h2>{fa ? 'سی سال در بنادر و دریانوردی' : 'Thirty years in ports and maritime affairs'}</h2>
+        <h2>{tr('سی سال در بنادر و دریانوردی', 'Thirty years in ports and maritime affairs')}</h2>
         {t(bio, lang).map((p) => <p>{p}</p>)}
         <div class="btn-row about-ctas">
           <a class="btn btn--teal" href={href(lang, '/consultation/')} data-track="about-consult">{t(ui.requestConsultation, lang)} <Icon name="arrow" size={18} /></a>
-          <a class="btn btn--outline" href={href(lang, '/experience/')}>{fa ? 'سوابق کامل' : 'Full experience'}</a>
+          <a class="btn btn--outline" href={href(lang, '/experience/')}>{tr('سوابق کامل', 'Full experience')}</a>
         </div>
       </div>
     </div>
@@ -49,17 +50,17 @@ const title = fa ? 'درباره مشاور' : 'About the Advisor';
   </section>
   <section class="section">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">{fa ? 'شیوه کار' : 'How he works'}</p><h2>{fa ? 'آنچه در همکاری انتظار دارید' : 'What to expect when you work together'}</h2></div>
+      <div class="section-head"><p class="eyebrow">{tr('شیوه کار', 'How he works')}</p><h2>{tr('آنچه در همکاری انتظار دارید', 'What to expect when you work together')}</h2></div>
       <div class="grid grid--4">
         {differentiators.map((d) => <div class="card"><div class="icon-badge"><Icon name={d.icon} /></div><h3>{t(d.title, lang)}</h3><p>{t(d.text, lang)}</p></div>)}
       </div>
       <p class="wa-line">
-        {fa ? 'برای گفت‌وگوی مستقیم:' : 'To talk directly:'}{' '}
+        {tr('برای گفت‌وگوی مستقیم:', 'To talk directly:')}{' '}
         <a href={whatsappLink()} target="_blank" rel="noopener" data-track="whatsapp-about"><Icon name="whatsapp" size={18} /> {t(ui.whatsappShort, lang)} <span class="ltr">{site.whatsappDisplay}</span></a>
       </p>
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'گفت‌وگو را آغاز کنید' : 'Start the conversation'} text={fa ? 'مسئله سازمان خود را به‌اختصار بنویسید؛ پاسخ از طریق واتس‌اپ داده می‌شود.' : "Briefly describe your organisation's challenge; you'll get a reply on WhatsApp."} cta={t(ui.primaryCta, lang)} track="about-final" />
+  <CtaBand lang={lang} title={tr('گفت‌وگو را آغاز کنید', 'Start the conversation')} text={tr('مسئله سازمان خود را به‌اختصار بنویسید؛ پاسخ از طریق واتس‌اپ داده می‌شود.', "Briefly describe your organisation's challenge; you'll get a reply on WhatsApp.")} cta={t(ui.primaryCta, lang)} track="about-final" />
 </Base>
 <style>
   .portrait { margin: 0; }

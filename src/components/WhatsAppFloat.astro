@@ -1,10 +1,10 @@
 ---
 import Icon from './Icon.astro';
 import { site, ui, whatsappLink } from '../data/site';
-import { t, type Lang } from '../lib/i18n';
+import { t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const greeting = lang === 'fa' ? 'سلام آقای مرزبان، از طریق وب‌سایت پیام می‌دهم.' : 'Hello Mr Marzban, I am writing to you via your website.';
+const greeting = makeTr(lang)('سلام آقای مرزبان، از طریق وب‌سایت پیام می‌دهم.', 'Hello Mr Marzban, I am writing to you via your website.');
 ---
 <a class="wa-float" href={whatsappLink(greeting)} target="_blank" rel="noopener" data-track="whatsapp-float" aria-label={`${t(ui.whatsapp, lang)} ${site.whatsappDisplay}`}>
   <Icon name="whatsapp" size={26} />

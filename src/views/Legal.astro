@@ -2,36 +2,25 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
-import { t, type Lang } from '../lib/i18n';
+import { t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
-const title = fa ? 'اطلاعیه‌های حقوقی' : 'Legal Notices';
+const tr = makeTr(lang);
+const title = tr('اطلاعیه‌های حقوقی', 'Legal Notices');
 ---
 <Base lang={lang} title={title}>
-  <PageHero lang={lang} eyebrow={fa ? 'حقوقی' : 'Legal'} title={title} crumbs={[{ label: title }]} />
+  <PageHero lang={lang} eyebrow={tr('حقوقی', 'Legal')} title={title} crumbs={[{ label: title }]} />
   <section class="section section--white">
     <div class="container">
       <div class="prose">
-        {fa ? (
-          <>
-            <h2>صاحب وب‌سایت</h2>
-            <p>این وب‌سایت متعلق به {t(site.advisorName, lang)} است. راه ارتباطی: واتس‌اپ <span dir="ltr">{site.whatsappDisplay}</span>.</p>
-            <h2>محتوای اطلاعاتی</h2>
-            <p>مطالب تحلیلی این وب‌سایت برای آگاهی عمومی نوشته شده‌اند. برای بررسی وضعیت خاص سازمان خود، درخواست مشاوره ثبت کنید.</p>
-            <h2>مالکیت معنوی</h2>
-            <p>کلیه متن‌ها و تصاویر این وب‌سایت متعلق به صاحب وب‌سایت است و استفاده از آنها تنها با ذکر منبع مجاز است.</p>
-          </>
-        ) : (
-          <>
-            <h2>Website owner</h2>
-            <p>This website belongs to {t(site.advisorName, lang)}. Contact: WhatsApp <span class="ltr">{site.whatsappDisplay}</span>.</p>
-            <h2>Information</h2>
-            <p>Insights on this website are written for general information. To discuss your organisation's specific situation, request a consultation.</p>
-            <h2>Intellectual property</h2>
-            <p>All text and images on this website belong to the website owner and may be quoted only with attribution.</p>
-          </>
-        )}
+        <h2>{tr('صاحب وب‌سایت', 'Website owner')}</h2>
+        <p>{tr('این وب‌سایت متعلق به علی‌اکبر مرزبان است.', 'This website belongs to Ali Akbar Marzban.')}</p>
+        <p>{tr('راه ارتباطی: واتس‌اپ', 'Contact: WhatsApp')} <span class="ltr">{site.whatsappDisplay}</span></p>
+        <h2>{tr('محتوای اطلاعاتی', 'Information')}</h2>
+        <p>{tr('مطالب تحلیلی این وب‌سایت برای آگاهی عمومی نوشته شده‌اند. برای بررسی وضعیت خاص سازمان خود، درخواست مشاوره ثبت کنید.', 'Insights on this website are written for general information. To discuss your organisation\'s specific situation, request a consultation.')}</p>
+        <h2>{tr('مالکیت معنوی', 'Intellectual property')}</h2>
+        <p>{tr('کلیه متن‌ها و تصاویر این وب‌سایت متعلق به صاحب وب‌سایت است و استفاده از آنها تنها با ذکر منبع مجاز است.', 'All text and images on this website belong to the website owner and may be quoted only with attribution.')}</p>
       </div>
     </div>
   </section>

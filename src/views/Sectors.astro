@@ -6,25 +6,26 @@ import CtaBand from '../components/CtaBand.astro';
 import { sectors } from '../data/sectors';
 import { getService } from '../data/services';
 import { ui } from '../data/site';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
-const title = fa ? 'مشتریان و بخش‌ها' : 'Clients & Sectors';
+const tr = makeTr(lang);
+const title = tr('مشتریان و بخش‌ها', 'Clients & Sectors');
 ---
-<Base lang={lang} title={title} description={fa ? 'مسیرهای اختصاصی برای دولت‌ها، سازمان‌های بنادر، مدیران حقوقی، کشتیرانی‌ها و مؤسسات آموزش دریایی.' : 'Dedicated paths for governments, port authorities, legal directors, shipowners and maritime training institutions.'}>
+<Base lang={lang} title={title} description={tr('مسیرهای اختصاصی برای دولت‌ها، سازمان‌های بنادر، مدیران حقوقی، کشتیرانی‌ها و مؤسسات آموزش دریایی.', 'Dedicated paths for governments, port authorities, legal directors, shipowners and maritime training institutions.')}>
   <PageHero
     lang={lang}
     eyebrow={title}
-    title={fa ? 'مسیر شما، متناسب با نقش سازمانی‌تان' : 'Your path, designed around your role'}
-    lead={fa ? 'از بخش یا نقش خود آغاز کنید و مستقیم به خدمت مرتبط با مسئله‌تان برسید.' : 'Start from your sector or role and go straight to the practice that matches your challenge.'}
+    title={tr('مسیر شما، متناسب با نقش سازمانی‌تان', 'Your path, designed around your role')}
+    lead={tr('از بخش یا نقش خود آغاز کنید و مستقیم به خدمت مرتبط با مسئله‌تان برسید.', 'Start from your sector or role and go straight to the practice that matches your challenge.')}
     crumbs={[{ label: title }]}
   />
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'مسیرهای پیشنهادی' : 'Recommended journeys'}</p>
-        <h2>{fa ? 'نقش خود را انتخاب کنید' : 'Choose your role'}</h2>
+        <p class="eyebrow">{tr('مسیرهای پیشنهادی', 'Recommended journeys')}</p>
+        <h2>{tr('نقش خود را انتخاب کنید', 'Choose your role')}</h2>
       </div>
       <JourneySelector lang={lang} id="sector-journeys" />
     </div>
@@ -32,8 +33,8 @@ const title = fa ? 'مشتریان و بخش‌ها' : 'Clients & Sectors';
   <section class="section section--white">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'بخش‌ها' : 'Sectors'}</p>
-        <h2>{fa ? 'با چه سازمان‌هایی کار می‌کنیم' : 'Organisations we work with'}</h2>
+        <p class="eyebrow">{tr('بخش‌ها', 'Sectors')}</p>
+        <h2>{tr('با چه سازمان‌هایی کار می‌کنیم', 'Organisations we work with')}</h2>
       </div>
       <div class="grid grid--3">
         {sectors.map((sec) => (
@@ -51,7 +52,7 @@ const title = fa ? 'مشتریان و بخش‌ها' : 'Clients & Sectors';
       </div>
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'سازمان شما در این فهرست نیست؟' : "Don't see your organisation here?"} text={fa ? 'مسئله خود را شرح دهید؛ مشخص می‌کنیم آیا و چگونه می‌توانیم کمک کنیم.' : 'Describe your challenge and we will tell you whether and how we can help.'} cta={t(ui.requestConsultation, lang)} track="sectors-final" />
+  <CtaBand lang={lang} title={tr('سازمان شما در این فهرست نیست؟', "Don't see your organisation here?")} text={tr('مسئله خود را شرح دهید؛ مشخص می‌کنیم آیا و چگونه می‌توانیم کمک کنیم.', 'Describe your challenge and we will tell you whether and how we can help.')} cta={t(ui.requestConsultation, lang)} track="sectors-final" />
 </Base>
 <style>
   .sector-links { list-style: none; margin: 1rem 0 0; padding: 1rem 0 0; border-block-start: 1px solid var(--line); display: grid; gap: 0.4rem; font-size: 0.93rem; }

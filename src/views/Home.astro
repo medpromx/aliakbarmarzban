@@ -11,12 +11,13 @@ import { services } from '../data/services';
 import { methodology, differentiators } from '../data/common';
 import { highlights, stats } from '../data/profile';
 import { getInsights } from '../lib/insights';
-import { href, num, t, type Lang } from '../lib/i18n';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
 import { organizationLd, personLd } from '../lib/schema';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
+const tr = makeTr(lang);
 const insights = getInsights(lang).slice(0, 3);
 
 const challenges = [
@@ -34,25 +35,25 @@ const challenges = [
     <SeaLines />
     <div class="container hero__inner">
       <div class="hero__copy">
-        <p class="eyebrow">{fa ? 'مشاوره دریایی' : 'Maritime Advisory'}</p>
+        <p class="eyebrow">{tr('مشاوره دریایی', 'Maritime Advisory')}</p>
         <h1>
-          {fa ? <>هدایت در مسیر مقررات دریایی.<br /> ارتقای حکمرانی.</> : <>Navigating Maritime Regulation.<br /> Advancing Governance.</>}
+          {tr('هدایت در مسیر مقررات دریایی.', 'Navigating Maritime Regulation.')}<br /> {tr('ارتقای حکمرانی.', 'Advancing Governance.')}
         </h1>
         <p class="lead">
-          {fa
-            ? 'مشاوره برای سازمان‌های دریایی، سازمان‌های بنادر و مدیران صنعت؛ با سی سال تجربه در بنادر و دریانوردی و هشت سال نمایندگی ایران در IMO، از تعهدات بین‌المللی تا تصمیم‌های اجرایی.'
-            : 'Advice for maritime administrations, port authorities and industry leaders, from thirty years in ports and maritime affairs and eight years representing Iran at the IMO: from international obligations to decisions that work.'}
+          {tr(
+            'مشاوره برای سازمان‌های دریایی، سازمان‌های بنادر و مدیران صنعت؛ با سی سال تجربه در بنادر و دریانوردی و هشت سال نمایندگی ایران در IMO، از تعهدات بین‌المللی تا تصمیم‌های اجرایی.',
+            'Advice for maritime administrations, port authorities and industry leaders, from thirty years in ports and maritime affairs and eight years representing Iran at the IMO: from international obligations to decisions that work.')}
         </p>
         <div class="btn-row">
           <a class="btn btn--primary" href={href(lang, '/consultation/')} data-track="hero-primary">{t(ui.primaryCta, lang)} <Icon name="arrow" size={18} /></a>
           <a class="btn btn--ghost" href={href(lang, '/services/')} data-track="hero-secondary">{t(ui.secondaryCta, lang)}</a>
         </div>
       </div>
-      <aside class="hero__panel" aria-label={fa ? 'مشاور' : 'The advisor'}>
+      <aside class="hero__panel" aria-label={tr('مشاور', 'The advisor')}>
         <img class="hero__photo" src={site.portrait} alt={t(site.advisorName, lang)} width="640" height="800" loading="eager" fetchpriority="high" />
         <div>
           <p class="hero__name">{t(site.advisorName, lang)}</p>
-          <p class="hero__role">{fa ? 'معاون پیشین امور دریایی سازمان بنادر و دریانوردی؛ نماینده دائم پیشین ایران در IMO' : 'Former Deputy for Maritime Affairs, Ports and Maritime Organization; former Permanent Representative of Iran to the IMO'}</p>
+          <p class="hero__role">{tr('معاون پیشین امور دریایی سازمان بنادر و دریانوردی؛ نماینده دائم پیشین ایران در IMO', 'Former Deputy for Maritime Affairs, Ports and Maritime Organization; former Permanent Representative of Iran to the IMO')}</p>
           <p class="hero__pillars">{t(site.pillars, lang)}</p>
         </div>
       </aside>
@@ -63,8 +64,8 @@ const challenges = [
   <section class="section section--white" aria-labelledby="challenges-h">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'چالش‌هایی که به آنها می‌پردازیم' : 'Challenges we address'}</p>
-        <h2 id="challenges-h">{fa ? 'با چه چالش دریایی‌ای روبه‌رو هستید؟' : 'What maritime challenge are you facing?'}</h2>
+        <p class="eyebrow">{tr('چالش‌هایی که به آنها می‌پردازیم', 'Challenges we address')}</p>
+        <h2 id="challenges-h">{tr('با چه چالش دریایی‌ای روبه‌رو هستید؟', 'What maritime challenge are you facing?')}</h2>
       </div>
       <ul class="challenges">
         {challenges.map((c) => (
@@ -85,14 +86,14 @@ const challenges = [
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{t(ui.services, lang)}</p>
-        <h2 id="services-h">{fa ? 'شش حوزه اصلی مشاوره' : 'Six core advisory practices'}</h2>
-        <p class="lead">{fa ? 'هر خدمت با مسئله مشخص، خروجی قابل تحویل و مسیر روشن آغاز همکاری تعریف شده است.' : 'Each practice is defined by a clear problem, concrete deliverables and an explicit way to begin.'}</p>
+        <h2 id="services-h">{tr('شش حوزه اصلی مشاوره', 'Six core advisory practices')}</h2>
+        <p class="lead">{tr('هر خدمت با مسئله مشخص، خروجی قابل تحویل و مسیر روشن آغاز همکاری تعریف شده است.', 'Each practice is defined by a clear problem, concrete deliverables and an explicit way to begin.')}</p>
       </div>
       <div class="grid grid--3">
         {services.map((s, i) => <ServiceCard lang={lang} service={s} index={i} />)}
       </div>
       <p class="specialist-link">
-        {fa ? 'سرمایه‌گذاری و PPP بندری، کربن‌زدایی، دیجیتالی‌سازی و مشاوره مستقل اختلافات: ' : 'Port investment & PPP, decarbonisation, digitalisation and independent dispute advisory:'}{' '}
+        {tr('سرمایه‌گذاری و PPP بندری، کربن‌زدایی، دیجیتالی‌سازی و مشاوره مستقل اختلافات: ', 'Port investment & PPP, decarbonisation, digitalisation and independent dispute advisory:')}{' '}
         <a href={href(lang, '/specialist-advisory/')}>{t(ui.specialist, lang)}</a>
       </p>
     </div>
@@ -102,11 +103,11 @@ const challenges = [
   <section class="section section--white" aria-labelledby="who-h">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'با چه کسانی کار می‌کنیم' : 'Who we work with'}</p>
-        <h2 id="who-h">{fa ? 'مسیری متناسب با نقش سازمانی شما' : 'A path designed around your role'}</h2>
+        <p class="eyebrow">{tr('با چه کسانی کار می‌کنیم', 'Who we work with')}</p>
+        <h2 id="who-h">{tr('مسیری متناسب با نقش سازمانی شما', 'A path designed around your role')}</h2>
       </div>
       <JourneySelector lang={lang} id="home-journeys" />
-      <p class="more-link"><a href={href(lang, '/sectors/')}>{fa ? 'همه مشتریان و بخش‌ها' : 'All clients & sectors'}</a></p>
+      <p class="more-link"><a href={href(lang, '/sectors/')}>{tr('همه مشتریان و بخش‌ها', 'All clients & sectors')}</a></p>
     </div>
   </section>
 
@@ -117,13 +118,13 @@ const challenges = [
         <img src={site.photo} alt={t(site.advisorName, lang)} width="950" height="634" loading="lazy" />
       </figure>
       <div>
-        <p class="eyebrow">{fa ? 'چرا علی‌اکبر مرزبان' : 'Why Ali Akbar Marzban'}</p>
-        <h2 id="why-h">{fa ? 'تجربه از درون. نتیجه در عمل.' : 'Experience from the inside. Results in practice.'}</h2>
-        <p>{fa ? 'او مقررات دریایی را هم از پشت میز مذاکره در لندن دیده و هم از درون سازمانی که باید آنها را اجرا کند. همین تجربه دوگانه، توصیه‌ها را عملی می‌کند.' : 'He has seen maritime rules from the negotiating table in London and from inside the organisation that has to apply them. That double view is what makes the advice practical.'}</p>
+        <p class="eyebrow">{tr('چرا علی‌اکبر مرزبان', 'Why Ali Akbar Marzban')}</p>
+        <h2 id="why-h">{tr('تجربه از درون. نتیجه در عمل.', 'Experience from the inside. Results in practice.')}</h2>
+        <p>{tr('او مقررات دریایی را هم از پشت میز مذاکره در لندن دیده و هم از درون سازمانی که باید آنها را اجرا کند. همین تجربه دوگانه، توصیه‌ها را عملی می‌کند.', 'He has seen maritime rules from the negotiating table in London and from inside the organisation that has to apply them. That double view is what makes the advice practical.')}</p>
         <ul class="mini-stats">
           {stats.map((st) => <li><strong>{t(st.value, lang)}</strong><span>{t(st.label, lang)}</span></li>)}
         </ul>
-        <a class="btn btn--outline" href={href(lang, '/experience/')}>{fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & credentials'}</a>
+        <a class="btn btn--outline" href={href(lang, '/experience/')}>{tr('سوابق و اعتبارنامه‌ها', 'Experience & credentials')}</a>
       </div>
     </div>
     <div class="container">
@@ -143,8 +144,8 @@ const challenges = [
   <section class="section section--navy method" aria-labelledby="how-h">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'نحوه همکاری' : 'How we work'}</p>
-        <h2 id="how-h">{fa ? 'از شناخت مسئله تا اجرا' : 'From understanding the problem to implementation'}</h2>
+        <p class="eyebrow">{tr('نحوه همکاری', 'How we work')}</p>
+        <h2 id="how-h">{tr('از شناخت مسئله تا اجرا', 'From understanding the problem to implementation')}</h2>
       </div>
       <ol class="steps" role="list">
         {methodology.map((m, i) => (
@@ -162,8 +163,8 @@ const challenges = [
   <section class="section section--white" aria-labelledby="exp-h">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'تجربیات منتخب' : 'Selected experience'}</p>
-        <h2 id="exp-h">{fa ? 'سه دهه، سه نقطه عطف' : 'Three decades, three milestones'}</h2>
+        <p class="eyebrow">{tr('تجربیات منتخب', 'Selected experience')}</p>
+        <h2 id="exp-h">{tr('سه دهه، سه نقطه عطف', 'Three decades, three milestones')}</h2>
       </div>
       <div class="grid grid--3">
         {highlights.map((h) => (
@@ -185,7 +186,7 @@ const challenges = [
       <div class="section-head section-head--row">
         <div>
           <p class="eyebrow">{t(ui.insights, lang)}</p>
-          <h2 id="insights-h">{fa ? 'آخرین تحلیل‌های مقرراتی' : 'Latest regulatory insights'}</h2>
+          <h2 id="insights-h">{tr('آخرین تحلیل‌های مقرراتی', 'Latest regulatory insights')}</h2>
         </div>
         <a href={href(lang, '/insights/')}>{t(ui.allInsights, lang)}</a>
       </div>
@@ -198,8 +199,8 @@ const challenges = [
   <!-- 9. CTA -->
   <CtaBand
     lang={lang}
-    title={fa ? 'درباره نیازهای مشاوره دریایی خود گفت‌وگو کنید' : 'Discuss your maritime advisory needs'}
-    text={fa ? 'گفت‌وگویی محرمانه درباره چالش‌های سازمان شما.' : "A confidential conversation about your organisation's challenges."}
+    title={tr('درباره نیازهای مشاوره دریایی خود گفت‌وگو کنید', 'Discuss your maritime advisory needs')}
+    text={tr('گفت‌وگویی محرمانه درباره چالش‌های سازمان شما.', "A confidential conversation about your organisation's challenges.")}
     cta={t(ui.requestConsultation, lang)}
     track="home-final"
   />
@@ -213,7 +214,7 @@ const challenges = [
   .hero .lead { margin-block-end: 2rem; }
   .hero__panel { border-inline-start: 1px solid var(--gold); padding-inline-start: 1.6rem; display: grid; gap: 0.9rem; }
   .hero__pillars { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 0; }
-  :global(:root[lang='fa']) .hero__pillars { letter-spacing: normal; font-size: 0.95rem; }
+  :global(:root[dir='rtl']) .hero__pillars, :global(:root[lang='zh']) .hero__pillars { letter-spacing: normal; font-size: 0.95rem; }
   .hero__panel { grid-template-columns: 112px 1fr; align-items: center; gap: 1.2rem; }
   .hero__photo { inline-size: 112px; block-size: 140px; object-fit: cover; border-radius: var(--radius); }
   .hero__name { color: var(--white); font-size: 1.2rem; font-weight: 700; margin: 0 0 0.3rem; }

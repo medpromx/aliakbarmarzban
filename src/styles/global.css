@@ -14,6 +14,7 @@
 
   --font-en: 'Manrope Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-fa: 'Vazirmatn Variable', 'Vazirmatn', Tahoma, sans-serif;
+  --font-zh: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', sans-serif;
 
   --radius: 4px;
   --container: 1180px;
@@ -41,7 +42,7 @@ body {
   background: var(--off-white);
   text-rendering: optimizeLegibility;
 }
-:root[lang='fa'] body {
+:root[dir='rtl'] body {
   font-family: var(--font-fa);
   line-height: 1.9;
   letter-spacing: normal;
@@ -56,7 +57,9 @@ h1, h2, h3, h4 {
   font-weight: 700;
   letter-spacing: -0.015em;
 }
-:root[lang='fa'] :is(h1, h2, h3, h4) { letter-spacing: normal; line-height: 1.5; }
+:root[dir='rtl'] :is(h1, h2, h3, h4) { letter-spacing: normal; line-height: 1.5; }
+:root[lang='zh'] body { font-family: var(--font-en), var(--font-zh); line-height: 1.8; }
+:root[lang='zh'] :is(h1, h2, h3, h4) { letter-spacing: normal; line-height: 1.4; }
 h1 { font-size: clamp(2.1rem, 4.6vw, 3.6rem); }
 h2 { font-size: clamp(1.6rem, 3vw, 2.35rem); }
 h3 { font-size: 1.2rem; }
@@ -89,7 +92,7 @@ a:hover { color: var(--navy); }
   color: var(--teal);
   margin-block-end: 1rem;
 }
-:root[lang='fa'] .eyebrow { letter-spacing: normal; font-size: 0.9rem; }
+:root:is([dir='rtl'], [lang='zh']) .eyebrow { letter-spacing: normal; font-size: 0.9rem; }
 .eyebrow::before { content: ''; inline-size: 28px; block-size: 1px; background: var(--gold); }
 .section--navy .eyebrow, .hero .eyebrow, .page-hero .eyebrow { color: var(--gold); }
 
@@ -180,7 +183,7 @@ a:hover { color: var(--navy); }
   text-transform: uppercase;
   color: var(--gold-dark);
 }
-:root[lang='fa'] .tag { letter-spacing: normal; font-size: 0.85rem; }
+:root:is([dir='rtl'], [lang='zh']) .tag { letter-spacing: normal; font-size: 0.85rem; }
 
 /* Lists */
 .check-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.85rem; }
@@ -252,7 +255,7 @@ a:hover { color: var(--navy); }
   padding-block: clamp(56px, 8vw, 104px) clamp(48px, 7vw, 88px);
 }
 .page-hero h1 { color: var(--white); max-width: 22ch; }
-:root[lang='fa'] .page-hero h1 { max-width: 26ch; }
+:root:is([dir='rtl'], [lang='zh']) .page-hero h1 { max-width: 26ch; }
 .page-hero .lead { color: #c9d5df; }
 .page-hero > .container { position: relative; z-index: 1; }
 

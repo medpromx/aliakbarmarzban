@@ -1,5 +1,5 @@
 import { site } from '../data/site';
-import { href, t, type Lang } from './i18n';
+import { href, t, type Lang, makeTr } from './i18n';
 
 // Structured data built from the advisor's CV.
 export function personLd(lang: Lang) {
@@ -10,7 +10,7 @@ export function personLd(lang: Lang) {
     name: t(site.advisorName, lang),
     url: new URL(href(lang, '/about/'), site.url).href,
     image: new URL(site.portrait, site.url).href,
-    jobTitle: lang === 'fa' ? 'مشاور امور دریایی و بندری' : 'Maritime and port affairs advisor',
+    jobTitle: makeTr(lang)('مشاور امور دریایی و بندری', 'Maritime and port affairs advisor'),
     description: t(site.title, lang),
     alumniOf: [
       { '@type': 'CollegeOrUniversity', name: 'World Maritime University' },
@@ -35,7 +35,7 @@ export function organizationLd(lang: Lang) {
     description: t(site.description, lang),
     founder: { '@id': `${site.url}/#advisor` },
     areaServed: 'Worldwide',
-    knowsLanguage: ['en', 'fa'],
+    knowsLanguage: ['en', 'fa', 'ar', 'es', 'fr', 'de', 'zh'],
   };
 }
 

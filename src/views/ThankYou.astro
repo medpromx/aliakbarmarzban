@@ -3,30 +3,31 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { services } from '../data/services';
-import { href, type Lang } from '../lib/i18n';
+import { href, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
+const tr = makeTr(lang);
 ---
-<Base lang={lang} title={fa ? 'درخواست شما دریافت شد' : 'Request received'} noindex>
+<Base lang={lang} title={tr('درخواست شما دریافت شد', 'Request received')} noindex>
   <PageHero
     lang={lang}
-    eyebrow={fa ? 'تأیید دریافت' : 'Confirmation'}
-    title={fa ? 'از درخواست شما سپاسگزاریم' : 'Thank you — your request has been received'}
-    lead={fa ? 'درخواست شما محرمانه می‌ماند.' : 'Your request stays confidential.'}
+    eyebrow={tr('تأیید دریافت', 'Confirmation')}
+    title={tr('از درخواست شما سپاسگزاریم', 'Thank you — your request has been received')}
+    lead={tr('درخواست شما محرمانه می‌ماند.', 'Your request stays confidential.')}
   />
   <section class="section section--white">
     <div class="container thanks">
-      <p class="note wa-note">{fa ? 'پیام شما در واتس‌اپ باز شد. اگر هنوز ارسال نکرده‌اید، در واتس‌اپ دکمه ارسال را بزنید.' : 'Your message has opened in WhatsApp. If you have not sent it yet, press send in WhatsApp.'}</p>
-      <h2>{fa ? 'مراحل بعدی' : 'What happens next'}</h2>
+      <p class="note wa-note">{tr('پیام شما در واتس‌اپ باز شد. اگر هنوز ارسال نکرده‌اید، در واتس‌اپ دکمه ارسال را بزنید.', 'Your message has opened in WhatsApp. If you have not sent it yet, press send in WhatsApp.')}</p>
+      <h2>{tr('مراحل بعدی', 'What happens next')}</h2>
       <ol class="steps-v">
-        <li><strong>{fa ? 'بررسی اولیه' : 'Initial review'}</strong> — {fa ? 'درخواست شما معمولاً ظرف دو روز کاری بررسی می‌شود.' : 'Your request is usually reviewed within two working days.'}</li>
-        <li><strong>{fa ? 'پاسخ و هماهنگی' : 'Reply and scheduling'}</strong> — {fa ? 'علی‌اکبر مرزبان در واتس‌اپ پاسخ می‌دهد و زمانی برای گفت‌وگوی اولیه هماهنگ می‌شود.' : 'Ali Akbar Marzban replies on WhatsApp to arrange a short first conversation.'}</li>
-        <li><strong>{fa ? 'تعیین دامنه همکاری' : 'Scoping'}</strong> — {fa ? 'در صورت تناسب، پیشنهاد دامنه کار و شیوه همکاری ارائه می‌شود.' : 'If there is a fit, a proposed scope and engagement approach will follow.'}</li>
+        <li><strong>{tr('بررسی اولیه', 'Initial review')}</strong> — {tr('درخواست شما معمولاً ظرف دو روز کاری بررسی می‌شود.', 'Your request is usually reviewed within two working days.')}</li>
+        <li><strong>{tr('پاسخ و هماهنگی', 'Reply and scheduling')}</strong> — {tr('علی‌اکبر مرزبان در واتس‌اپ پاسخ می‌دهد و زمانی برای گفت‌وگوی اولیه هماهنگ می‌شود.', 'Ali Akbar Marzban replies on WhatsApp to arrange a short first conversation.')}</li>
+        <li><strong>{tr('تعیین دامنه همکاری', 'Scoping')}</strong> — {tr('در صورت تناسب، پیشنهاد دامنه کار و شیوه همکاری ارائه می‌شود.', 'If there is a fit, a proposed scope and engagement approach will follow.')}</li>
       </ol>
       <div class="btn-row">
-        <a class="btn btn--outline service-link" href={href(lang, '/services/')} data-core={services.map((x) => x.slug).join(',')}>{fa ? 'بازگشت به خدمات' : 'Back to advisory services'}</a>
-        <a class="btn btn--teal" href={href(lang, '/insights/')}>{fa ? 'مطالعه تحلیل‌ها' : 'Read our insights'} <Icon name="arrow" size={18} /></a>
+        <a class="btn btn--outline service-link" href={href(lang, '/services/')} data-core={services.map((x) => x.slug).join(',')}>{tr('بازگشت به خدمات', 'Back to advisory services')}</a>
+        <a class="btn btn--teal" href={href(lang, '/insights/')}>{tr('مطالعه تحلیل‌ها', 'Read our insights')} <Icon name="arrow" size={18} /></a>
       </div>
     </div>
   </section>

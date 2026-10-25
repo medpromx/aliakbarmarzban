@@ -8,21 +8,22 @@ import ServiceCard from '../components/ServiceCard.astro';
 import { services, type Service } from '../data/services';
 import { ui } from '../data/site';
 import { getInsights } from '../lib/insights';
-import { href, num, t, type Lang } from '../lib/i18n';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
 import { serviceLd } from '../lib/schema';
 interface Props { lang: Lang; service: Service }
 const { lang, service: s } = Astro.props;
 const fa = lang === 'fa';
+const tr = makeTr(lang);
 const title = t(s.title, lang);
 const related = getInsights(lang).filter((i) => i.service && s.insightTags.includes(i.service));
 const others = services.filter((o) => o.slug !== s.slug).slice(0, 3);
 const consult = `${href(lang, '/consultation/')}?service=${s.slug}`;
 const toc = [
-  { id: 'challenges', label: fa ? 'چالش‌ها' : 'Challenges' },
-  { id: 'approach', label: fa ? 'رویکرد' : 'How we help' },
-  { id: 'deliverables', label: fa ? 'خروجی‌ها' : 'Deliverables' },
-  { id: 'engagement', label: fa ? 'شیوه همکاری' : 'Engagement' },
-  { id: 'experience', label: fa ? 'سوابق' : 'Experience' },
+  { id: 'challenges', label: tr('چالش‌ها', 'Challenges') },
+  { id: 'approach', label: tr('رویکرد', 'How we help') },
+  { id: 'deliverables', label: tr('خروجی‌ها', 'Deliverables') },
+  { id: 'engagement', label: tr('شیوه همکاری', 'Engagement') },
+  { id: 'experience', label: tr('سوابق', 'Experience') },
 ];
 ---
 <Base lang={lang} title={title} description={t(s.short, lang)} jsonLd={serviceLd(lang, { slug: s.slug, title, description: t(s.short, lang) })}>
@@ -35,19 +36,19 @@ const toc = [
   >
     <div class="btn-row hero-ctas">
       <a class="btn btn--primary" href={consult} data-track={`service-hero-${s.slug}`}>{t(s.cta, lang)} <Icon name="arrow" size={18} /></a>
-      <a class="btn btn--ghost" href="#deliverables">{fa ? 'خروجی‌های مورد انتظار' : 'Expected deliverables'}</a>
+      <a class="btn btn--ghost" href="#deliverables">{tr('خروجی‌های مورد انتظار', 'Expected deliverables')}</a>
     </div>
   </PageHero>
 
-  <nav class="toc" aria-label={fa ? 'بخش‌های این صفحه' : 'On this page'}>
+  <nav class="toc" aria-label={tr('بخش‌های این صفحه', 'On this page')}>
     <div class="container"><ul>{toc.map((x) => <li><a href={`#${x.id}`}>{x.label}</a></li>)}</ul></div>
   </nav>
 
   <section class="section section--white" id="challenges" aria-labelledby="challenges-h">
     <div class="container split">
       <div>
-        <p class="eyebrow">{fa ? 'چالش‌هایی که به آنها می‌پردازیم' : 'Challenges we address'}</p>
-        <h2 id="challenges-h">{fa ? 'چه مشکلی را حل می‌کنیم؟' : 'What problem does this solve?'}</h2>
+        <p class="eyebrow">{tr('چالش‌هایی که به آنها می‌پردازیم', 'Challenges we address')}</p>
+        <h2 id="challenges-h">{tr('چه مشکلی را حل می‌کنیم؟', 'What problem does this solve?')}</h2>
       </div>
       <ul class="dash-list challenges-list">{t(s.challenges, lang).map((c) => <li>{c}</li>)}</ul>
     </div>
@@ -56,8 +57,8 @@ const toc = [
   <section class="section" id="approach" aria-labelledby="approach-h">
     <div class="container split">
       <div>
-        <p class="eyebrow">{fa ? 'چگونه کمک می‌کنیم' : 'How we help'}</p>
-        <h2 id="approach-h">{fa ? 'رویکرد مشاوره‌ای پیشنهادی' : 'The recommended advisory approach'}</h2>
+        <p class="eyebrow">{tr('چگونه کمک می‌کنیم', 'How we help')}</p>
+        <h2 id="approach-h">{tr('رویکرد مشاوره‌ای پیشنهادی', 'The recommended advisory approach')}</h2>
       </div>
       <ul class="check-list">{t(s.howWeHelp, lang).map((c) => <li>{c}</li>)}</ul>
     </div>
@@ -66,8 +67,8 @@ const toc = [
   <section class="section section--white" id="deliverables" aria-labelledby="deliv-h">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'خروجی‌های مورد انتظار' : 'Expected deliverables'}</p>
-        <h2 id="deliv-h">{fa ? 'چه چیزی دریافت می‌کنید؟' : 'What you receive'}</h2>
+        <p class="eyebrow">{tr('خروجی‌های مورد انتظار', 'Expected deliverables')}</p>
+        <h2 id="deliv-h">{tr('چه چیزی دریافت می‌کنید؟', 'What you receive')}</h2>
       </div>
       <div class="grid grid--4">
         {t(s.deliverables, lang).map((d) => (
@@ -75,7 +76,7 @@ const toc = [
         ))}
       </div>
       <div class="who">
-        <h3>{fa ? 'با چه کسانی کار می‌کنیم' : 'Who we work with'}</h3>
+        <h3>{tr('با چه کسانی کار می‌کنیم', 'Who we work with')}</h3>
         <ul>{t(s.whoWeWorkWith, lang).map((w) => <li>{w}</li>)}</ul>
       </div>
     </div>
@@ -84,8 +85,8 @@ const toc = [
   <section class="section section--navy" id="engagement" aria-labelledby="eng-h">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">{fa ? 'شیوه همکاری' : 'Engagement approach'}</p>
-        <h2 id="eng-h">{fa ? 'مراحل معمول همکاری' : 'Typical engagement stages'}</h2>
+        <p class="eyebrow">{tr('شیوه همکاری', 'Engagement approach')}</p>
+        <h2 id="eng-h">{tr('مراحل معمول همکاری', 'Typical engagement stages')}</h2>
       </div>
       <ol class="steps" role="list" style="list-style:none;padding:0;margin:0">
         {t(s.engagement, lang).map((e, i) => (
@@ -98,9 +99,9 @@ const toc = [
   <section class="section section--white" id="experience" aria-labelledby="exp-h">
     <div class="container split">
       <div>
-        <p class="eyebrow">{fa ? 'سوابق و اعتبار' : 'Experience & credentials'}</p>
-        <h2 id="exp-h">{fa ? 'تجربه مرتبط' : 'Relevant experience'}</h2>
-        <p><a href={href(lang, '/experience/')}>{fa ? 'مشاهده همه سوابق' : 'View full experience & credentials'}</a></p>
+        <p class="eyebrow">{tr('سوابق و اعتبار', 'Experience & credentials')}</p>
+        <h2 id="exp-h">{tr('تجربه مرتبط', 'Relevant experience')}</h2>
+        <p><a href={href(lang, '/experience/')}>{tr('مشاهده همه سوابق', 'View full experience & credentials')}</a></p>
       </div>
       <ul class="check-list">{t(s.experience, lang).map((e) => <li>{e}</li>)}</ul>
     </div>
@@ -109,7 +110,7 @@ const toc = [
   {related.length > 0 && (
     <section class="section" aria-labelledby="rel-h">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">{t(ui.insights, lang)}</p><h2 id="rel-h">{fa ? 'تحلیل‌های مرتبط' : 'Related insights'}</h2></div>
+        <div class="section-head"><p class="eyebrow">{t(ui.insights, lang)}</p><h2 id="rel-h">{tr('تحلیل‌های مرتبط', 'Related insights')}</h2></div>
         <div class="grid grid--3">{related.map((i) => <InsightCard lang={lang} insight={i} />)}</div>
       </div>
     </section>
@@ -118,7 +119,7 @@ const toc = [
   <CtaBand
     lang={lang}
     title={t(s.cta, lang)}
-    text={fa ? 'گام نخست، گفت‌وگویی محرمانه و بدون تعهد درباره وضعیت سازمان شماست.' : 'The first step is a confidential, no-obligation conversation about your situation.'}
+    text={tr('گام نخست، گفت‌وگویی محرمانه و بدون تعهد درباره وضعیت سازمان شماست.', 'The first step is a confidential, no-obligation conversation about your situation.')}
     cta={t(s.cta, lang)}
     service={s.slug}
     track={`service-final-${s.slug}`}
@@ -126,7 +127,7 @@ const toc = [
 
   <section class="section section--white" aria-labelledby="other-h">
     <div class="container">
-      <div class="section-head"><h2 id="other-h">{fa ? 'سایر خدمات' : 'Other advisory practices'}</h2></div>
+      <div class="section-head"><h2 id="other-h">{tr('سایر خدمات', 'Other advisory practices')}</h2></div>
       <div class="grid grid--3">{others.map((o) => <ServiceCard lang={lang} service={o} />)}</div>
     </div>
   </section>

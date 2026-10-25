@@ -1,9 +1,0 @@
----
-import View from '../../../views/InsightDetail.astro';
-import { getInsights } from '../../../lib/insights';
-export function getStaticPaths() {
-  return getInsights('fa').map((insight) => ({ params: { slug: insight.slug }, props: { insight } }));
-}
-const { insight } = Astro.props;
----
-<View lang="fa" insight={insight} />

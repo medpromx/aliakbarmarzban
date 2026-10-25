@@ -4,11 +4,12 @@ import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { advisoryAreas } from '../data/services';
 import { site, ui, whatsappLink } from '../data/site';
-import { href, t, type Lang } from '../lib/i18n';
+import { href, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
-const title = fa ? 'درخواست گفت‌وگوی محرمانه مشاوره‌ای' : 'Request a Confidential Advisory Discussion';
+const tr = makeTr(lang);
+const title = tr('درخواست گفت‌وگوی محرمانه مشاوره‌ای', 'Request a Confidential Advisory Discussion');
 
 
 const sectorsOpts = [
@@ -46,19 +47,19 @@ const L = {
   preselected: { en: 'Selected from the page you were viewing:', fa: 'بر اساس صفحه‌ای که مشاهده می‌کردید انتخاب شد:' },
 };
 const msgs = {
-  valueMissing: fa ? 'این فیلد الزامی است.' : 'This field is required.',
-  typeMismatch: fa ? 'لطفاً یک نشانی ایمیل معتبر وارد کنید.' : 'Please enter a valid email address.',
-  tooShort: fa ? 'لطفاً کمی بیشتر توضیح دهید.' : 'Please add a little more detail.',
-  consent: fa ? 'برای ارسال، موافقت با پردازش اطلاعات لازم است.' : 'Consent is required to send the request.',
+  valueMissing: tr('این فیلد الزامی است.', 'This field is required.'),
+  typeMismatch: tr('لطفاً یک نشانی ایمیل معتبر وارد کنید.', 'Please enter a valid email address.'),
+  tooShort: tr('لطفاً کمی بیشتر توضیح دهید.', 'Please add a little more detail.'),
+  consent: tr('برای ارسال، موافقت با پردازش اطلاعات لازم است.', 'Consent is required to send the request.'),
 };
 ---
-<Base lang={lang} title={title} description={fa ? 'درخواست جلسه مشاوره محرمانه درباره مقررات دریایی، حکمرانی بندری، قراردادها، STCW یا مذاکرات بین‌المللی.' : 'Request a confidential advisory discussion on maritime regulation, port governance, contracts, STCW or international negotiation.'}>
+<Base lang={lang} title={title} description={tr('درخواست جلسه مشاوره محرمانه درباره مقررات دریایی، حکمرانی بندری، قراردادها، STCW یا مذاکرات بین‌المللی.', 'Request a confidential advisory discussion on maritime regulation, port governance, contracts, STCW or international negotiation.')}>
   <PageHero
     lang={lang}
-    eyebrow={fa ? 'تماس و درخواست مشاوره' : 'Contact & consultation'}
+    eyebrow={tr('تماس و درخواست مشاوره', 'Contact & consultation')}
     title={title}
-    lead={fa ? 'فرمی کوتاه برای شناخت نیاز شما. هر درخواست به‌صورت محرمانه بررسی می‌شود.' : 'A short form to understand your needs. Every request is reviewed confidentially.'}
-    crumbs={[{ label: fa ? 'درخواست مشاوره' : 'Consultation' }]}
+    lead={tr('فرمی کوتاه برای شناخت نیاز شما. هر درخواست به‌صورت محرمانه بررسی می‌شود.', 'A short form to understand your needs. Every request is reviewed confidentially.')}
+    crumbs={[{ label: tr('درخواست مشاوره', 'Consultation') }]}
   />
   <section class="section section--white">
     <div class="container consult">
@@ -67,6 +68,7 @@ const msgs = {
         class="form"
         novalidate
         data-whatsapp={site.whatsapp}
+        data-greeting={tr('سلام آقای مرزبان، درخواست مشاوره از طریق وب‌سایت:', 'Hello Mr Marzban, advisory request via your website:')}
         data-lang={lang}
         data-thanks={href(lang, '/consultation/thank-you/')}
         data-msgs={JSON.stringify(msgs)}
@@ -140,8 +142,8 @@ const msgs = {
 
         <div class="field">
           <label class="checkbox">
-            <input type="checkbox" name="consent" id="f-consent" required data-label={fa ? 'رضایت پردازش اطلاعات' : 'Consent'} />
-            <span>{t(L.consent, lang)} <a href={href(lang, '/privacy/')}>{fa ? 'سیاست حریم خصوصی' : 'Privacy Policy'}</a>{t(L.consentTail, lang)}</span>
+            <input type="checkbox" name="consent" id="f-consent" required data-label={tr('رضایت پردازش اطلاعات', 'Consent')} />
+            <span>{t(L.consent, lang)} <a href={href(lang, '/privacy/')}>{tr('سیاست حریم خصوصی', 'Privacy Policy')}</a>{t(L.consentTail, lang)}</span>
           </label>
         </div>
 
@@ -153,15 +155,15 @@ const msgs = {
       </form>
 
       <aside class="consult__aside">
-        <h2>{fa ? 'پس از ارسال چه اتفاقی می‌افتد؟' : 'What happens next?'}</h2>
+        <h2>{tr('پس از ارسال چه اتفاقی می‌افتد؟', 'What happens next?')}</h2>
         <ol class="next-steps">
-          <li><strong>{fa ? 'ارسال در واتس‌اپ' : 'Send on WhatsApp'}</strong><span>{fa ? 'پیام آماده در واتس‌اپ باز می‌شود؛ آن را ارسال کنید.' : 'Your message opens in WhatsApp, ready to send.'}</span></li>
-          <li><strong>{fa ? 'پاسخ شخصی' : 'A personal reply'}</strong><span>{fa ? 'علی‌اکبر مرزبان پیام شما را می‌خواند و معمولاً ظرف دو روز کاری پاسخ می‌دهد.' : 'Ali Akbar Marzban reads your message and usually replies within two working days.'}</span></li>
-          <li><strong>{fa ? 'گفت‌وگوی اولیه' : 'First conversation'}</strong><span>{fa ? 'زمانی برای یک گفت‌وگوی کوتاه و بدون تعهد هماهنگ می‌شود.' : 'A short, no-obligation call is arranged.'}</span></li>
-          <li><strong>{fa ? 'تعیین دامنه همکاری' : 'Scope'}</strong><span>{fa ? 'اگر همکاری مناسب باشد، دامنه کار و شیوه همکاری پیشنهاد می‌شود.' : 'If it is a good fit, a proposed scope and way of working follow.'}</span></li>
+          <li><strong>{tr('ارسال در واتس‌اپ', 'Send on WhatsApp')}</strong><span>{tr('پیام آماده در واتس‌اپ باز می‌شود؛ آن را ارسال کنید.', 'Your message opens in WhatsApp, ready to send.')}</span></li>
+          <li><strong>{tr('پاسخ شخصی', 'A personal reply')}</strong><span>{tr('علی‌اکبر مرزبان پیام شما را می‌خواند و معمولاً ظرف دو روز کاری پاسخ می‌دهد.', 'Ali Akbar Marzban reads your message and usually replies within two working days.')}</span></li>
+          <li><strong>{tr('گفت‌وگوی اولیه', 'First conversation')}</strong><span>{tr('زمانی برای یک گفت‌وگوی کوتاه و بدون تعهد هماهنگ می‌شود.', 'A short, no-obligation call is arranged.')}</span></li>
+          <li><strong>{tr('تعیین دامنه همکاری', 'Scope')}</strong><span>{tr('اگر همکاری مناسب باشد، دامنه کار و شیوه همکاری پیشنهاد می‌شود.', 'If it is a good fit, a proposed scope and way of working follow.')}</span></li>
         </ol>
         <div class="note">
-          <p><Icon name="whatsapp" size={16} /> <strong>{fa ? 'ترجیح می‌دهید مستقیم پیام دهید؟' : 'Prefer to message directly?'}</strong></p>
+          <p><Icon name="whatsapp" size={16} /> <strong>{tr('ترجیح می‌دهید مستقیم پیام دهید؟', 'Prefer to message directly?')}</strong></p>
           <p><a href={whatsappLink()} target="_blank" rel="noopener" data-track="whatsapp-consult">{t(ui.whatsappShort, lang)} <span class="ltr">{site.whatsappDisplay}</span></a></p>
         </div>
       </aside>
@@ -266,7 +268,7 @@ const msgs = {
         return data[name] || '';
       };
       const lines = [
-        form.dataset.lang === 'fa' ? 'سلام آقای مرزبان، درخواست مشاوره از طریق وب‌سایت:' : 'Hello Mr Marzban, advisory request via your website:',
+        form.dataset.greeting!,
         '',
         ...['name', 'role', 'organisation', 'email', 'sector', 'area', 'timeframe']
           .map((n) => [label(n), n === 'sector' || n === 'timeframe' ? optionText(n) : n === 'area' ? areaLabel : data[n]])
