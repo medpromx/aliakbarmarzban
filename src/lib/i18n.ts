@@ -3,16 +3,18 @@ import ar from '../i18n/ar.json';
 import de from '../i18n/de.json';
 import es from '../i18n/es.json';
 import fr from '../i18n/fr.json';
+import ru from '../i18n/ru.json';
+import tr from '../i18n/tr.json';
 import zh from '../i18n/zh.json';
 
-export type Lang = 'en' | 'fa' | 'ar' | 'es' | 'fr' | 'de' | 'zh';
+export type Lang = 'en' | 'fa' | 'ar' | 'es' | 'fr' | 'de' | 'ru' | 'tr' | 'zh';
 /**
  * Content is authored in English and Persian. The other languages are looked up from
  * src/i18n/<lang>.json, keyed by the English text.
  */
 export type L<T = string> = { en: T; fa: T };
 
-export const langs: Lang[] = ['en', 'fa', 'ar', 'es', 'fr', 'de', 'zh'];
+export const langs: Lang[] = ['en', 'fa', 'ar', 'es', 'fr', 'de', 'ru', 'tr', 'zh'];
 
 export const langMeta: Record<Lang, { name: string; dir: 'ltr' | 'rtl'; locale: string; og: string }> = {
   en: { name: 'English', dir: 'ltr', locale: 'en-GB', og: 'en_GB' },
@@ -21,10 +23,12 @@ export const langMeta: Record<Lang, { name: string; dir: 'ltr' | 'rtl'; locale: 
   es: { name: 'Español', dir: 'ltr', locale: 'es-ES', og: 'es_ES' },
   fr: { name: 'Français', dir: 'ltr', locale: 'fr-FR', og: 'fr_FR' },
   de: { name: 'Deutsch', dir: 'ltr', locale: 'de-DE', og: 'de_DE' },
+  ru: { name: 'Русский', dir: 'ltr', locale: 'ru-RU', og: 'ru_RU' },
+  tr: { name: 'Türkçe', dir: 'ltr', locale: 'tr-TR', og: 'tr_TR' },
   zh: { name: '中文', dir: 'ltr', locale: 'zh-CN', og: 'zh_CN' },
 };
 
-const catalogs: Partial<Record<Lang, Record<string, string>>> = { ar, de, es, fr, zh };
+const catalogs: Partial<Record<Lang, Record<string, string>>> = { ar, de, es, fr, ru, tr, zh };
 
 /** Translate an English string into a catalog language, falling back to English. */
 function lookup(en: string, lang: Lang): string {
@@ -62,7 +66,7 @@ export function href(lang: Lang, path = '/'): string {
 
 /** Strip the language prefix from a pathname so it can be re-localised. */
 export function basePath(pathname: string): string {
-  return pathname.replace(/^\/(fa|ar|es|fr|de|zh)(?=\/|$)/, '') || '/';
+  return pathname.replace(/^\/(fa|ar|es|fr|de|ru|tr|zh)(?=\/|$)/, '') || '/';
 }
 
 export function dir(lang: Lang): 'ltr' | 'rtl' {

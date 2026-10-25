@@ -1,10 +1,10 @@
 # International Maritime Advisory — aliakbarmarzban.ir
 
-Multilingual website (English, Persian, Arabic, Spanish, French, German and Chinese; Persian and Arabic are RTL) for an independent maritime advisory practice, built with [Astro](https://astro.build) as a fast static site and deployed to GitHub Pages.
+Multilingual website (English, Persian, Arabic, Spanish, French, German, Russian, Turkish and Chinese; Persian and Arabic are RTL) for an independent maritime advisory practice, built with [Astro](https://astro.build) as a fast static site and deployed to GitHub Pages.
 
 ## Structure
 
-| Page | English | Other languages (`fa`, `ar`, `es`, `fr`, `de`, `zh`) |
+| Page | English | Other languages (`fa`, `ar`, `es`, `fr`, `de`, `ru`, `tr`, `zh`) |
 |---|---|---|
 | Home | `/` | `/<lang>/` |
 | Advisory Services (6 core pages) | `/services/`, `/services/<slug>/` | `/<lang>/services/...` |
@@ -17,7 +17,7 @@ Multilingual website (English, Persian, Arabic, Spanish, French, German and Chin
 | Request an Advisory Discussion + confirmation | `/consultation/`, `/consultation/thank-you/` | `/<lang>/consultation/...` |
 | Privacy Policy, Legal Notices | `/privacy/`, `/legal/` | `/<lang>/privacy/`, `/<lang>/legal/` |
 
-Every page is rendered once per language from a shared view in `src/views/`. English and Persian text is written side by side in the data files and views; Arabic, Spanish, French, German and Chinese come from `src/i18n/<lang>.json`, keyed by the English text (anything missing falls back to English). Run `I18N_COLLECT=missing.txt npm run build` to list untranslated strings. Text lives in:
+Every page is rendered once per language from a shared view in `src/views/`. English and Persian text is written side by side in the data files and views; Arabic, Spanish, French, German, Russian, Turkish and Chinese come from `src/i18n/<lang>.json`, keyed by the English text (anything missing falls back to English). Run `I18N_COLLECT=missing.txt npm run build` to list untranslated strings. Text lives in:
 
 - `src/data/services.ts` — the six core services and four specialist areas (both languages).
 - `src/data/sectors.ts` — audience journeys and sectors.

@@ -61,6 +61,18 @@ collections:
     create: true
     slug: '{{slug}}'
     fields: *insightFields
+  - name: insights_ru
+    label: Insights (Russian / Русский)
+    folder: src/content/insights/ru
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
+  - name: insights_tr
+    label: Insights (Turkish / Türkçe)
+    folder: src/content/insights/tr
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
   - name: credentials
     label: Experience & Credentials
     files:
