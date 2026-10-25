@@ -35,7 +35,7 @@ export function organizationLd(lang: Lang) {
     description: t(site.description, lang),
     founder: { '@id': `${site.url}/#advisor` },
     areaServed: 'Worldwide',
-    knowsLanguage: ['en', 'fa', 'ar', 'es', 'fr', 'de', 'zh'],
+    knowsLanguage: ['en', 'fa', 'ar', 'es', 'fr', 'de', 'ru', 'tr', 'zh'],
   };
 }
 
