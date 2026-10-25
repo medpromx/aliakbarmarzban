@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = fa ? 'اطلاعیه‌های حقوقی' : 'Legal Notices';
+---
+<Base lang={lang} title={title}>
+  <PageHero lang={lang} eyebrow={fa ? 'حقوقی' : 'Legal'} title={title} crumbs={[{ label: title }]} />
+  <section class="section section--white">
+    <div class="container">
+      <div class="prose">
+        <Placeholder lang={lang} label={fa ? 'پیش‌نویس' : 'Draft'}>
+          {fa ? 'مشخصات حقوقی (نام تجاری ثبت‌شده، نشانی و شماره ثبت در صورت وجود) پس از تأیید درج می‌شود.' : 'Legal details (registered business name, address and registration number where applicable) will be added after confirmation.'}
+        </Placeholder>
+        {fa ? (
+          <>
+            <h2>ماهیت خدمات</h2>
+            <p>خدمات ارائه‌شده مشاوره راهبردی مستقل است و جایگزین وکالت حقوقی، خدمات فنی مهندسی، کارگزاری یا اختیارات رسمی هیچ نهاد دولتی یا بین‌المللی نیست.</p>
+            <h2>عدم وابستگی</h2>
+            <p>هرگونه اشاره به سمت‌های نهادی گذشته با عنوان «سابق» بیان می‌شود. این وب‌سایت هیچ وابستگی فعلی به سازمان بین‌المللی دریانوردی (IMO) یا هر دولت یا سازمان دیگری را القا نمی‌کند و از نشان‌های این نهادها استفاده نمی‌کند.</p>
+            <h2>محتوای اطلاعاتی</h2>
+            <p>مطالب تحلیلی این وب‌سایت جنبه اطلاع‌رسانی عمومی دارد و مشاوره اختصاصی برای وضعیت خاص شما محسوب نمی‌شود.</p>
+            <h2>مالکیت معنوی</h2>
+            <p>کلیه محتوای این وب‌سایت متعلق به صاحب وب‌سایت است، مگر خلاف آن ذکر شده باشد.</p>
+          </>
+        ) : (
+          <>
+            <h2>Nature of services</h2>
+            <p>The services offered are independent strategic advisory. They are not legal representation, technical engineering, brokerage or the official authority of any government or international body.</p>
+            <h2>No affiliation</h2>
+            <p>Any reference to historical institutional appointments is described as "Former". This website does not imply any current affiliation with the International Maritime Organization (IMO) or any government or organisation, and does not use their logos.</p>
+            <h2>Information only</h2>
+            <p>Insights published on this website are for general information and do not constitute advice on your specific situation.</p>
+            <h2>Intellectual property</h2>
+            <p>All content on this website belongs to the website owner unless stated otherwise.</p>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>

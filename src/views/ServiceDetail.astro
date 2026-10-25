@@ -1,0 +1,151 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import Placeholder from '../components/Placeholder.astro';
+import InsightCard from '../components/InsightCard.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { services, type Service } from '../data/services';
+import { ui } from '../data/site';
+import { getInsights } from '../lib/insights';
+import { href, num, t, type Lang } from '../lib/i18n';
+import { serviceLd } from '../lib/schema';
+interface Props { lang: Lang; service: Service }
+const { lang, service: s } = Astro.props;
+const fa = lang === 'fa';
+const title = t(s.title, lang);
+const related = getInsights(lang).filter((i) => i.service && s.insightTags.includes(i.service));
+const others = services.filter((o) => o.slug !== s.slug).slice(0, 3);
+const consult = `${href(lang, '/consultation/')}?service=${s.slug}`;
+const toc = [
+  { id: 'challenges', label: fa ? 'چالش‌ها' : 'Challenges' },
+  { id: 'approach', label: fa ? 'رویکرد' : 'How we help' },
+  { id: 'deliverables', label: fa ? 'خروجی‌ها' : 'Deliverables' },
+  { id: 'engagement', label: fa ? 'شیوه همکاری' : 'Engagement' },
+  { id: 'experience', label: fa ? 'سوابق' : 'Experience' },
+];
+---
+<Base lang={lang} title={title} description={t(s.short, lang)} jsonLd={serviceLd(lang, { slug: s.slug, title, description: t(s.short, lang) })}>
+  <PageHero
+    lang={lang}
+    eyebrow={title}
+    title={t(s.headline, lang)}
+    lead={t(s.value, lang)}
+    crumbs={[{ label: t(ui.services, lang), path: '/services/' }, { label: title }]}
+  >
+    <div class="btn-row hero-ctas">
+      <a class="btn btn--primary" href={consult} data-track={`service-hero-${s.slug}`}>{t(s.cta, lang)} <Icon name="arrow" size={18} /></a>
+      <a class="btn btn--ghost" href="#deliverables">{fa ? 'خروجی‌های مورد انتظار' : 'Expected deliverables'}</a>
+    </div>
+  </PageHero>
+
+  <nav class="toc" aria-label={fa ? 'بخش‌های این صفحه' : 'On this page'}>
+    <div class="container"><ul>{toc.map((x) => <li><a href={`#${x.id}`}>{x.label}</a></li>)}</ul></div>
+  </nav>
+
+  <section class="section section--white" id="challenges" aria-labelledby="challenges-h">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{fa ? 'چالش‌هایی که به آنها می‌پردازیم' : 'Challenges we address'}</p>
+        <h2 id="challenges-h">{fa ? 'چه مشکلی را حل می‌کنیم؟' : 'What problem does this solve?'}</h2>
+      </div>
+      <ul class="dash-list challenges-list">{t(s.challenges, lang).map((c) => <li>{c}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section" id="approach" aria-labelledby="approach-h">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{fa ? 'چگونه کمک می‌کنیم' : 'How we help'}</p>
+        <h2 id="approach-h">{fa ? 'رویکرد مشاوره‌ای پیشنهادی' : 'The recommended advisory approach'}</h2>
+        {s.scopeNote && <p class="note">{t(s.scopeNote, lang)}</p>}
+      </div>
+      <ul class="check-list">{t(s.howWeHelp, lang).map((c) => <li>{c}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section section--white" id="deliverables" aria-labelledby="deliv-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'خروجی‌های مورد انتظار' : 'Expected deliverables'}</p>
+        <h2 id="deliv-h">{fa ? 'چه چیزی دریافت می‌کنید؟' : 'What you receive'}</h2>
+      </div>
+      <div class="grid grid--4">
+        {t(s.deliverables, lang).map((d) => (
+          <div class="card deliverable"><div class="icon-badge"><Icon name="doc" /></div><h3>{d}</h3></div>
+        ))}
+      </div>
+      <div class="who">
+        <h3>{fa ? 'با چه کسانی کار می‌کنیم' : 'Who we work with'}</h3>
+        <ul>{t(s.whoWeWorkWith, lang).map((w) => <li>{w}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy" id="engagement" aria-labelledby="eng-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{fa ? 'شیوه همکاری' : 'Engagement approach'}</p>
+        <h2 id="eng-h">{fa ? 'مراحل معمول همکاری' : 'Typical engagement stages'}</h2>
+      </div>
+      <ol class="steps" role="list" style="list-style:none;padding:0;margin:0">
+        {t(s.engagement, lang).map((e, i) => (
+          <li class="step"><span class="step__num">{num(`0${i + 1}`, lang)}</span><h3>{e.title}</h3><p>{e.text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--white" id="experience" aria-labelledby="exp-h">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{fa ? 'سوابق و اعتبار' : 'Experience & credentials'}</p>
+        <h2 id="exp-h">{fa ? 'تجربه مرتبط' : 'Relevant experience'}</h2>
+        <p><a href={href(lang, '/experience/')}>{fa ? 'مشاهده همه سوابق' : 'View full experience & credentials'}</a></p>
+      </div>
+      <Placeholder lang={lang}>
+        {fa ? 'سوابق مرتبط با این خدمت، همراه با شواهد قابل تأیید (سمت، سازمان، سال و نقش)، پس از تأیید منتشر می‌شود.' : 'Experience relevant to this practice — with verifiable evidence (role, organisation, year and contribution) — will be published after verification.'}
+      </Placeholder>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section" aria-labelledby="rel-h">
+      <div class="container">
+        <div class="section-head"><p class="eyebrow">{t(ui.insights, lang)}</p><h2 id="rel-h">{fa ? 'تحلیل‌های مرتبط' : 'Related insights'}</h2></div>
+        <div class="grid grid--3">{related.map((i) => <InsightCard lang={lang} insight={i} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand
+    lang={lang}
+    title={t(s.cta, lang)}
+    text={fa ? 'گام نخست، گفت‌وگویی محرمانه و بدون تعهد درباره وضعیت سازمان شماست. لطفاً اسناد محرمانه را از طریق فرم ارسال نکنید.' : 'The first step is a confidential, no-obligation discussion of your situation. Please do not send confidential documents through the form.'}
+    cta={t(s.cta, lang)}
+    service={s.slug}
+    track={`service-final-${s.slug}`}
+  />
+
+  <section class="section section--white" aria-labelledby="other-h">
+    <div class="container">
+      <div class="section-head"><h2 id="other-h">{fa ? 'سایر خدمات' : 'Other advisory practices'}</h2></div>
+      <div class="grid grid--3">{others.map((o) => <ServiceCard lang={lang} service={o} />)}</div>
+    </div>
+  </section>
+</Base>
+<style>
+  .hero-ctas { margin-block-start: 2rem; }
+  .toc { background: var(--white); border-block-end: 1px solid var(--line); position: sticky; inset-block-start: 76px; z-index: 10; }
+  .toc ul { list-style: none; display: flex; gap: 1.6rem; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+  .toc a { display: block; padding-block: 1rem; white-space: nowrap; color: var(--slate); text-decoration: none; font-size: 0.92rem; font-weight: 600; border-block-end: 2px solid transparent; }
+  .toc a:hover { color: var(--teal-dark); border-color: var(--gold); }
+  section[id] { scroll-margin-block-start: 140px; }
+  .challenges-list li { font-size: 1.08rem; color: var(--navy); padding-block-end: 0.9rem; border-block-end: 1px solid var(--line); }
+  .deliverable h3 { font-size: 1.05rem; margin: 0; }
+  .who { margin-block-start: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.8rem 1.2rem; align-items: center; }
+  .who h3 { margin: 0; font-size: 1rem; }
+  .who ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; }
+  .who li { background: var(--off-white); border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.9rem; font-size: 0.9rem; }
+</style>

@@ -1,0 +1,32 @@
+---
+// Fine contour lines used as a restrained maritime motif behind dark heroes.
+interface Props { variant?: 'hero' | 'band' }
+const { variant = 'hero' } = Astro.props;
+const lines = Array.from({ length: variant === 'hero' ? 14 : 8 }, (_, i) => i);
+---
+<svg class={`sea-lines sea-lines--${variant}`} viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id={`fade-${variant}`} x1="0" x2="1">
+      <stop offset="0" stop-color="#d5af78" stop-opacity="0" />
+      <stop offset="0.55" stop-color="#d5af78" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#177d87" stop-opacity="0.5" />
+    </linearGradient>
+  </defs>
+  {lines.map((i) => {
+    const y = 120 + i * 32;
+    const a = 18 + i * 3;
+    return (
+      <path
+        d={`M0 ${y} C 200 ${y - a}, 380 ${y + a}, 600 ${y} S 1000 ${y - a * 1.4}, 1200 ${y + a * 0.4}`}
+        fill="none"
+        stroke={`url(#fade-${variant})`}
+        stroke-width="1"
+        opacity={0.25 + (i % 4) * 0.12}
+      />
+    );
+  })}
+</svg>
+<style>
+  .sea-lines { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; pointer-events: none; }
+  .sea-lines:dir(rtl) { transform: scaleX(-1); }
+</style>

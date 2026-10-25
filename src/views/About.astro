@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { site, ui } from '../data/site';
+import { differentiators } from '../data/common';
+import { href, t, type Lang } from '../lib/i18n';
+import { profilePageLd } from '../lib/schema';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = fa ? 'درباره مشاور' : 'About the Advisor';
+---
+<Base lang={lang} title={title} ogType="profile" jsonLd={profilePageLd(lang)} description={fa ? `${t(site.advisorName, lang)}، مشاور راهبردی مستقل در حوزه مقررات بین‌المللی دریایی، حکمرانی بندری و امور بین‌الملل.` : `${t(site.advisorName, lang)}, independent strategic advisor in international maritime regulation, port governance and international affairs.`}>
+  <PageHero
+    lang={lang}
+    eyebrow={title}
+    title={t(site.advisorName, lang)}
+    lead={fa ? 'مشاور راهبردی مستقل در حوزه مقررات بین‌المللی دریایی، حکمرانی بندری و همکاری‌های بین‌المللی.' : 'Independent strategic advisor in international maritime regulation, port governance and international cooperation.'}
+    crumbs={[{ label: title }]}
+  />
+  <section class="section section--white">
+    <div class="container split">
+      <div class="portrait">
+        <Placeholder lang={lang} label={fa ? 'تصویر حرفه‌ای تأییدشده' : 'Approved professional portrait'}>
+          {fa ? 'جایگاه عکس حرفه‌ای مشاور (نسبت ۴:۵، با نور طبیعی و پس‌زمینه سازمانی یا بندری).' : "Space for the advisor's approved portrait (4:5 ratio, natural light, institutional or port setting)."}
+        </Placeholder>
+      </div>
+      <div class="prose">
+        <h2>{fa ? 'از سیاست دریایی تا اجرای عملی' : 'From maritime policy to practical implementation'}</h2>
+        <p>{fa ? 'این رویه مشاوره‌ای به سازمان‌های دریایی، سازمان‌های بنادر، دولت‌ها و فعالان صنعت کمک می‌کند تعهدات و مقررات بین‌المللی را به تصمیمات مدیریتی و برنامه‌های اجرایی تبدیل کنند.' : 'This advisory practice helps maritime administrations, port authorities, governments and industry translate international obligations and regulation into management decisions and implementation programmes.'}</p>
+        <p>{fa ? 'تمرکز کار بر مسئله مشتری است: درک دقیق چالش، ارائه توصیه‌های قابل اجرا و همراهی تا زمانی که توصیه‌ها به رویه سازمانی تبدیل شوند.' : "The focus is on the client's problem: understanding it precisely, providing actionable recommendations and staying involved until they become institutional practice."}</p>
+        <Placeholder lang={lang} label={fa ? 'زندگی‌نامه حرفه‌ای' : 'Professional biography'}>
+          {fa ? 'خلاصه سوابق حرفه‌ای (۱۵۰ تا ۲۵۰ کلمه) پس از تأیید متن و تاریخ‌ها درج می‌شود. سمت‌های نهادی گذشته با عنوان «سابق» ذکر خواهند شد.' : 'A 150–250 word professional biography will be added once the text and dates are verified. Historical institutional roles will be described as "Former".'}
+        </Placeholder>
+        <h2>{fa ? 'آنچه این مشاوره نیست' : 'What this advisory is not'}</h2>
+        <p>{fa ? 'این خدمات مشاوره راهبردی است و جایگزین وکالت حقوقی، خدمات فنی مهندسی، کارگزاری یا اختیارات رسمی هیچ نهاد دولتی یا بین‌المللی نیست. هیچ وابستگی فعلی به IMO القا نمی‌شود.' : 'This is strategic advisory. It is not legal representation, technical engineering, brokerage or the official authority of any government or international body, and no current IMO affiliation is implied.'}</p>
+        <p><a href={href(lang, '/experience/')}>{fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & credentials'}</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{fa ? 'اصول کار' : 'Principles'}</p><h2>{fa ? 'اصول همکاری' : 'How we work with clients'}</h2></div>
+      <div class="grid grid--4">
+        {differentiators.map((d) => <div class="card"><h3>{t(d.title, lang)}</h3><p>{t(d.text, lang)}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={fa ? 'گفت‌وگویی محرمانه را آغاز کنید' : 'Start a confidential conversation'} text={fa ? 'مسئله سازمان خود را به‌اختصار شرح دهید.' : "Briefly describe your organisation's challenge."} cta={t(ui.primaryCta, lang)} track="about-final" />
+</Base>
+<style>
+  .portrait :global(.placeholder) { aspect-ratio: 4 / 5; display: flex; flex-direction: column; justify-content: end; }
+  @media (min-width: 900px) { .portrait { position: sticky; inset-block-start: 110px; align-self: start; } }
+</style>

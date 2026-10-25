@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { specialistAreas } from '../data/services';
+import { ui } from '../data/site';
+import { href, t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = t(ui.specialist, lang);
+---
+<Base lang={lang} title={title} description={fa ? 'سرمایه‌گذاری و PPP بندری، کربن‌زدایی، دیجیتالی‌سازی و مشاوره مستقل اختلافات.' : 'Port investment & PPP, maritime decarbonisation, digitalisation and independent dispute advisory.'}>
+  <PageHero
+    lang={lang}
+    eyebrow={title}
+    title={fa ? 'حوزه‌های تخصصی، با نقش‌های شفاف' : 'Specialist practice areas, with clear roles'}
+    lead={fa ? 'این حوزه‌ها مکمل خدمات اصلی‌اند. دامنه مشاوره راهبردی و نقش متخصصان همکار در هر مورد به‌روشنی بیان می‌شود.' : 'These areas complement the core practices. The scope of strategic advice and the role of associate specialists are stated clearly in each case.'}
+    crumbs={[{ label: t(ui.services, lang), path: '/services/' }, { label: title }]}
+  />
+  <section class="section section--white">
+    <div class="container specialist">
+      {specialistAreas.map((a) => (
+        <article id={a.slug} class="specialist__item">
+          <h2>{t(a.title, lang)}</h2>
+          <div>
+            <p class="lead">{t(a.text, lang)}</p>
+            <p class="note">{t(a.note, lang)}</p>
+            <a class="btn btn--outline" href={`${href(lang, '/consultation/')}?service=${a.slug}`} data-track={`specialist-${a.slug}`}>
+              {fa ? 'گفت‌وگو درباره این حوزه' : 'Discuss this area'} <Icon name="arrow" size={18} />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CtaBand lang={lang} title={fa ? 'یک مسئله تخصصی دارید؟' : 'Have a specialist question?'} text={fa ? 'دامنه و ترکیب مناسب تخصص‌ها را در یک گفت‌وگوی محرمانه مشخص می‌کنیم.' : 'We will define the right scope and mix of expertise in a confidential discussion.'} cta={t(ui.requestConsultation, lang)} track="specialist-final" />
+</Base>
+<style>
+  .specialist { display: grid; gap: 0; }
+  .specialist__item { display: grid; gap: 1rem 4rem; padding-block: 2.8rem; border-block-start: 1px solid var(--line); scroll-margin-block-start: 100px; }
+  .specialist__item:first-child { border: 0; padding-block-start: 0; }
+  @media (min-width: 900px) { .specialist__item { grid-template-columns: 1fr 1.6fr; } }
+  .specialist__item .note { margin-block: 1.2rem 1.6rem; }
+</style>

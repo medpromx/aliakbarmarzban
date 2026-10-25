@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { href, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+---
+<Base lang={lang} title={fa ? 'درخواست شما دریافت شد' : 'Request received'} noindex>
+  <PageHero
+    lang={lang}
+    eyebrow={fa ? 'تأیید دریافت' : 'Confirmation'}
+    title={fa ? 'از درخواست شما سپاسگزاریم' : 'Thank you — your request has been received'}
+    lead={fa ? 'درخواست شما به‌صورت محرمانه بررسی خواهد شد.' : 'Your request will be reviewed confidentially.'}
+  />
+  <section class="section section--white">
+    <div class="container thanks">
+      <p class="note email-note" hidden>{fa ? 'پیش‌نویس ایمیل در برنامه ایمیل شما باز شد. لطفاً برای تکمیل درخواست، آن را ارسال کنید.' : 'A draft email was opened in your email app. Please send it to complete your request.'}</p>
+      <h2>{fa ? 'مراحل بعدی' : 'What happens next'}</h2>
+      <ol class="steps-v">
+        <li><strong>{fa ? 'بررسی اولیه' : 'Initial review'}</strong> — {fa ? 'درخواست شما معمولاً ظرف دو روز کاری بررسی می‌شود.' : 'Your request is usually reviewed within two working days.'}</li>
+        <li><strong>{fa ? 'پاسخ و هماهنگی' : 'Reply and scheduling'}</strong> — {fa ? 'از طریق ایمیل سازمانی شما برای هماهنگی یک گفت‌وگوی اولیه کوتاه تماس گرفته می‌شود.' : 'You will receive a reply at your professional email to arrange a short introductory call.'}</li>
+        <li><strong>{fa ? 'تعیین دامنه همکاری' : 'Scoping'}</strong> — {fa ? 'در صورت تناسب، پیشنهاد دامنه کار و شیوه همکاری ارائه می‌شود.' : 'If there is a fit, a proposed scope and engagement approach will follow.'}</li>
+      </ol>
+      <p>{fa ? 'لطفاً اسناد محرمانه را تا زمان هماهنگی کانال امن ارسال نکنید.' : 'Please do not send confidential documents until a secure channel has been agreed.'}</p>
+      <div class="btn-row">
+        <a class="btn btn--outline service-link" href={href(lang, '/services/')} data-core={services.map((x) => x.slug).join(',')}>{fa ? 'بازگشت به خدمات' : 'Back to advisory services'}</a>
+        <a class="btn btn--teal" href={href(lang, '/insights/')}>{fa ? 'مطالعه تحلیل‌ها' : 'Read our insights'} <Icon name="arrow" size={18} /></a>
+      </div>
+    </div>
+  </section>
+</Base>
+<script>
+  const p = new URLSearchParams(location.search);
+  if (p.get('via') === 'email') document.querySelector<HTMLElement>('.email-note')!.hidden = false;
+  const s = p.get('service');
+  const link = document.querySelector<HTMLAnchorElement>('.service-link');
+  if (s && link && link.dataset.core?.split(',').includes(s)) {
+    link.href = `${link.getAttribute('href')}${s}/`;
+  }
+</script>
+<style>
+  .thanks { max-width: 46rem; }
+  .steps-v { padding-inline-start: 1.3rem; display: grid; gap: 0.8rem; margin-block-end: 2rem; }
+  .steps-v strong { color: var(--navy); }
+  .email-note { margin-block-end: 2rem; }
+</style>

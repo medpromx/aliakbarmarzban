@@ -1,0 +1,58 @@
+---
+import { nav, site, ui } from '../data/site';
+import { services } from '../data/services';
+import { href, t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <p class="site-footer__name">{t(site.advisorName, lang)}</p>
+        <p class="site-footer__tag">{t(site.brand, lang)}</p>
+        <p class="site-footer__pillars">{t(site.pillars, lang)}</p>
+        <a class="btn btn--primary" href={href(lang, '/consultation/')} data-track="cta-footer">{t(ui.requestConsultation, lang)}</a>
+      </div>
+      <div>
+        <h2 class="site-footer__h">{t(ui.services, lang)}</h2>
+        <ul>
+          {services.map((s) => <li><a href={href(lang, `/services/${s.slug}/`)}>{t(s.title, lang)}</a></li>)}
+          <li><a href={href(lang, '/specialist-advisory/')}>{t(ui.specialist, lang)}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__h">{lang === 'fa' ? 'وب‌سایت' : 'Website'}</h2>
+        <ul>
+          {nav.filter((n) => n.path !== '/services/').map((n) => <li><a href={href(lang, n.path)}>{t(n.label, lang)}</a></li>)}
+          <li><a href={href(lang, '/consultation/')}>{t(ui.contact, lang)}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p class="site-footer__note">{t(ui.footerNote, lang)}</p>
+      <p>
+        © <span class="ltr">{year}</span> {t(site.advisorName, lang)} ·
+        <a href={href(lang, '/privacy/')}>{t(ui.privacy, lang)}</a> ·
+        <a href={href(lang, '/legal/')}>{t(ui.legal, lang)}</a>
+      </p>
+    </div>
+  </div>
+</footer>
+<style>
+  .site-footer { background: #0b1d2d; color: #a9b8c5; padding-block: clamp(48px, 7vw, 80px) 2rem; font-size: 0.95rem; }
+  .site-footer a:not(.btn) { color: #d6dfe7; text-decoration: none; }
+  .site-footer a:not(.btn):hover { color: var(--gold); text-decoration: underline; }
+  .site-footer__grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 860px) { .site-footer__grid { grid-template-columns: 1.3fr 1.2fr 0.8fr; } }
+  .site-footer__name { color: var(--white); font-weight: 700; font-size: 1.15rem; margin: 0; }
+  .site-footer__tag { color: var(--gold); margin: 0 0 0.6rem; }
+  .site-footer__pillars { margin-block-end: 1.5rem; }
+  .site-footer__h { color: var(--white); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-block-end: 1rem; }
+  :global(:root[lang='fa']) .site-footer__h { letter-spacing: normal; font-size: 0.95rem; }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .site-footer__bottom { margin-block-start: 3rem; padding-block-start: 1.5rem; border-block-start: 1px solid rgb(255 255 255 / 10%); display: grid; gap: 0.5rem; font-size: 0.85rem; }
+  .site-footer__bottom p { margin: 0; }
+  .site-footer__note { max-width: 60rem; }
+</style>

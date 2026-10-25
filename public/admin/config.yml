@@ -1,0 +1,77 @@
+backend:
+  name: github
+  repo: medpromx/aliakbarmarzban
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+site_url: https://aliakbarmarzban.ir
+locale: en
+
+collections:
+  - name: insights_en
+    label: Insights (English)
+    folder: src/content/insights/en
+    create: true
+    slug: '{{slug}}'
+    fields: &insightFields
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' }
+      - { label: Summary, name: summary, widget: text }
+      - label: Related service
+        name: service
+        widget: select
+        required: false
+        options: [imo-regulation, port-governance, maritime-contracts, seafarers-stcw, international-negotiation, executive-training]
+      - { label: 'Sample (shows a "sample article" label)', name: sample, widget: boolean, default: false, required: false }
+      - { label: Body, name: body, widget: markdown }
+  - name: insights_fa
+    label: Insights (Persian / فارسی)
+    folder: src/content/insights/fa
+    create: true
+    slug: '{{slug}}'
+    fields: *insightFields
+  - name: credentials
+    label: Experience & Credentials
+    files:
+      - name: credentials
+        label: Credentials (publish only verified items)
+        file: src/data/credentials.json
+        fields:
+          - label: Notice
+            name: notice
+            widget: object
+            fields:
+              - { label: English, name: en, widget: text }
+              - { label: Persian, name: fa, widget: text }
+          - label: Groups
+            name: groups
+            widget: list
+            fields:
+              - { label: ID, name: id, widget: string }
+              - label: Title
+                name: title
+                widget: object
+                fields:
+                  - { label: English, name: en, widget: string }
+                  - { label: Persian, name: fa, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Period, name: period, widget: string }
+                  - label: Title
+                    name: title
+                    widget: object
+                    fields:
+                      - { label: English, name: en, widget: string }
+                      - { label: Persian, name: fa, widget: string }
+                  - label: Organisation
+                    name: org
+                    widget: object
+                    fields:
+                      - { label: English, name: en, widget: string }
+                      - { label: Persian, name: fa, widget: string }
+                  - { label: Verified, name: verified, widget: boolean, default: false }
+          - { label: Case studies, name: caseStudies, widget: list, required: false, field: { label: Item, name: item, widget: string } }

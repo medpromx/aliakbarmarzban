@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { href, t, type Lang } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fa = lang === 'fa';
+const title = fa ? 'آموزش و سخنرانی' : 'Training & Speaking';
+const formats = [
+  { icon: 'people', title: { en: 'Executive workshop', fa: 'کارگاه مدیران' }, meta: { en: '1–2 days · 8–20 participants', fa: '۱ تا ۲ روز · ۸ تا ۲۰ نفر' }, text: { en: 'Case-based programme tailored to your organisation\'s decisions.', fa: 'برنامه مبتنی بر مورد، متناسب با تصمیم‌های واقعی سازمان شما.' } },
+  { icon: 'doc', title: { en: 'Leadership briefing', fa: 'جلسه توجیهی مدیران' }, meta: { en: '2–3 hours · board or senior team', fa: '۲ تا ۳ ساعت · هیئت‌مدیره یا تیم ارشد' }, text: { en: 'A focused briefing on a regulatory change, reform or negotiation.', fa: 'جلسه‌ای متمرکز درباره یک تغییر مقرراتی، اصلاحات یا مذاکره.' } },
+  { icon: 'negotiation', title: { en: 'Negotiation simulation', fa: 'شبیه‌سازی مذاکره' }, meta: { en: '1 day · delegations', fa: '۱ روز · هیئت‌های مذاکره‌کننده' }, text: { en: 'Structured rehearsal of positions for an upcoming negotiation.', fa: 'تمرین ساختاریافته مواضع برای مذاکره پیش‌رو.' } },
+  { icon: 'training', title: { en: 'Train-the-trainer', fa: 'تربیت مربی' }, meta: { en: 'Modular · academies', fa: 'ماژولار · مراکز آموزشی' }, text: { en: 'Support for internal academies to sustain capability.', fa: 'پشتیبانی از مراکز آموزش داخلی برای پایداری توانمندی.' } },
+];
+const topics = {
+  en: ['Implementing IMO instruments and the III Code', 'Port governance models and concession oversight', 'Maritime contracts and procurement risk', 'STCW quality standards and the human element', 'Preparing for international maritime negotiations', 'Maritime decarbonisation policy for administrators'],
+  fa: ['اجرای اسناد IMO و کد III', 'مدل‌های حکمرانی بندری و نظارت بر امتیازها', 'قراردادهای دریایی و ریسک تدارکات', 'استانداردهای کیفیت STCW و عامل انسانی', 'آمادگی برای مذاکرات بین‌المللی دریایی', 'سیاست کربن‌زدایی دریایی برای مدیران دولتی'],
+};
+---
+<Base lang={lang} title={title} description={fa ? 'کارگاه‌های مدیران، جلسات توجیهی و سخنرانی در حوزه مقررات دریایی و حکمرانی بندری.' : 'Executive workshops, leadership briefings and speaking on maritime regulation and port governance.'}>
+  <PageHero
+    lang={lang}
+    eyebrow={title}
+    title={fa ? 'آموزش مدیران برای تصمیم‌های واقعی' : 'Executive education for real decisions'}
+    lead={fa ? 'کارگاه‌ها و جلسات توجیهی به زبان انگلیسی یا فارسی، حضوری یا آنلاین.' : 'Workshops and briefings in English or Persian, in person or online.'}
+    crumbs={[{ label: title }]}
+  />
+  <section class="section section--white" id="formats">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{fa ? 'قالب‌ها' : 'Formats'}</p><h2>{fa ? 'قالب‌های آموزشی' : 'Workshop formats'}</h2></div>
+      <div class="grid grid--4">
+        {formats.map((f) => (
+          <div class="card">
+            <div class="icon-badge"><Icon name={f.icon} /></div>
+            <h3>{t(f.title, lang)}</h3>
+            <p class="tag">{t(f.meta, lang)}</p>
+            <p>{t(f.text, lang)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{fa ? 'موضوعات' : 'Topics'}</p>
+        <h2>{fa ? 'موضوعات پرتقاضا' : 'Frequently requested topics'}</h2>
+        <p>{fa ? 'هر برنامه بر اساس نیازسنجی و اهداف سازمان شما تنظیم می‌شود.' : "Every programme is tailored following a needs analysis against your organisation's objectives."}</p>
+        <a class="btn btn--teal" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track="training-mid">{fa ? 'درخواست کارگاه آموزشی مدیران' : 'Request an Executive Workshop'} <Icon name="arrow" size={18} /></a>
+      </div>
+      <ul class="check-list">{t(topics, lang).map((x) => <li>{x}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section section--white">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{fa ? 'سخنرانی' : 'Speaking'}</p>
+        <h2>{fa ? 'سخنرانی و پنل‌ها' : 'Conferences and panels'}</h2>
+        <p>{fa ? 'برای دعوت به سخنرانی کلیدی، پنل یا میزگرد تخصصی، فرم درخواست را تکمیل کنید.' : 'To invite the advisor as a keynote speaker, panellist or roundtable moderator, use the request form.'}</p>
+      </div>
+      <Placeholder lang={lang} label={fa ? 'سخنرانی‌های گذشته' : 'Past speaking engagements'}>
+        {fa ? 'فهرست رویدادها، تاریخ‌ها و موضوعات سخنرانی پس از تأیید درج می‌شود.' : 'Events, dates and topics will be listed after verification.'}
+      </Placeholder>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={fa ? 'درخواست کارگاه آموزشی مدیران' : 'Request an Executive Workshop'} text={fa ? 'مخاطبان، اهداف و زمان‌بندی مورد نظر را بنویسید.' : 'Tell us about the audience, objectives and preferred timing.'} cta={fa ? 'درخواست کارگاه' : 'Request a Workshop'} service="executive-training" track="training-final" />
+</Base>
