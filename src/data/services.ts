@@ -14,7 +14,8 @@ export type Service = {
   deliverables: L<string[]>;
   whoWeWorkWith: L<string[]>;
   engagement: L<{ title: string; text: string }[]>;
-  scopeNote?: L;
+  /** Relevant experience from the advisor's career, shown on the service page. */
+  experience: L<string[]>;
   cta: L;
   insightTags: string[];
 };
@@ -113,11 +114,21 @@ export const services: Service[] = [
         'پشتیبانی اختیاری در دوره اجرا، گزارش‌دهی و آمادگی برای ممیزی.',
       ),
     },
-    scopeNote: {
-      en: 'This is independent strategic advisory. It does not represent, or imply any current affiliation with, the IMO or any government.',
-      fa: 'این خدمت مشاوره راهبردی مستقل است و نمایندگی یا وابستگی فعلی به IMO یا هیچ دولتی را نشان نمی‌دهد.',
-    },
     cta: { en: 'Request a Regulatory Gap Assessment', fa: 'درخواست ارزیابی شکاف مقرراتی' },
+    experience: {
+      en: [
+        'Eight years as Permanent Representative of Iran to the IMO in London, with more than 210 IMO sessions attended.',
+        'Chair of the Credentials Committee of the IMO Assembly and Vice-Chair of the Consultative Meeting of Contracting Parties to the London Convention and Protocol.',
+        'Representative of Iran to the IOPC Funds on oil pollution compensation.',
+        'Author of a book on the IMO and its role in shipping and international maritime law.',
+      ],
+      fa: [
+        'هشت سال نماینده دائم ایران در IMO، لندن، با حضور در بیش از ۲۱۰ اجلاس.',
+        'رئیس کمیته اعتبارنامه مجمع IMO و نایب‌رئیس اجلاس مشورتی دول عضو کنوانسیون و پروتکل لندن.',
+        'نماینده ایران نزد صندوق IOPC در حوزه جبران خسارت آلودگی نفتی.',
+        'نویسنده کتاب «سازمان بین‌المللی دریانوردی و نقش آن در توسعه صنعت کشتیرانی و حقوق بین‌الملل دریایی».',
+      ],
+    },
     insightTags: ['imo-regulation'],
   },
   {
@@ -198,6 +209,20 @@ export const services: Service[] = [
       ),
     },
     cta: { en: 'Discuss a Port Governance Review', fa: 'گفت‌وگو درباره بازبینی حکمرانی بندری' },
+    experience: {
+      en: [
+        'Head of Abadan Ports and Maritime Administration.',
+        'Advisor to the Managing Director, then Deputy for Maritime Affairs and member of the Executive Board of the Ports and Maritime Organization.',
+        'Directly involved in law-making at national and organisational level and in national maritime development programmes.',
+        'Member of more than 40 committees and working groups, several as chair.',
+      ],
+      fa: [
+        'رئیس اداره بنادر و دریانوردی آبادان.',
+        'مشاور مدیرعامل و سپس معاون امور دریایی و عضو هیئت عامل سازمان بنادر و دریانوردی.',
+        'مشارکت مستقیم در قانون‌گذاری در سطح ملی و سازمانی و برنامه‌های توسعه دریایی کشور.',
+        'عضویت در بیش از ۴۰ کمیته و کارگروه تخصصی، برخی در جایگاه رئیس.',
+      ],
+    },
     insightTags: ['port-governance'],
   },
   {
@@ -214,8 +239,8 @@ export const services: Service[] = [
       fa: 'ریسک قرارداد و تدارکات را پیش از تعهد کاهش دهید',
     },
     value: {
-      en: 'An experienced maritime perspective on procurement strategy, tender design and contract structure — working alongside your legal advisers, not replacing them.',
-      fa: 'نگاهی تجربه‌محور از درون صنعت دریایی به راهبرد تدارکات، طراحی مناقصه و ساختار قرارداد؛ در کنار مشاوران حقوقی شما و نه به جای آنها.',
+      en: 'Legal and commercial advice on procurement strategy, tender design and contract structure, from someone who has run port tenders and drafted hundreds of maritime contracts.',
+      fa: 'مشاوره حقوقی و تجاری در راهبرد تدارکات، طراحی مناقصه و ساختار قرارداد؛ از کسی که خود مناقصه‌های بندری را برگزار کرده و صدها قرارداد دریایی را تنظیم کرده است.',
     },
     challenges: {
       en: [
@@ -277,11 +302,21 @@ export const services: Service[] = [
         'پشتیبانی در ارزیابی، مذاکره یا مدیریت قرارداد.',
       ),
     },
-    scopeNote: {
-      en: 'Strategic and commercial advisory only. Legal opinions and representation remain with your qualified legal counsel.',
-      fa: 'این خدمت صرفاً مشاوره راهبردی و تجاری است. نظر حقوقی و وکالت بر عهده مشاور حقوقی واجد صلاحیت شما باقی می‌ماند.',
-    },
     cta: { en: 'Discuss a Contract Advisory', fa: 'گفت‌وگو درباره مشاوره قرارداد' },
+    experience: {
+      en: [
+        'Six years as legal expert and Head of Legal Affairs and Contracts at Imam Khomeini Port: dozens of tenders and auctions and hundreds of contracts.',
+        'Author of a research book on tendering, auctions and contracting in the Ports and Maritime Organization.',
+        'Legal training in law, criminal law and public international law.',
+        'Accompanied delegations negotiating port investment and shipping agreements with foreign partners.',
+      ],
+      fa: [
+        'شش سال کارشناس حقوقی و رئیس امور حقوقی و قراردادهای بندر امام خمینی: ده‌ها مناقصه و مزایده و صدها قرارداد.',
+        'نویسنده کتاب پژوهشی «روند برگزاری مناقصه، مزایده و انجام معامله در سازمان بنادر و دریانوردی».',
+        'تحصیلات حقوقی در حقوق، حقوق جزا و حقوق بین‌الملل عمومی.',
+        'همراهی هیئت‌های مذاکره با طرف‌های خارجی برای سرمایه‌گذاری بندری و قراردادهای کشتیرانی.',
+      ],
+    },
     insightTags: ['maritime-contracts'],
   },
   {
@@ -362,6 +397,20 @@ export const services: Service[] = [
       ),
     },
     cta: { en: 'Request an STCW Compliance Review', fa: 'درخواست بازبینی انطباق STCW' },
+    experience: {
+      en: [
+        'Eight years as Director General for Seafarers\' Affairs and Specialised & International Organizations at the PMO.',
+        'Oversight of seafarer certification and training matters and relations with IMO and other specialised bodies.',
+        'Organiser of World Maritime Day and Day of the Seafarer events.',
+        'Planned and managed specialised maritime and port training courses.',
+      ],
+      fa: [
+        'هشت سال مدیرکل امور دریانوردان، سازمان‌های تخصصی و بین‌المللی در سازمان بنادر و دریانوردی.',
+        'راهبری امور گواهینامه و آموزش دریانوردان و ارتباط با IMO و سایر نهادهای تخصصی.',
+        'برگزارکننده مراسم روز جهانی دریانوردی و روز جهانی دریانورد.',
+        'برنامه‌ریزی و اجرای دوره‌های تخصصی آموزشی دریایی و بندری.',
+      ],
+    },
     insightTags: ['seafarers-stcw'],
   },
   {
@@ -442,6 +491,20 @@ export const services: Service[] = [
       ),
     },
     cta: { en: 'Discuss a Negotiation Strategy', fa: 'گفت‌وگو درباره راهبرد مذاکره' },
+    experience: {
+      en: [
+        'Eight years of multilateral diplomacy at the IMO, representing Iran in committees, the Assembly and the IOPC Funds.',
+        'Chair of the club of IMO permanent representatives and maritime attachés.',
+        'Delegate and speaker in more than 20 countries across Europe, Asia, Africa and the Americas.',
+        'Negotiations with foreign counterparts leading to memoranda of understanding and contracts.',
+      ],
+      fa: [
+        'هشت سال دیپلماسی چندجانبه در IMO و نمایندگی ایران در کمیته‌ها، مجمع و صندوق IOPC.',
+        'رئیس کلوپ نمایندگان و وابستگان دریایی IMO.',
+        'حضور به‌عنوان نماینده و سخنران در بیش از ۲۰ کشور در اروپا، آسیا، آفریقا و آمریکا.',
+        'مذاکره با طرف‌های خارجی و دستیابی به تفاهم‌نامه‌های همکاری و قرارداد.',
+      ],
+    },
     insightTags: ['international-negotiation'],
   },
   {
@@ -522,11 +585,25 @@ export const services: Service[] = [
       ),
     },
     cta: { en: 'Request an Executive Workshop', fa: 'درخواست کارگاه آموزشی مدیران' },
+    experience: {
+      en: [
+        'University lecturer in law and trainer on specialised legal and maritime courses in Tehran and the ports.',
+        'Organised more than 20 national and international maritime events, conferences and exhibitions.',
+        'IMO Maritime Ambassador in Iran, promoting maritime careers and awareness.',
+        'Experienced chair of committees and working groups, coaching teams towards clear decisions.',
+      ],
+      fa: [
+        'مدرس دانشگاه در رشته حقوق و دوره‌های تخصصی حقوقی و دریایی در تهران و بنادر.',
+        'برگزاری بیش از ۲۰ رویداد، همایش و نمایشگاه ملی و بین‌المللی دریایی.',
+        'سفیر حسن‌نیت دریایی IMO در ایران برای معرفی مشاغل و فرهنگ دریایی.',
+        'تجربه ریاست کمیته‌ها و کارگروه‌ها و هدایت تیم‌ها به تصمیم‌های روشن.',
+      ],
+    },
     insightTags: ['executive-training'],
   },
 ];
 
-export type SpecialistArea = { slug: string; title: L; text: L; note: L };
+export type SpecialistArea = { slug: string; title: L; text: L };
 
 export const specialistAreas: SpecialistArea[] = [
   {
@@ -536,10 +613,6 @@ export const specialistAreas: SpecialistArea[] = [
       en: 'Strategic input on port PPP structures, concession frameworks and investor due diligence from a governance and regulatory perspective.',
       fa: 'ارائه دیدگاه راهبردی درباره ساختارهای مشارکت عمومی‑خصوصی، چارچوب امتیازها و بررسی‌های سرمایه‌گذاران از منظر حکمرانی و مقررات.',
     },
-    note: {
-      en: 'Financial modelling and transaction advice are provided by associate specialists where required.',
-      fa: 'مدل‌سازی مالی و مشاوره معامله در صورت نیاز توسط متخصصان همکار ارائه می‌شود.',
-    },
   },
   {
     slug: 'decarbonisation',
@@ -547,10 +620,6 @@ export const specialistAreas: SpecialistArea[] = [
     text: {
       en: 'Policy and regulatory readiness for IMO greenhouse gas measures, ports\' role in the energy transition and national action plans.',
       fa: 'آمادگی سیاستی و مقرراتی برای اقدامات IMO در کاهش گازهای گلخانه‌ای، نقش بنادر در گذار انرژی و برنامه‌های اقدام ملی.',
-    },
-    note: {
-      en: 'Technical engineering assessments are delivered with qualified technical partners.',
-      fa: 'ارزیابی‌های فنی مهندسی با همکاری شرکای فنی واجد صلاحیت انجام می‌شود.',
     },
   },
   {
@@ -560,10 +629,6 @@ export const specialistAreas: SpecialistArea[] = [
       en: 'Governance of maritime single windows, FAL Convention electronic data exchange and port community systems.',
       fa: 'حکمرانی پنجره واحد دریایی، تبادل الکترونیکی داده بر اساس کنوانسیون FAL و سامانه‌های جامعه بندری.',
     },
-    note: {
-      en: 'System architecture and implementation are outside scope and handled by technology providers.',
-      fa: 'معماری سامانه و پیاده‌سازی فنی خارج از دامنه است و توسط تأمین‌کنندگان فناوری انجام می‌شود.',
-    },
   },
   {
     slug: 'dispute-advisory',
@@ -571,10 +636,6 @@ export const specialistAreas: SpecialistArea[] = [
     text: {
       en: 'Independent maritime-sector perspective on regulatory and contractual disputes, supporting your legal team\'s strategy.',
       fa: 'دیدگاه مستقل از درون بخش دریایی درباره اختلافات مقرراتی و قراردادی، در پشتیبانی از راهبرد تیم حقوقی شما.',
-    },
-    note: {
-      en: 'Not legal representation. Engagement is subject to a conflict-of-interest check.',
-      fa: 'این خدمت وکالت حقوقی نیست و شروع همکاری منوط به بررسی تعارض منافع است.',
     },
   },
 ];

@@ -13,11 +13,19 @@ export const site = {
     fa: 'از سیاست دریایی تا اجرای عملی',
   } as L,
   description: {
-    en: 'Independent strategic advisory for maritime administrations, port authorities and industry leaders: IMO regulation, port governance, maritime contracts, STCW and international cooperation.',
-    fa: 'مشاوره راهبردی مستقل برای سازمان‌های دریایی، سازمان‌های بنادر و مدیران صنعت: مقررات IMO، حکمرانی بندری، قراردادهای دریایی، STCW و همکاری‌های بین‌المللی.',
+    en: 'Maritime advisory by Ali Akbar Marzban, former Permanent Representative of Iran to the IMO and former Deputy for Maritime Affairs of the Ports and Maritime Organization: IMO regulation, port governance, maritime contracts, seafarers and international cooperation.',
+    fa: 'مشاوره دریایی علی‌اکبر مرزبان، نماینده دائم پیشین ایران در IMO و معاون پیشین امور دریایی سازمان بنادر و دریانوردی: مقررات IMO، حکمرانی بندری، قراردادهای دریایی، امور دریانوردان و همکاری‌های بین‌المللی.',
   } as L,
-  // Public contact details are configured through environment variables (see .env.example).
-  contactEmail: import.meta.env.PUBLIC_CONTACT_EMAIL || '',
+  title: {
+    en: 'Former Deputy for Maritime Affairs, Ports and Maritime Organization of Iran · Former Permanent Representative of Iran to the IMO',
+    fa: 'معاون پیشین امور دریایی سازمان بنادر و دریانوردی · نماینده دائم پیشین ایران در سازمان بین‌المللی دریانوردی (IMO)',
+  } as L,
+  // WhatsApp is the primary contact channel. Number in international format, digits only.
+  whatsapp: '989129332824',
+  whatsappDisplay: '+98 912 933 2824',
+  photo: '/images/ali-akbar-marzban.webp',
+  portrait: '/images/ali-akbar-marzban-portrait.webp',
+  ogImage: '/images/og-ali-akbar-marzban.jpg',
   linkedin: '', // TODO: add the advisor's LinkedIn profile URL once approved.
 };
 
@@ -47,13 +55,14 @@ export const ui = {
   home: { en: 'Home', fa: 'خانه' },
   services: { en: 'Advisory Services', fa: 'خدمات مشاوره' },
   insights: { en: 'Insights', fa: 'تحلیل‌ها' },
-  placeholder: { en: 'Content pending verification', fa: 'محتوا در انتظار تأیید' },
-  footerNote: {
-    en: 'Independent strategic advisory. Not legal representation, technical engineering, brokerage or official institutional authority.',
-    fa: 'مشاوره راهبردی مستقل. این خدمات جایگزین وکالت حقوقی، خدمات فنی مهندسی، کارگزاری یا اختیارات رسمی نهادی نیست.',
-  },
   privacy: { en: 'Privacy Policy', fa: 'حریم خصوصی' },
   legal: { en: 'Legal Notices', fa: 'اطلاعیه‌های حقوقی' },
   specialist: { en: 'Specialist Advisory', fa: 'مشاوره تخصصی تکمیلی' },
   contact: { en: 'Contact & Consultation', fa: 'تماس و درخواست مشاوره' },
+  whatsapp: { en: 'Message on WhatsApp', fa: 'گفت‌وگو در واتس‌اپ' },
+  whatsappShort: { en: 'WhatsApp', fa: 'واتس‌اپ' },
 };
+
+export function whatsappLink(text = ''): string {
+  return `https://wa.me/${site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
+}

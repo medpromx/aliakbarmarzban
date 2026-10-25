@@ -1,7 +1,8 @@
 ---
 import Icon from './Icon.astro';
 import SeaLines from './SeaLines.astro';
-import { href, type Lang } from '../lib/i18n';
+import { site, ui, whatsappLink } from '../data/site';
+import { href, t, type Lang } from '../lib/i18n';
 interface Props {
   lang: Lang;
   title: string;
@@ -23,7 +24,10 @@ const target = href(lang, '/consultation/') + (service ? `?service=${service}` :
     </div>
     <div class="cta-band__action">
       <a class="btn btn--primary" href={target} data-track={track}>{cta} <Icon name="arrow" size={18} /></a>
-      <p class="cta-band__small"><Icon name="lock" size={16} /> {lang === 'fa' ? 'پاسخ‌گویی محرمانه، معمولاً ظرف دو روز کاری' : 'Handled confidentially, usually answered within two working days'}</p>
+      <a class="btn btn--ghost cta-band__wa" href={whatsappLink()} target="_blank" rel="noopener" data-track={`${track}-whatsapp`}>
+        <Icon name="whatsapp" size={18} /> {t(ui.whatsapp, lang)}
+      </a>
+      <p class="cta-band__small"><Icon name="lock" size={16} /> {lang === 'fa' ? 'گفت‌وگوها محرمانه می‌ماند' : 'Every conversation stays confidential'} · <span class="ltr">{site.whatsappDisplay}</span></p>
     </div>
   </div>
 </section>
@@ -33,5 +37,6 @@ const target = href(lang, '/consultation/') + (service ? `?service=${service}` :
   @media (min-width: 900px) { .cta-band__inner { grid-template-columns: 1.6fr 1fr; } }
   .cta-band h2 { max-width: 24ch; }
   .cta-band__action { display: grid; gap: 0.9rem; justify-items: start; }
+  .cta-band__wa :global(svg) { color: #25d366; }
   .cta-band__small { display: flex; gap: 0.5rem; align-items: center; font-size: 0.88rem; margin: 0; }
 </style>

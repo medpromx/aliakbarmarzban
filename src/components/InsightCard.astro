@@ -15,10 +15,8 @@ const service = insight.service ? getService(insight.service) : undefined;
   </p>
   <h3><a class="stretched" href={href(lang, `/insights/${insight.slug}/`)}>{insight.title}</a></h3>
   <p>{insight.summary}</p>
-  {insight.sample && <p class="insight-card__sample">{lang === 'fa' ? 'مقاله نمونه' : 'Sample article'}</p>}
   <span class="more" aria-hidden="true">{t(ui.readMore, lang)} <Icon name="arrow" size={16} /></span>
 </article>
 <style>
   .insight-card__meta { display: grid; gap: 0.2rem; font-size: 0.85rem; color: var(--slate-2); margin: 0 0 0.4rem !important; }
-  .insight-card__sample { font-size: 0.8rem; color: var(--gold-dark); margin-block-start: 0.5rem !important; }
 </style>

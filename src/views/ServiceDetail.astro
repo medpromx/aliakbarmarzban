@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import Placeholder from '../components/Placeholder.astro';
 import InsightCard from '../components/InsightCard.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import { services, type Service } from '../data/services';
@@ -59,7 +58,6 @@ const toc = [
       <div>
         <p class="eyebrow">{fa ? 'چگونه کمک می‌کنیم' : 'How we help'}</p>
         <h2 id="approach-h">{fa ? 'رویکرد مشاوره‌ای پیشنهادی' : 'The recommended advisory approach'}</h2>
-        {s.scopeNote && <p class="note">{t(s.scopeNote, lang)}</p>}
       </div>
       <ul class="check-list">{t(s.howWeHelp, lang).map((c) => <li>{c}</li>)}</ul>
     </div>
@@ -104,9 +102,7 @@ const toc = [
         <h2 id="exp-h">{fa ? 'تجربه مرتبط' : 'Relevant experience'}</h2>
         <p><a href={href(lang, '/experience/')}>{fa ? 'مشاهده همه سوابق' : 'View full experience & credentials'}</a></p>
       </div>
-      <Placeholder lang={lang}>
-        {fa ? 'سوابق مرتبط با این خدمت، همراه با شواهد قابل تأیید (سمت، سازمان، سال و نقش)، پس از تأیید منتشر می‌شود.' : 'Experience relevant to this practice — with verifiable evidence (role, organisation, year and contribution) — will be published after verification.'}
-      </Placeholder>
+      <ul class="check-list">{t(s.experience, lang).map((e) => <li>{e}</li>)}</ul>
     </div>
   </section>
 
@@ -122,7 +118,7 @@ const toc = [
   <CtaBand
     lang={lang}
     title={t(s.cta, lang)}
-    text={fa ? 'گام نخست، گفت‌وگویی محرمانه و بدون تعهد درباره وضعیت سازمان شماست. لطفاً اسناد محرمانه را از طریق فرم ارسال نکنید.' : 'The first step is a confidential, no-obligation discussion of your situation. Please do not send confidential documents through the form.'}
+    text={fa ? 'گام نخست، گفت‌وگویی محرمانه و بدون تعهد درباره وضعیت سازمان شماست.' : 'The first step is a confidential, no-obligation conversation about your situation.'}
     cta={t(s.cta, lang)}
     service={s.slug}
     track={`service-final-${s.slug}`}

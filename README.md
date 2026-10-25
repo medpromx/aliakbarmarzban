@@ -21,27 +21,17 @@ Every page is rendered once per language from a shared view in `src/views/`. Tex
 
 - `src/data/services.ts` — the six core services and four specialist areas (both languages).
 - `src/data/sectors.ts` — audience journeys and sectors.
-- `src/data/credentials.json` — experience and credentials (each item has `verified`; unverified items show as placeholders).
+- `src/data/credentials.json` — career, international roles, education and books.
+- `src/data/profile.ts` — biography, headline figures and career highlights.
 - `src/content/insights/<en|fa>/*.md` — articles.
 
 Service pages link to the form with `?service=<slug>`, and the form preselects that advisory area.
 
-## Content rules
+## Contact
 
-Placeholders with a dashed gold border mark content that still needs verification (biography, portrait, career evidence, case studies, retention period, legal details). The three insight articles are marked as samples. Don't publish career claims, titles or case studies until they're verified. Use "Former" for historical roles and don't imply a current IMO affiliation.
+WhatsApp is the contact channel (`site.whatsapp` in `src/data/site.ts`). The consultation form validates the request and opens it as a ready-to-send WhatsApp message, then shows the confirmation page; a floating WhatsApp button appears on every page.
 
-## Configuration
-
-Set these as **repository variables** (Settings → Secrets and variables → Actions → Variables). The deploy workflow passes them to the build.
-
-| Variable | Purpose |
-|---|---|
-| `PUBLIC_FORM_ENDPOINT` | Endpoint that receives the consultation form as JSON (e.g. a free [Formspree](https://formspree.io) form URL, or `https://api.web3forms.com/submit`). |
-| `PUBLIC_FORM_ACCESS_KEY` | Web3Forms access key (only for Web3Forms). |
-| `PUBLIC_CONTACT_EMAIL` | Public contact email. If no endpoint is set, the form opens a pre-filled email to this address. |
-| `PUBLIC_PLAUSIBLE_DOMAIN` | Optional cookieless analytics (Plausible). CTA clicks and form submissions are sent as events. |
-
-Spam protection: honeypot field plus a minimum completion time. Formspree and Web3Forms add their own filtering.
+Optional: set the repository variable `PUBLIC_PLAUSIBLE_DOMAIN` to enable cookieless analytics (CTA clicks and form submissions are sent as events).
 
 ## CMS
 

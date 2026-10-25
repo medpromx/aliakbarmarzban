@@ -5,11 +5,11 @@ import SeaLines from '../components/SeaLines.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import JourneySelector from '../components/JourneySelector.astro';
 import CtaBand from '../components/CtaBand.astro';
-import Placeholder from '../components/Placeholder.astro';
 import InsightCard from '../components/InsightCard.astro';
 import { site, ui } from '../data/site';
 import { services } from '../data/services';
 import { methodology, differentiators } from '../data/common';
+import { highlights, stats } from '../data/profile';
 import { getInsights } from '../lib/insights';
 import { href, num, t, type Lang } from '../lib/i18n';
 import { organizationLd, personLd } from '../lib/schema';
@@ -40,22 +40,21 @@ const challenges = [
         </h1>
         <p class="lead">
           {fa
-            ? 'مشاوره راهبردی مستقل برای سازمان‌های دریایی، سازمان‌های بنادر و مدیران صنعت؛ از سیاست‌ها و تعهدات بین‌المللی تا تصمیمات مدیریتی و برنامه‌های اجرایی.'
-            : 'Independent strategic advisory for maritime administrations, port authorities and industry leaders — turning international policy and obligations into management decisions and implementation plans.'}
+            ? 'مشاوره برای سازمان‌های دریایی، سازمان‌های بنادر و مدیران صنعت؛ با سی سال تجربه در بنادر و دریانوردی و هشت سال نمایندگی ایران در IMO، از تعهدات بین‌المللی تا تصمیم‌های اجرایی.'
+            : 'Advice for maritime administrations, port authorities and industry leaders, from thirty years in ports and maritime affairs and eight years representing Iran at the IMO: from international obligations to decisions that work.'}
         </p>
         <div class="btn-row">
           <a class="btn btn--primary" href={href(lang, '/consultation/')} data-track="hero-primary">{t(ui.primaryCta, lang)} <Icon name="arrow" size={18} /></a>
           <a class="btn btn--ghost" href={href(lang, '/services/')} data-track="hero-secondary">{t(ui.secondaryCta, lang)}</a>
         </div>
       </div>
-      <aside class="hero__panel" aria-label={fa ? 'جایگاه' : 'Positioning'}>
-        <p class="hero__pillars">{t(site.pillars, lang)}</p>
-        <p class="hero__position">{t(site.positioning, lang)}</p>
-        <ul class="hero__chips">
-          <li><span class="ltr">B2B / B2G</span></li>
-          <li>{fa ? 'مشاوره مدیران ارشد' : 'Executive Advisory'}</li>
-          <li>{fa ? 'مشتریان بین‌المللی' : 'International Clients'}</li>
-        </ul>
+      <aside class="hero__panel" aria-label={fa ? 'مشاور' : 'The advisor'}>
+        <img class="hero__photo" src={site.portrait} alt={t(site.advisorName, lang)} width="640" height="800" loading="eager" fetchpriority="high" />
+        <div>
+          <p class="hero__name">{t(site.advisorName, lang)}</p>
+          <p class="hero__role">{fa ? 'معاون پیشین امور دریایی سازمان بنادر و دریانوردی؛ نماینده دائم پیشین ایران در IMO' : 'Former Deputy for Maritime Affairs, Ports and Maritime Organization; former Permanent Representative of Iran to the IMO'}</p>
+          <p class="hero__pillars">{t(site.pillars, lang)}</p>
+        </div>
       </aside>
     </div>
   </section>
@@ -114,25 +113,28 @@ const challenges = [
   <!-- 5. Credentials -->
   <section class="section" aria-labelledby="why-h">
     <div class="container split">
+      <figure class="why__photo">
+        <img src={site.photo} alt={t(site.advisorName, lang)} width="950" height="634" loading="lazy" />
+      </figure>
       <div>
-        <p class="eyebrow">{fa ? 'چرا با ما' : 'Why work with us'}</p>
-        <h2 id="why-h">{fa ? 'تخصص مستقل. نتایج عملی.' : 'Independent expertise. Practical outcomes.'}</h2>
-        <p>{fa ? 'سوابق و مدارک، اثبات اعتبارند؛ نه محور گفت‌وگو. محور، مسئله شماست.' : 'Credentials are the evidence, not the headline. The starting point is always your problem.'}</p>
+        <p class="eyebrow">{fa ? 'چرا علی‌اکبر مرزبان' : 'Why Ali Akbar Marzban'}</p>
+        <h2 id="why-h">{fa ? 'تجربه از درون. نتیجه در عمل.' : 'Experience from the inside. Results in practice.'}</h2>
+        <p>{fa ? 'او مقررات دریایی را هم از پشت میز مذاکره در لندن دیده و هم از درون سازمانی که باید آنها را اجرا کند. همین تجربه دوگانه، توصیه‌ها را عملی می‌کند.' : 'He has seen maritime rules from the negotiating table in London and from inside the organisation that has to apply them. That double view is what makes the advice practical.'}</p>
+        <ul class="mini-stats">
+          {stats.map((st) => <li><strong>{t(st.value, lang)}</strong><span>{t(st.label, lang)}</span></li>)}
+        </ul>
         <a class="btn btn--outline" href={href(lang, '/experience/')}>{fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & credentials'}</a>
       </div>
-      <div class="grid">
-        <div class="grid grid--2 diffs">
-          {differentiators.map((d) => (
-            <div class="diff">
-              <div class="icon-badge"><Icon name={d.icon} /></div>
-              <h3>{t(d.title, lang)}</h3>
-              <p>{t(d.text, lang)}</p>
-            </div>
-          ))}
-        </div>
-        <Placeholder lang={lang} label={fa ? 'سوابق حرفه‌ای تأییدشده' : 'Verified career evidence'}>
-          {fa ? 'سمت‌های سابق، سال‌ها، عضویت‌ها و شواهد قابل تأیید پس از تطبیق با مستندات رسمی در این بخش درج می‌شود.' : 'Former appointments, years of experience, memberships and verifiable evidence will appear here once checked against official records.'}
-        </Placeholder>
+    </div>
+    <div class="container">
+      <div class="grid grid--4 diffs">
+        {differentiators.map((d) => (
+          <div class="diff">
+            <div class="icon-badge"><Icon name={d.icon} /></div>
+            <h3>{t(d.title, lang)}</h3>
+            <p>{t(d.text, lang)}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -161,13 +163,17 @@ const challenges = [
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{fa ? 'تجربیات منتخب' : 'Selected experience'}</p>
-        <h2 id="exp-h">{fa ? 'تجربیات و پروژه‌های قابل انتشار' : 'Approved experience and case studies'}</h2>
+        <h2 id="exp-h">{fa ? 'سه دهه، سه نقطه عطف' : 'Three decades, three milestones'}</h2>
       </div>
       <div class="grid grid--3">
-        {[1, 2, 3].map((n) => (
-          <Placeholder lang={lang} label={fa ? `نمونه تجربه ${num(n, lang)}` : `Case study ${n}`}>
-            {fa ? 'فقط پروژه‌های واقعی با مجوز انتشار: مسئله مشتری، نقش مشاور، خروجی و نتیجه.' : 'Only real, approved engagements: client challenge, advisory role, deliverable and outcome.'}
-          </Placeholder>
+        {highlights.map((h) => (
+          <article class="card card--link">
+            <div class="icon-badge"><Icon name={h.icon} /></div>
+            <span class="tag">{t(h.period, lang)}</span>
+            <h3><a class="stretched" href={href(lang, `/services/${h.service}/`)}>{t(h.title, lang)}</a></h3>
+            <p>{t(h.text, lang)}</p>
+            <span class="more" aria-hidden="true">{t(ui.learnMore, lang)} <Icon name="arrow" size={16} /></span>
+          </article>
         ))}
       </div>
     </div>
@@ -208,9 +214,17 @@ const challenges = [
   .hero__panel { border-inline-start: 1px solid var(--gold); padding-inline-start: 1.6rem; display: grid; gap: 0.9rem; }
   .hero__pillars { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 0; }
   :global(:root[lang='fa']) .hero__pillars { letter-spacing: normal; font-size: 0.95rem; }
-  .hero__position { color: var(--white); font-size: 1.35rem; font-weight: 600; line-height: 1.4; margin: 0; }
-  .hero__chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .hero__chips li { border: 1px solid rgb(255 255 255 / 22%); border-radius: 999px; padding: 0.25rem 0.8rem; font-size: 0.85rem; }
+  .hero__panel { grid-template-columns: 112px 1fr; align-items: center; gap: 1.2rem; }
+  .hero__photo { inline-size: 112px; block-size: 140px; object-fit: cover; border-radius: var(--radius); }
+  .hero__name { color: var(--white); font-size: 1.2rem; font-weight: 700; margin: 0 0 0.3rem; }
+  .hero__role { font-size: 0.92rem; line-height: 1.5; margin: 0 0 0.6rem; }
+  .why__photo { margin: 0; }
+  .why__photo img { inline-size: 100%; block-size: 100%; min-block-size: 320px; object-fit: cover; border-radius: var(--radius); }
+  .mini-stats { list-style: none; margin: 1.6rem 0 2rem; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem 1.6rem; }
+  .mini-stats li { display: grid; gap: 0.2rem; border-block-start: 1px solid var(--line); padding-block-start: 0.8rem; }
+  .mini-stats strong { font-size: 1.9rem; color: var(--teal-dark); line-height: 1; }
+  .mini-stats span { font-size: 0.9rem; }
+  .diffs { margin-block-start: clamp(40px, 6vw, 72px); }
 
   .challenges { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); border-block-start: 1px solid var(--line); }
   .challenge { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 0.3rem 1rem; padding: 1.5rem 0.25rem; border-block-end: 1px solid var(--line); align-items: center; color: var(--teal); }

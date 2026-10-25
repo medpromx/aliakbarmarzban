@@ -1,56 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import Placeholder from '../components/Placeholder.astro';
 import { site } from '../data/site';
 import { t, type Lang } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fa = lang === 'fa';
 const title = fa ? 'سیاست حریم خصوصی' : 'Privacy Policy';
-const contact = site.contactEmail;
 ---
-<Base lang={lang} title={title} description={fa ? 'نحوه پردازش اطلاعات ارسال‌شده از طریق این وب‌سایت.' : 'How information submitted through this website is processed.'}>
+<Base lang={lang} title={title} description={fa ? 'نحوه استفاده از اطلاعاتی که از طریق این وب‌سایت ارسال می‌کنید.' : 'How information you send through this website is used.'}>
   <PageHero lang={lang} eyebrow={fa ? 'حقوقی' : 'Legal'} title={title} crumbs={[{ label: title }]} />
   <section class="section section--white">
     <div class="container">
       <div class="prose">
-        <Placeholder lang={lang} label={fa ? 'پیش‌نویس' : 'Draft'}>
-          {fa ? 'این متن پیش‌نویس است و پیش از راه‌اندازی عمومی باید با مشاور حقوقی و قوانین قابل اعمال تطبیق داده شود.' : 'This is a draft and must be reviewed against applicable law by a legal adviser before public launch.'}
-        </Placeholder>
         {fa ? (
           <>
-            <h2>مسئول پردازش اطلاعات</h2>
-            <p>{t(site.advisorName, lang)}، {t(site.brand, lang)}. {contact ? <>نشانی تماس: <a href={`mailto:${contact}`} dir="ltr">{contact}</a></> : '[نشانی تماس و آدرس پستی پس از تأیید درج می‌شود]'}</p>
-            <h2>چه اطلاعاتی جمع‌آوری می‌شود</h2>
-            <p>هنگام تکمیل فرم درخواست مشاوره: نام، سمت (اختیاری)، سازمان، ایمیل سازمانی، نوع سازمان، حوزه مشاوره، بازه زمانی و شرح کوتاه چالش. لطفاً اسناد محرمانه یا اطلاعات شخصی حساس ارسال نکنید.</p>
-            <h2>هدف و مبنای پردازش</h2>
-            <p>این اطلاعات صرفاً برای پاسخ به درخواست شما، هماهنگی جلسه و ارزیابی امکان همکاری استفاده می‌شود و مبنای آن رضایت شما و منافع مشروع در پاسخ‌گویی به درخواست است. اطلاعات شما فروخته یا برای بازاریابی به اشخاص ثالث داده نمی‌شود.</p>
-            <h2>ارائه‌دهندگان خدمات</h2>
-            <p>وب‌سایت روی GitHub Pages میزبانی می‌شود. اطلاعات فرم از طریق یک سرویس امن دریافت فرم منتقل می‌شود. در صورت فعال‌بودن آمار بازدید، از ابزاری بدون کوکی و بدون ردیابی شخصی (Plausible) استفاده می‌شود.</p>
+            <h2>چه اطلاعاتی دریافت می‌شود</h2>
+            <p>فرم درخواست مشاوره اطلاعاتی را که وارد می‌کنید (نام، سازمان، سمت، ایمیل، حوزه مشاوره، زمان‌بندی و شرح کوتاه موضوع) به‌صورت یک پیام آماده در واتس‌اپ شما قرار می‌دهد. اطلاعات تنها زمانی ارسال می‌شود که خودتان پیام را در واتس‌اپ بفرستید. این وب‌سایت فرم را روی هیچ سروری ذخیره نمی‌کند.</p>
+            <h2>استفاده از اطلاعات</h2>
+            <p>اطلاعات شما فقط برای پاسخ به درخواست، هماهنگی جلسه و بررسی همکاری استفاده می‌شود، محرمانه می‌ماند و در اختیار دیگران قرار نمی‌گیرد.</p>
             <h2>مدت نگهداری</h2>
-            <p>[مدت نگهداری درخواست‌ها پس از تأیید درج می‌شود.]</p>
-            <h2>حقوق شما</h2>
-            <p>می‌توانید درخواست دسترسی، اصلاح یا حذف اطلاعات خود را از طریق نشانی تماس بالا مطرح کنید.</p>
-            <h2>کوکی‌ها</h2>
-            <p>این وب‌سایت از کوکی‌های تبلیغاتی یا ردیابی استفاده نمی‌کند.</p>
+            <p>پیام‌ها تا زمانی نگهداری می‌شوند که برای پیگیری درخواست و همکاری لازم باشند. هر زمان بخواهید، با یک پیام حذف آنها را درخواست کنید.</p>
+            <h2>آمار بازدید و کوکی‌ها</h2>
+            <p>این وب‌سایت از کوکی‌های تبلیغاتی یا ردیابی استفاده نمی‌کند. در صورت فعال‌بودن آمار بازدید، از ابزاری بدون کوکی استفاده می‌شود که اطلاعات شخصی جمع نمی‌کند.</p>
+            <h2>تماس</h2>
+            <p>{t(site.advisorName, lang)}، واتس‌اپ <span dir="ltr">{site.whatsappDisplay}</span></p>
           </>
         ) : (
           <>
-            <h2>Data controller</h2>
-            <p>{t(site.advisorName, lang)}, {t(site.brand, lang)}. {contact ? <>Contact: <a href={`mailto:${contact}`}>{contact}</a></> : '[Contact address and postal address to be added after confirmation]'}</p>
-            <h2>What we collect</h2>
-            <p>When you complete the consultation form: your name, position (optional), organisation, professional email, organisation type, advisory area, timeframe and a short description of your challenge. Please do not submit confidential documents or sensitive personal data.</p>
-            <h2>Purpose and legal basis</h2>
-            <p>This information is used only to respond to your request, arrange a discussion and assess a potential engagement, on the basis of your consent and the legitimate interest in answering your enquiry. Your information is not sold or shared with third parties for marketing.</p>
-            <h2>Service providers</h2>
-            <p>The website is hosted on GitHub Pages. Form submissions are transmitted through a secure form-handling service. If visitor statistics are enabled, a cookieless, privacy-focused tool (Plausible) is used without personal tracking.</p>
-            <h2>Retention</h2>
-            <p>[Retention period for enquiries to be confirmed.]</p>
-            <h2>Your rights</h2>
-            <p>You may request access to, correction or deletion of your information using the contact address above.</p>
-            <h2>Cookies</h2>
-            <p>This website does not use advertising or tracking cookies.</p>
+            <h2>What we receive</h2>
+            <p>The consultation form turns the details you enter (name, organisation, position, email, advisory area, timeframe and a short description) into a ready-to-send WhatsApp message. Nothing is sent until you send that message yourself, and the website does not store the form on any server.</p>
+            <h2>How it is used</h2>
+            <p>Your information is used only to reply to your request, arrange a conversation and consider working together. It is kept confidential and not shared with anyone else.</p>
+            <h2>How long it is kept</h2>
+            <p>Messages are kept only as long as needed to follow up your request and any engagement. You can ask for them to be deleted at any time.</p>
+            <h2>Statistics and cookies</h2>
+            <p>This website uses no advertising or tracking cookies. If visitor statistics are enabled, a cookieless tool that collects no personal data is used.</p>
+            <h2>Contact</h2>
+            <p>{t(site.advisorName, lang)}, WhatsApp <span class="ltr">{site.whatsappDisplay}</span></p>
           </>
         )}
       </div>

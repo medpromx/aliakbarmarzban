@@ -3,7 +3,6 @@ title: "Choosing a Port Governance Model Is a Decision About Accountability"
 date: "2026-08-20"
 summary: "Service, tool, landlord or private: the real question behind port reform is who decides, who invests and who is held to account."
 service: port-governance
-sample: true
 ---
 
 Port reform debates often start with the label: should the port become a **landlord port**? The more useful starting point is accountability.
@@ -23,4 +22,3 @@ What matters for performance is whether:
 
 An independent governance diagnostic maps mandates, decision rights and performance data before reform options are designed. This avoids reforms that change the structure but not the results.
 
-*This is a sample article to demonstrate the Insights section. Replace or approve before publication.*

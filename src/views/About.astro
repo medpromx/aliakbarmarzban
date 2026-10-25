@@ -2,9 +2,10 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
-import Placeholder from '../components/Placeholder.astro';
-import { site, ui } from '../data/site';
+import Icon from '../components/Icon.astro';
+import { site, ui, whatsappLink } from '../data/site';
 import { differentiators } from '../data/common';
+import { bio, stats } from '../data/profile';
 import { href, t, type Lang } from '../lib/i18n';
 import { profilePageLd } from '../lib/schema';
 interface Props { lang: Lang }
@@ -12,45 +13,67 @@ const { lang } = Astro.props;
 const fa = lang === 'fa';
 const title = fa ? 'درباره مشاور' : 'About the Advisor';
 ---
-<Base lang={lang} title={title} ogType="profile" jsonLd={profilePageLd(lang)} description={fa ? `${t(site.advisorName, lang)}، مشاور راهبردی مستقل در حوزه مقررات بین‌المللی دریایی، حکمرانی بندری و امور بین‌الملل.` : `${t(site.advisorName, lang)}, independent strategic advisor in international maritime regulation, port governance and international affairs.`}>
+<Base lang={lang} title={title} ogType="profile" jsonLd={profilePageLd(lang)} description={t(site.description, lang)}>
   <PageHero
     lang={lang}
     eyebrow={title}
     title={t(site.advisorName, lang)}
-    lead={fa ? 'مشاور راهبردی مستقل در حوزه مقررات بین‌المللی دریایی، حکمرانی بندری و همکاری‌های بین‌المللی.' : 'Independent strategic advisor in international maritime regulation, port governance and international cooperation.'}
+    lead={t(site.title, lang)}
     crumbs={[{ label: title }]}
   />
   <section class="section section--white">
     <div class="container split">
-      <div class="portrait">
-        <Placeholder lang={lang} label={fa ? 'تصویر حرفه‌ای تأییدشده' : 'Approved professional portrait'}>
-          {fa ? 'جایگاه عکس حرفه‌ای مشاور (نسبت ۴:۵، با نور طبیعی و پس‌زمینه سازمانی یا بندری).' : "Space for the advisor's approved portrait (4:5 ratio, natural light, institutional or port setting)."}
-        </Placeholder>
-      </div>
+      <figure class="portrait">
+        <img src={site.portrait} alt={t(site.advisorName, lang)} width="640" height="800" loading="eager" />
+        <figcaption>
+          <strong>{t(site.advisorName, lang)}</strong>
+          <span>{fa ? 'مشاور امور دریایی، بندری و بین‌المللی' : 'Maritime, port and international affairs advisor'}</span>
+        </figcaption>
+      </figure>
       <div class="prose">
-        <h2>{fa ? 'از سیاست دریایی تا اجرای عملی' : 'From maritime policy to practical implementation'}</h2>
-        <p>{fa ? 'این رویه مشاوره‌ای به سازمان‌های دریایی، سازمان‌های بنادر، دولت‌ها و فعالان صنعت کمک می‌کند تعهدات و مقررات بین‌المللی را به تصمیمات مدیریتی و برنامه‌های اجرایی تبدیل کنند.' : 'This advisory practice helps maritime administrations, port authorities, governments and industry translate international obligations and regulation into management decisions and implementation programmes.'}</p>
-        <p>{fa ? 'تمرکز کار بر مسئله مشتری است: درک دقیق چالش، ارائه توصیه‌های قابل اجرا و همراهی تا زمانی که توصیه‌ها به رویه سازمانی تبدیل شوند.' : "The focus is on the client's problem: understanding it precisely, providing actionable recommendations and staying involved until they become institutional practice."}</p>
-        <Placeholder lang={lang} label={fa ? 'زندگی‌نامه حرفه‌ای' : 'Professional biography'}>
-          {fa ? 'خلاصه سوابق حرفه‌ای (۱۵۰ تا ۲۵۰ کلمه) پس از تأیید متن و تاریخ‌ها درج می‌شود. سمت‌های نهادی گذشته با عنوان «سابق» ذکر خواهند شد.' : 'A 150–250 word professional biography will be added once the text and dates are verified. Historical institutional roles will be described as "Former".'}
-        </Placeholder>
-        <h2>{fa ? 'آنچه این مشاوره نیست' : 'What this advisory is not'}</h2>
-        <p>{fa ? 'این خدمات مشاوره راهبردی است و جایگزین وکالت حقوقی، خدمات فنی مهندسی، کارگزاری یا اختیارات رسمی هیچ نهاد دولتی یا بین‌المللی نیست. هیچ وابستگی فعلی به IMO القا نمی‌شود.' : 'This is strategic advisory. It is not legal representation, technical engineering, brokerage or the official authority of any government or international body, and no current IMO affiliation is implied.'}</p>
-        <p><a href={href(lang, '/experience/')}>{fa ? 'سوابق و اعتبارنامه‌ها' : 'Experience & credentials'}</a></p>
+        <h2>{fa ? 'سی سال در بنادر و دریانوردی' : 'Thirty years in ports and maritime affairs'}</h2>
+        {t(bio, lang).map((p) => <p>{p}</p>)}
+        <div class="btn-row about-ctas">
+          <a class="btn btn--teal" href={href(lang, '/consultation/')} data-track="about-consult">{t(ui.requestConsultation, lang)} <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--outline" href={href(lang, '/experience/')}>{fa ? 'سوابق کامل' : 'Full experience'}</a>
+        </div>
       </div>
+    </div>
+  </section>
+  <section class="section section--navy">
+    <div class="container">
+      <ul class="stats">
+        {stats.map((s) => <li><strong>{t(s.value, lang)}</strong><span>{t(s.label, lang)}</span></li>)}
+      </ul>
     </div>
   </section>
   <section class="section">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">{fa ? 'اصول کار' : 'Principles'}</p><h2>{fa ? 'اصول همکاری' : 'How we work with clients'}</h2></div>
+      <div class="section-head"><p class="eyebrow">{fa ? 'شیوه کار' : 'How he works'}</p><h2>{fa ? 'آنچه در همکاری انتظار دارید' : 'What to expect when you work together'}</h2></div>
       <div class="grid grid--4">
-        {differentiators.map((d) => <div class="card"><h3>{t(d.title, lang)}</h3><p>{t(d.text, lang)}</p></div>)}
+        {differentiators.map((d) => <div class="card"><div class="icon-badge"><Icon name={d.icon} /></div><h3>{t(d.title, lang)}</h3><p>{t(d.text, lang)}</p></div>)}
       </div>
+      <p class="wa-line">
+        {fa ? 'برای گفت‌وگوی مستقیم:' : 'To talk directly:'}{' '}
+        <a href={whatsappLink()} target="_blank" rel="noopener" data-track="whatsapp-about"><Icon name="whatsapp" size={18} /> {t(ui.whatsappShort, lang)} <span class="ltr">{site.whatsappDisplay}</span></a>
+      </p>
     </div>
   </section>
-  <CtaBand lang={lang} title={fa ? 'گفت‌وگویی محرمانه را آغاز کنید' : 'Start a confidential conversation'} text={fa ? 'مسئله سازمان خود را به‌اختصار شرح دهید.' : "Briefly describe your organisation's challenge."} cta={t(ui.primaryCta, lang)} track="about-final" />
+  <CtaBand lang={lang} title={fa ? 'گفت‌وگو را آغاز کنید' : 'Start the conversation'} text={fa ? 'مسئله سازمان خود را به‌اختصار بنویسید؛ پاسخ از طریق واتس‌اپ داده می‌شود.' : "Briefly describe your organisation's challenge; you'll get a reply on WhatsApp."} cta={t(ui.primaryCta, lang)} track="about-final" />
 </Base>
 <style>
-  .portrait :global(.placeholder) { aspect-ratio: 4 / 5; display: flex; flex-direction: column; justify-content: end; }
+  .portrait { margin: 0; }
+  .portrait img { inline-size: 100%; block-size: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
+  .portrait figcaption { display: grid; gap: 0.1rem; margin-block-start: 0.9rem; padding-inline-start: 0.9rem; border-inline-start: 2px solid var(--gold); }
+  .portrait figcaption strong { color: var(--navy); }
+  .portrait figcaption span { font-size: 0.92rem; color: var(--slate-2); }
   @media (min-width: 900px) { .portrait { position: sticky; inset-block-start: 110px; align-self: start; } }
+  .about-ctas { margin-block-start: 2rem; }
+  .stats { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .stats li { display: grid; gap: 0.4rem; border-block-start: 1px solid rgb(255 255 255 / 18%); padding-block-start: 1.2rem; }
+  .stats strong { font-size: clamp(2.2rem, 4vw, 3rem); color: var(--gold); line-height: 1; }
+  .stats span { color: #c9d5df; }
+  .wa-line { margin-block-start: 2.5rem; }
+  .wa-line a { display: inline-flex; gap: 0.4rem; align-items: center; font-weight: 700; }
+  .wa-line :global(svg) { color: #1c9c4c; }
 </style>

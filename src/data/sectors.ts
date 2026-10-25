@@ -132,8 +132,8 @@ export const sectors: { title: L; text: L; services: string[] }[] = [
   {
     title: { en: 'Investors, law firms & development agencies', fa: 'سرمایه‌گذاران، مؤسسات حقوقی و نهادهای توسعه‌ای' },
     text: {
-      en: 'Independent sector insight for due diligence, programme design and project preparation.',
-      fa: 'دیدگاه مستقل بخشی برای بررسی‌های لازم، طراحی برنامه و آماده‌سازی پروژه.',
+      en: 'Sector insight for due diligence, programme design and project preparation.',
+      fa: 'دیدگاه تخصصی بخش دریایی برای بررسی‌های لازم، طراحی برنامه و آماده‌سازی پروژه.',
     },
     services: ['port-governance', 'maritime-contracts'],
   },
