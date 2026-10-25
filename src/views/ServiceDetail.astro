@@ -3,11 +3,10 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import InsightCard from '../components/InsightCard.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import { services, type Service } from '../data/services';
 import { ui } from '../data/site';
-import { getInsights } from '../lib/insights';
+import { getEntries, getCategory, entryPath } from '../lib/encyclopedia';
 import { href, num, t, type Lang, makeTr } from '../lib/i18n';
 import { serviceLd } from '../lib/schema';
 interface Props { lang: Lang; service: Service }
@@ -15,7 +14,10 @@ const { lang, service: s } = Astro.props;
 const fa = lang === 'fa';
 const tr = makeTr(lang);
 const title = t(s.title, lang);
-const related = getInsights(lang).filter((i) => i.service && s.insightTags.includes(i.service));
+// Encyclopedia entries tagged with this service, or filed under its matching subject area.
+const serviceArea: Record<string, string> = { 'maritime-contracts': 'contracts-risk', 'international-negotiation': 'negotiation-cooperation', 'executive-training': 'training-competence' };
+const related = getEntries(lang).filter((e) => e.service === s.slug || e.category === serviceArea[s.slug]).slice(0, 6);
+const fb = lang !== 'fa' && lang !== 'en' ? { lang: 'en', dir: 'ltr' as const } : {};
 const others = services.filter((o) => o.slug !== s.slug).slice(0, 3);
 const consult = `${href(lang, '/consultation/')}?service=${s.slug}`;
 const toc = [
@@ -110,8 +112,15 @@ const toc = [
   {related.length > 0 && (
     <section class="section" aria-labelledby="rel-h">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">{t(ui.insights, lang)}</p><h2 id="rel-h">{tr('تحلیل‌های مرتبط', 'Related insights')}</h2></div>
-        <div class="grid grid--3">{related.map((i) => <InsightCard lang={lang} insight={i} />)}</div>
+        <div class="section-head"><p class="eyebrow">{t(ui.encyclopedia, lang)}</p><h2 id="rel-h">{tr('مقاله‌های مرتبط دانشنامه', 'Related encyclopedia entries')}</h2></div>
+        <div class="grid grid--3">{related.map((e) => (
+          <article class="card card--link">
+            <p class="rel-meta"><span class="tag">{t(getCategory(e.category).title, lang)}</span></p>
+            <h3 {...fb}><a class="stretched" href={href(lang, entryPath(e))}>{e.title}</a></h3>
+            <p {...fb}>{e.summary}</p>
+            <span class="more" aria-hidden="true">{t(ui.readMore, lang)} <Icon name="arrow" size={16} /></span>
+          </article>
+        ))}</div>
       </div>
     </section>
   )}
@@ -133,6 +142,7 @@ const toc = [
   </section>
 </Base>
 <style>
+  .rel-meta { margin: 0 0 0.4rem !important; font-size: 0.85rem; }
   .hero-ctas { margin-block-start: 2rem; }
   .toc { background: var(--white); border-block-end: 1px solid var(--line); position: sticky; inset-block-start: 76px; z-index: 10; }
   .toc ul { list-style: none; display: flex; gap: 1.6rem; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }

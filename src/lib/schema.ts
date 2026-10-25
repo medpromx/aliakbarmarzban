@@ -1,5 +1,6 @@
 import { site } from '../data/site';
 import { href, t, type Lang, makeTr } from './i18n';
+import { atlasItems, atlasPath, atlasSrc } from './atlas';
 
 // Structured data built from the advisor's CV.
 export function personLd(lang: Lang) {
@@ -57,7 +58,7 @@ export function articleLd(lang: Lang, a: { title: string; summary: string; date:
     description: a.summary,
     datePublished: a.date,
     inLanguage: lang,
-    url: new URL(href(lang, `/insights/${a.slug}/`), site.url).href,
+    url: new URL(href(lang, `/magazine/${a.slug}/`), site.url).href,
     author: { '@id': `${site.url}/#advisor`, '@type': 'Person', name: t(site.advisorName, lang) },
     publisher: { '@id': `${site.url}/#organization` },
   };
@@ -72,5 +73,40 @@ export function serviceLd(lang: Lang, s: { slug: string; title: string; descript
     url: new URL(href(lang, `/services/${s.slug}/`), site.url).href,
     provider: { '@id': `${site.url}/#organization` },
     areaServed: 'Worldwide',
+  };
+}
+
+export function atlasLd(lang: Lang, name: string, description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    name,
+    description,
+    inLanguage: lang,
+    url: new URL(href(lang, atlasPath), site.url).href,
+    author: { '@id': `${site.url}/#advisor` },
+    image: atlasItems.map((i) => ({
+      '@type': 'ImageObject',
+      contentUrl: new URL(atlasSrc(i.n, 'full'), site.url).href,
+      name: `${i.n}. ${t(i.title, lang)}`,
+      caption: t(i.caption, lang),
+      width: 2048,
+      height: 2048,
+    })),
+  };
+}
+
+export function entryLd(lang: Lang, e: { title: string; summary: string; updated: string; slug: string; category: string; lang: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: e.title,
+    description: e.summary,
+    dateModified: e.updated,
+    inLanguage: e.lang,
+    isPartOf: { '@type': 'CreativeWorkSeries', name: 'Encyclopedia of Maritime Governance and Regulation' },
+    url: new URL(href(lang, `/encyclopedia/${e.category}/${e.slug}/`), site.url).href,
+    author: { '@id': `${site.url}/#advisor`, '@type': 'Person', name: t(site.advisorName, lang) },
+    publisher: { '@id': `${site.url}/#organization` },
   };
 }

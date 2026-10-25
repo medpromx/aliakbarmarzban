@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import AtlasFigure from '../components/AtlasFigure.astro';
+import AtlasLightbox from '../components/AtlasLightbox.astro';
+import AtlasDisclaimer from '../components/AtlasDisclaimer.astro';
+import Icon from '../components/Icon.astro';
+import { atlasChapters, atlasItems, atlasSrc, getAtlasItem, magazineArticleSlug } from '../lib/atlas';
+import { coursePath, getCourse } from '../data/courses';
+import { contentLang, entryPath, getEntries } from '../lib/encyclopedia';
+import { atlasLd } from '../lib/schema';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const title = tr('اطلس تصویری حکمرانی، مقررات و مدیریت دریایی', 'Maritime Governance, Regulation & Management: Visual Knowledge Atlas');
+const short = tr('اطلس تصویری حکمرانی دریایی', 'Maritime Governance Visual Atlas');
+const intro = tr(
+  'حکمرانی دریایی حاصل پیوند پیچیده‌ای میان حقوق بین‌الملل، نهادهای تنظیم‌گر، مسئولیت دولت‌ها و سازوکارهای اجرایی صنعت دریانوردی است. این اطلس تصویری در یازده بخش، ساختار حکمرانی دریایی را از مبانی حقوقی و نظام مقررات‌گذاری تا دیجیتالی‌سازی، مدیریت ریسک، همکاری‌های بین‌المللی، گذار اقلیمی و تضمین کیفیت آموزش بررسی می‌کند.',
+  'Maritime governance is the product of a complex interplay between international law, regulatory institutions, State responsibility and the operating mechanisms of the shipping industry. In eleven parts, this visual atlas examines maritime governance from its legal foundations and rule-making system to digitalisation, risk management, international cooperation, the climate transition and quality assurance in training.',
+);
+const magazine = href(lang, `/magazine/${magazineArticleSlug}/`);
+const entries = getEntries(lang);
+// Encyclopedia text is English outside Persian pages.
+const fbAttrs = contentLang(lang) !== lang && lang !== 'en' ? { lang: 'en', dir: 'ltr' as const } : {};
+---
+<Base lang={lang} title={short} description={intro} jsonLd={atlasLd(lang, short, intro)}>
+  <PageHero lang={lang} eyebrow={short} title={title} lead={intro} crumbs={[{ label: short }]}>
+    <ul class="atlas-facts">
+      <li><strong>{num(11, lang)}</strong> {tr('اینفوگرافیک تخصصی', 'specialist infographics')}</li>
+      <li><strong>{num(5, lang)}</strong> {tr('فصل', 'chapters')}</li>
+      <li><strong>{num(11, lang)}</strong> {tr('مدخل دانشنامه', 'encyclopedia entries')}</li>
+    </ul>
+  </PageHero>
+
+  <section class="section section--white" aria-labelledby="atlas-index">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{tr('فهرست تصویری', 'Visual index')}</p>
+        <h2 id="atlas-index">{tr('یازده چارچوب، به ترتیب مسیر یادگیری', 'Eleven frameworks, in learning order')}</h2>
+      </div>
+      <ol class="atlas-cards">
+        {atlasItems.map((item) => (
+          <li class="card card--link atlas-card">
+            <img src={atlasSrc(item.n, 'sm')} width="600" height="600" alt="" loading="lazy" decoding="async" />
+            <span class="atlas-card__num">{num(item.n, lang)}</span>
+            <h3><a class="stretched" href={`#image-${item.n}`}>{t(item.title, lang)}</a></h3>
+            <span class="more" aria-hidden="true">{tr('مشاهده و مطالعه', 'View and read')} <Icon name="arrow" size={16} /></span>
+          </li>
+        ))}
+      </ol>
+      <AtlasDisclaimer lang={lang} />
+    </div>
+  </section>
+
+  {atlasChapters.map((ch) => (
+    <section class="section atlas-chapter" aria-labelledby={`chapter-${ch.n}`}>
+      <div class="container atlas-narrow">
+        <header class="atlas-chapter__head">
+          <p class="eyebrow">{tr('فصل', 'Chapter')} {num(ch.n, lang)}</p>
+          <h2 id={`chapter-${ch.n}`}>{t(ch.title, lang)}</h2>
+          <p class="lead">{t(ch.intro, lang)}</p>
+        </header>
+        {ch.items.map((n) => {
+          const item = getAtlasItem(n);
+          const next = atlasItems[atlasItems.indexOf(item) + 1];
+          const main = entries.find((e) => e.slug === item.entry)!;
+          const related = entries.filter((e) => e.atlas === n && e !== main);
+          return (
+            <article class="atlas-entry" id={`image-${n}`} aria-labelledby={`image-${n}-title`}>
+              <p class="atlas-entry__num">{tr('تصویر', 'Image')} {num(n, lang)} {tr('از', 'of')} {num(11, lang)}</p>
+              <h3 id={`image-${n}-title`}>{t(item.title, lang)}</h3>
+              <p>{t(item.intro, lang)}</p>
+              <AtlasFigure lang={lang} item={item} eager={n === '01'} />
+              <h4>{tr('سه نکته کلیدی این تصویر', 'Three key points in this image')}</h4>
+              <ol class="atlas-points">{t(item.points, lang).map((p) => <li>{p}</li>)}</ol>
+              <div class="atlas-links">
+                <a href={href(lang, entryPath(main))}><Icon name="doc" size={18} /> {tr('مدخل دانشنامه', 'Encyclopedia entry')}</a>
+                <a href={`${magazine}#figure-${n}`}><Icon name="chart" size={18} /> {tr('تحلیل در مجله', 'Analysis in the magazine')}</a>
+                <span class="atlas-links__courses">
+                  <Icon name="training" size={18} /> {tr('دوره‌های مرتبط:', 'Related courses:')}
+                  {item.courses.map((c) => <a class="ltr" href={href(lang, coursePath(c))} title={getCourse(c) ? t(getCourse(c)!.title, lang) : undefined}>{c}</a>)}
+                </span>
+              </div>
+              {related.length > 0 && (
+                <details class="atlas-related">
+                  <summary>{tr('مدخل‌های دیگر دانشنامه درباره این تصویر', 'Other encyclopedia entries on this image')} ({num(related.length, lang)})</summary>
+                  <ul class="dash-list">{related.map((e) => <li><a href={href(lang, entryPath(e))} {...fbAttrs}>{e.title}</a></li>)}</ul>
+                </details>
+              )}
+              {next ? (
+                <a class="atlas-next" href={`#image-${next.n}`}>{tr('تصویر بعدی', 'Next image')}: {num(next.n, lang)} · {t(next.title, lang)} <Icon name="arrow" size={16} /></a>
+              ) : (
+                <a class="atlas-next" href="#atlas-end">{tr('جمع‌بندی', 'Conclusion')} <Icon name="arrow" size={16} /></a>
+              )}
+            </article>
+          );
+        })}
+        <aside class="atlas-closing">
+          <p class="tag">{tr('پیام فصل', 'Chapter takeaway')}</p>
+          <p>{t(ch.closing, lang)}</p>
+        </aside>
+      </div>
+    </section>
+  ))}
+
+  <section class="section section--navy" id="atlas-end" aria-labelledby="atlas-end-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{tr('پایان مسیر', 'End of the journey')}</p>
+        <h2 id="atlas-end-title">{tr('یک نظام یکپارچه، نه یازده موضوع جدا', 'One integrated system, not eleven separate topics')}</h2>
+        <p class="lead">{tr(
+          'این اطلس از صلاحیت دولت‌ها آغاز شد، از نهادها و زنجیره اجرا گذشت، به داده، قرارداد و اختلاف رسید، همکاری و گذار اقلیمی را بررسی کرد و با آموزش به پایان رسید. هر حلقه به حلقه بعدی وابسته است.',
+          'The atlas began with the jurisdiction of States, moved through institutions and the chain of implementation, reached data, contracts and disputes, examined cooperation and the climate transition and ended with education. Each link depends on the next.',
+        )}</p>
+      </div>
+      <div class="grid grid--3">
+        <a class="path-card" href={href(lang, '/encyclopedia/')}>
+          <Icon name="doc" /><strong>{tr('مطالعه دانشنامه تخصصی', 'Read the specialist encyclopedia')}</strong>
+          <span>{tr('تعریف، مبانی حقوقی، وضعیت مقررات و منابع هر چارچوب.', 'Definitions, legal basis, legal status and sources for each framework.')}</span>
+        </a>
+        <a class="path-card" href={magazine}>
+          <Icon name="chart" /><strong>{tr('مطالعه تحلیل‌های مجله', 'Read the magazine analysis')}</strong>
+          <span>{tr('روایت مسئله‌محور درباره پیامد این چارچوب‌ها برای تصمیم‌های مدیران.', 'A problem-driven account of what these frameworks mean for decisions.')}</span>
+        </a>
+        <a class="path-card" href={href(lang, '/training/#courses')}>
+          <Icon name="training" /><strong>{tr('مشاهده دوره‌های آموزشی مرتبط', 'See the related training courses')}</strong>
+          <span>{tr('دوره‌هایی که هر تصویر به آن‌ها پیوند دارد.', 'The courses each image is linked to.')}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <AtlasLightbox lang={lang} />
+</Base>
+<style>
+  .atlas-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; margin: 1.6rem 0 0; padding: 0; color: #c9d5df; }
+  .atlas-facts strong { color: var(--gold); font-size: 1.5rem; margin-inline-end: 0.3rem; }
+  .atlas-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.4vw, 28px); grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 960px) { .atlas-cards { grid-template-columns: repeat(2, 1fr); } }
+  /* On phones the index becomes a swipeable row; nothing moves on its own. */
+  @media (max-width: 600px) {
+    .atlas-cards { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82%; overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: 0.8rem; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+    .atlas-card { scroll-snap-align: start; }
+  }
+  .atlas-card { padding: 0; overflow: hidden; gap: 0; }
+  .atlas-card img { inline-size: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; border-block-end: 1px solid var(--line); }
+  .atlas-card__num { padding: 1rem 1.2rem 0; font-weight: 800; font-size: 1.3rem; color: var(--gold-dark); }
+  .atlas-card h3 { padding-inline: 1.2rem; font-size: 1.05rem; }
+  .atlas-card .more { padding: 0.6rem 1.2rem 1.2rem; }
+  .atlas-narrow { max-width: 920px; }
+  .atlas-chapter:nth-of-type(even) { background: var(--white); }
+  .atlas-chapter__head { margin-block-end: 2.5rem; }
+  .atlas-entry { padding-block: 2.5rem; border-block-start: 1px solid var(--line); scroll-margin-block-start: 90px; }
+  .atlas-entry__num { font-size: 0.85rem; font-weight: 700; color: var(--teal); margin-block-end: 0.3rem; }
+  .atlas-entry h3 { font-size: clamp(1.35rem, 2.4vw, 1.7rem); }
+  .atlas-entry h4 { font-size: 1.05rem; margin-block-start: 1.6rem; }
+  .atlas-points { margin: 0; padding-inline-start: 1.3rem; display: grid; gap: 0.5rem; }
+  .atlas-links { display: flex; flex-wrap: wrap; gap: 0.7rem 1.6rem; margin-block-start: 1.6rem; font-size: 0.95rem; font-weight: 600; }
+  .atlas-links a, .atlas-links__courses { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .atlas-links__courses a { padding: 0.1rem 0.5rem; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; }
+  .atlas-related { margin-block-start: 1.2rem; font-size: 0.95rem; }
+  .atlas-related summary { cursor: pointer; font-weight: 600; color: var(--slate); }
+  .atlas-related ul { margin-block-start: 0.8rem; }
+  .atlas-next { display: inline-flex; align-items: center; gap: 0.4rem; margin-block-start: 1.6rem; font-weight: 700; color: var(--navy); }
+  .atlas-closing { margin-block-start: 1rem; padding: 1.4rem 1.6rem; background: var(--navy); color: #dbe4ec; border-radius: var(--radius); border-inline-start: 4px solid var(--gold); }
+  .atlas-closing .tag { color: var(--gold); margin-block-end: 0.4rem; }
+  .atlas-closing p:last-child { margin: 0; font-size: 1.08rem; }
+  .path-card { display: grid; gap: 0.5rem; padding: 1.6rem; border: 1px solid rgb(255 255 255 / 18%); border-radius: var(--radius); text-decoration: none; color: #c9d5df !important; transition: border-color 0.2s, background-color 0.2s; }
+  .path-card:hover { border-color: var(--gold); background: rgb(255 255 255 / 4%); }
+  .path-card strong { color: var(--white); font-size: 1.1rem; }
+  .path-card :global(svg) { color: var(--gold); }
+</style>

@@ -12,8 +12,11 @@ Multilingual website (English, Persian, Arabic, Spanish, French, German, Russian
 | Clients & Sectors (role-based journeys) | `/sectors/` | `/<lang>/sectors/` |
 | About the Advisor | `/about/` | `/<lang>/about/` |
 | Experience & Credentials | `/experience/` | `/<lang>/experience/` |
-| Insights & Publications | `/insights/` | `/<lang>/insights/` |
-| Training & Speaking | `/training/` | `/<lang>/training/` |
+| Encyclopedia (10 subject areas, 40 entries) | `/encyclopedia/`, `/encyclopedia/<area>/`, `/encyclopedia/<area>/<slug>/` | `/<lang>/encyclopedia/...` |
+| Magazine | `/magazine/`, `/magazine/<slug>/` | `/<lang>/magazine/...` |
+| Visual Atlas of Maritime Governance (11 infographics) | `/maritime-visual-atlas/` | `/<lang>/maritime-visual-atlas/` |
+| Books | `/books/` | `/<lang>/books/` |
+| Training & Speaking (12 courses, formats, speaking) | `/training/`, `/training/courses/<code>/`, `/training/formats/`, `/training/speaking/` | `/<lang>/training/...` |
 | Request an Advisory Discussion + confirmation | `/consultation/`, `/consultation/thank-you/` | `/<lang>/consultation/...` |
 | Privacy Policy, Legal Notices | `/privacy/`, `/legal/` | `/<lang>/privacy/`, `/<lang>/legal/` |
 
@@ -23,7 +26,13 @@ Every page is rendered once per language from a shared view in `src/views/`. Eng
 - `src/data/sectors.ts` — audience journeys and sectors.
 - `src/data/credentials.json` — career, international roles, education and books.
 - `src/data/profile.ts` — biography, headline figures and career highlights.
-- `src/content/insights/<lang>/*.md` — articles.
+- `src/content/encyclopedia/<fa|en>/*.md` — encyclopedia entries; subject areas in `src/lib/encyclopedia.ts`. Entries, magazine articles and course pages are written in Persian and English; every other language shows the English text.
+- `src/content/magazine/<fa|en>/*.md` — magazine articles. A line `[[atlas:NN]]` places atlas image NN in the text.
+- `src/data/atlas.json` — the atlas chapters and the captions, key points and links of the 11 images (`public/images/atlas/`, originals in `atlas-originals/`).
+- `src/data/training/` — the 12 courses (`courses.fa.json`, `courses.en.json`), programme totals and the training, formats and speaking page copy.
+- `src/data/books.ts` — books.
+
+The old `/insights/` addresses redirect to the matching encyclopedia entries (`src/lib/redirects.ts`).
 
 Service pages link to the form with `?service=<slug>`, and the form preselects that advisory area.
 
@@ -35,7 +44,7 @@ Optional: set the repository variable `PUBLIC_PLAUSIBLE_DOMAIN` to enable cookie
 
 ## CMS
 
-`/admin/` hosts [Sveltia CMS](https://github.com/sveltia/sveltia-cms) for editing insights and credentials. Sign in with a GitHub personal access token that has write access to this repository. Saving commits to `main`, which redeploys the site.
+`/admin/` hosts [Sveltia CMS](https://github.com/sveltia/sveltia-cms) for editing encyclopedia entries, magazine articles and credentials. Sign in with a GitHub personal access token that has write access to this repository. Saving commits to `main`, which redeploys the site.
 
 ## Development
 

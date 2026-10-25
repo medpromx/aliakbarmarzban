@@ -1,0 +1,9 @@
+---
+import View from '../../../views/EncyclopediaEntry.astro';
+import { getEntries } from '../../../lib/encyclopedia';
+export function getStaticPaths() {
+  return getEntries('en').map((entry) => ({ params: { category: entry.category, slug: entry.slug }, props: { entry } }));
+}
+const { entry } = Astro.props;
+---
+<View lang="en" entry={entry} />

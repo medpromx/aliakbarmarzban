@@ -1,0 +1,707 @@
+[
+ {
+  "code": "C01",
+  "hours": 8,
+  "count": 4,
+  "refs": [
+   "imo-structure",
+   "imo-conventions",
+   "stcw"
+  ],
+  "track": "core",
+  "title": "Understanding the IMO Regulatory System for Executives",
+  "audience": "Leaders of maritime administrations, ports and shipping companies, and senior managers without a legal background",
+  "learning_outcome": "Map regulatory decision-making and separate the responsibilities of international and national bodies",
+  "capstone": "A one-page map of regulatory sources and management decisions",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "The legal and institutional structure of the maritime sector",
+    "detail": "IMO, ILO, the Member State and the national maritime administration; the limits of each body's competence",
+    "deliverable": "Identify the responsible body for three hypothetical issues"
+   },
+   {
+    "number": 2,
+    "title": "IMO committees and the path to a decision",
+    "detail": "Assembly, Council, MSC, MEPC, LEG, FAL; the III and HTW Sub-Committees",
+    "deliverable": "A diagram of how an issue is adopted and followed up"
+   },
+   {
+    "number": 3,
+    "title": "International instruments and their legal standing",
+    "detail": "Convention, code, resolution, circular and guidance; an overview of SOLAS, MARPOL, STCW and FAL",
+    "deliverable": "A table classifying instruments and responsibilities"
+   },
+   {
+    "number": 4,
+    "title": "Regulatory intelligence and reporting to the board",
+    "detail": "Tracking regulatory change, entry into force, implementation owners, timing and risk",
+    "deliverable": "A one-page executive summary"
+   }
+  ],
+  "hook": "When a maritime requirement comes up, a manager needs to know exactly which instrument and which authority it rests on.",
+  "problem": "Confusion about the competence of IMO, ILO and national authorities, and mixing binding requirements with guidance.",
+  "method": "Analysis of three management problems, classification of instruments and a regulatory report to the board.",
+  "editorial_questions": [
+   "How do we distinguish the roles of IMO, ILO and the Member State?",
+   "Is every IMO resolution or guideline binding on our organisation?",
+   "How do we report a regulatory change to the board as a short decision?"
+  ],
+  "measurable_outcomes": [
+   "Identify the correct authority and instrument for three organisational issues",
+   "Classify, with reasons, whether an instrument is binding and whom it covers",
+   "Prepare a one-page map of issue, source, national owner and proposed action"
+  ],
+  "hypothetical_case": "The maritime administration of the fictional State of Aban receives three letters at once: on seafarer certificates, the maritime single window and crew working conditions. Participants must identify the authority, the instrument and the national decision point for each.",
+  "scientific_note": "The course builds regulatory literacy for managers. Its analysis does not replace a State's official legal interpretation or the competence of a certifying authority."
+ },
+ {
+  "code": "C02",
+  "hours": 12,
+  "count": 6,
+  "refs": [
+   "iii-code",
+   "imo-conventions"
+  ],
+  "track": "core",
+  "title": "From IMO Regulation to National Implementation",
+  "audience": "Policymakers and managers in maritime administrations, and inspectors working at policy level",
+  "learning_outcome": "Assess the implementation gap for an international obligation and propose a roadmap",
+  "capstone": "A gap assessment matrix and implementation roadmap",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "Sources of obligation and scope of application",
+    "detail": "Identifying binding instruments, membership, reservations and dates of application; checking the State and the type of activity",
+    "deliverable": "A list of applicable obligations"
+   },
+   {
+    "number": 2,
+    "title": "The III Code and State responsibility",
+    "detail": "The common part and the duties of flag, coastal and port States; separating responsibilities",
+    "deliverable": "A map of institutional responsibility"
+   },
+   {
+    "number": 3,
+    "title": "Diagnosing implementation gaps",
+    "detail": "Evidence on laws, processes, competences, inspection and monitoring",
+    "deliverable": "A matrix of current status and gaps"
+   },
+   {
+    "number": 4,
+    "title": "Turning obligations into regulations and procedures",
+    "detail": "The chain from obligation to statute, regulation and working procedure; stakeholders",
+    "deliverable": "A map of the regulatory reform package"
+   },
+   {
+    "number": 5,
+    "title": "Governing implementation and managing change",
+    "detail": "Budget, capacity building, data, oversight, reporting and organisational resistance",
+    "deliverable": "A RACI accountability plan"
+   },
+   {
+    "number": 6,
+    "title": "Integrated exercise: assessing a fictional State",
+    "detail": "Prioritising action by risk, urgency and feasibility",
+    "deliverable": "A 90-day and one-year roadmap"
+   }
+  ],
+  "hook": "International obligations only take effect once they are translated into national responsibility and action.",
+  "problem": "The gap between acceding to IMO instruments and the processes, powers and evidence of national implementation.",
+  "method": "A III Code workshop, institutional diagnosis and the design of a RACI and reform roadmap.",
+  "editorial_questions": [
+   "At which layer does the gap between international obligation and national implementation appear?",
+   "How are the roles of flag, coastal and port State documented?",
+   "Which gaps must be closed in the first 90 days?"
+  ],
+  "measurable_outcomes": [
+   "List the applicable obligations, specifying the version and scope",
+   "Assess gaps in law, process, organisational capacity and oversight on the basis of evidence",
+   "Prepare a time-bound roadmap and RACI matrix"
+  ],
+  "hypothetical_case": "A fictional maritime administration has scattered laws, inconsistent inspection processes and unclear allocation of responsibility. Groups must classify the evidence and prepare a reform package to present to management.",
+  "scientific_note": "The III Code and the IMSAS audit scheme must be considered in light of the binding instruments that apply to each State. The course is not an official IMO audit."
+ },
+ {
+  "code": "C03",
+  "hours": 12,
+  "count": 6,
+  "refs": [
+   "worldbank"
+  ],
+  "track": "core",
+  "title": "Port Governance for Senior Managers",
+  "audience": "Port authority managers, terminal operators and policy managers",
+  "learning_outcome": "Choose a governance model and a performance monitoring structure that fit the port's problem",
+  "capstone": "A port governance diagnostic and KPI dashboard",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "Port governance models",
+    "detail": "Service, tool and landlord ports; the responsibilities of the State and the private sector",
+    "deliverable": "A comparison matrix of models"
+   },
+   {
+    "number": 2,
+    "title": "The institutional map and conflicting roles",
+    "detail": "Separating regulator, owner and operator; accountability, powers and conflicts of interest",
+    "deliverable": "A chart of roles and decision rights"
+   },
+   {
+    "number": 3,
+    "title": "Performance and indicators",
+    "detail": "Operational, financial and institutional performance; the limits of the CPPI",
+    "deliverable": "A first KPI scorecard"
+   },
+   {
+    "number": 4,
+    "title": "Governing concession agreements",
+    "detail": "Asset ownership, monitoring obligations, operating rights, review and oversight",
+    "deliverable": "A concession oversight checklist"
+   },
+   {
+    "number": 5,
+    "title": "Designing reform and managing change",
+    "detail": "The cycle of diagnosis, choice, implementation, monitoring and feedback; stakeholder communication",
+    "deliverable": "An institutional reform map"
+   },
+   {
+    "number": 6,
+    "title": "Case workshop: a fictional port",
+    "detail": "Balancing efficiency, competition, public interest and accountability",
+    "deliverable": "A proposal package for the board"
+   }
+  ],
+  "hook": "A port's governance model is a question of accountability before it is a question of ownership.",
+  "problem": "Overlap between regulation, ownership and operation, and weak oversight of concessions and performance indicators.",
+  "method": "Comparison of port models, a case study of institutional reform and the design of a KPI dashboard.",
+  "editorial_questions": [
+   "How do the service, tool and landlord models fit a particular port?",
+   "Where are the boundaries between regulator, owner and operator?",
+   "Which indicators measure the balance between efficiency and public interest?"
+  ],
+  "measurable_outcomes": [
+   "Compare governance models and the risks of role conflict",
+   "Define decision rights and performance indicators for a fictional port",
+   "Propose an institutional reform package and a management dashboard"
+  ],
+  "hypothetical_case": "The fictional port of Sepehr faces falling terminal productivity and a conflict between its regulatory and operating roles. Teams must make a reasoned choice between three governance models.",
+  "scientific_note": "The models in the World Bank Port Reform Toolkit are analytical tools and policy guidance, not treaty obligations."
+ },
+ {
+  "code": "C04",
+  "hours": 12,
+  "count": 6,
+  "refs": [
+   "bimco",
+   "worldbank"
+  ],
+  "track": "core",
+  "title": "Maritime Contracts, Tenders and Procurement",
+  "audience": "Legal, procurement, contract and port managers",
+  "learning_outcome": "Identify contractual risks and design controls for the procurement process",
+  "capstone": "A risk matrix and RFP checklist",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "The contractual framework and types of instrument",
+    "detail": "Commercial contracts, charter parties, concessions, MoUs and the use of BIMCO forms",
+    "deliverable": "A map for choosing the contractual instrument"
+   },
+   {
+    "number": 2,
+    "title": "Designing the RFP and tender requirements",
+    "detail": "Scope, evaluation criteria, transparency, conflicts of interest, documents and outputs",
+    "deliverable": "A tender document checklist"
+   },
+   {
+    "number": 3,
+    "title": "Risk and the allocation of responsibility",
+    "detail": "Regulatory risk, change in law, delay, performance, force majeure, insurance and guarantees",
+    "deliverable": "A risk allocation matrix"
+   },
+   {
+    "number": 4,
+    "title": "Procurement controls and corporate governance",
+    "detail": "Approvals, documentation, confidentiality and control points",
+    "deliverable": "A process and control map"
+   },
+   {
+    "number": 5,
+    "title": "Negotiation and dispute prevention",
+    "detail": "Clear wording of key clauses, change control, notices and dispute resolution",
+    "deliverable": "Proposed revisions to five hypothetical clauses"
+   },
+   {
+    "number": 6,
+    "title": "Workshop: assessing a fictional contract",
+    "detail": "Review of a mock contract with stated assumptions",
+    "deliverable": "A management note on contract risk"
+   }
+  ],
+  "hook": "A good contract does not hide risk; it makes risk something you can decide on before you sign.",
+  "problem": "Unclear tender scope, risk allocation and mechanisms for managing change and disputes.",
+  "method": "Review of a sample RFP, analysis of key clauses and a risk allocation matrix.",
+  "editorial_questions": [
+   "Which type of contractual instrument fits the problem?",
+   "How can the risks of change in law, delay and performance be allocated fairly?",
+   "Where are the control points for transparency and dispute management?"
+  ],
+  "measurable_outcomes": [
+   "Choose the contract type and RFP structure that fit the need",
+   "Design a risk allocation matrix and conflict-of-interest controls",
+   "Propose redrafts of five high-risk clauses for specialist review and negotiation"
+  ],
+  "hypothetical_case": "A fictional port employer has received a draft tender with vague evaluation criteria and unbalanced change-in-law clauses. Groups must list the risks and the changes they propose.",
+  "scientific_note": "BIMCO standard forms do not replace local legal advice or a review of whether specific clauses are enforceable in a given contract."
+ },
+ {
+  "code": "C05",
+  "hours": 12,
+  "count": 6,
+  "refs": [
+   "stcw",
+   "ilo-mlc",
+   "imo-training"
+  ],
+  "track": "core",
+  "title": "STCW and Seafarer Administration for Policymakers",
+  "audience": "Maritime administrations, training centres and maritime human resources managers",
+  "learning_outcome": "Analyse the requirements for administering certificates and assuring the quality of seafarer training",
+  "capstone": "A compliance matrix and plan to improve the quality system",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "The structure of the STCW Convention and Code",
+    "detail": "Articles of the Convention, mandatory Part A and guidance in Part B; the concept of competence",
+    "deliverable": "A table of the hierarchy of requirements"
+   },
+   {
+    "number": 2,
+    "title": "Issuing, recognising and verifying certificates",
+    "detail": "Competent bodies, verification, documents and oversight responsibility",
+    "deliverable": "A map of the certificate cycle"
+   },
+   {
+    "number": 3,
+    "title": "Quality assurance of maritime training centres",
+    "detail": "Competence-based curricula, assessment, independent evaluation and quality",
+    "deliverable": "A training centre assessment checklist"
+   },
+   {
+    "number": 4,
+    "title": "MLC 2006 and the human element",
+    "detail": "The roles of IMO and ILO; working conditions, welfare, hours of work and complaints",
+    "deliverable": "A map linking STCW and MLC"
+   },
+   {
+    "number": 5,
+    "title": "Changing technology and new skills",
+    "detail": "The comprehensive STCW review, alternative fuels and competence needs analysis",
+    "deliverable": "A list of competence development needs"
+   },
+   {
+    "number": 6,
+    "title": "Case study: reforming a training system",
+    "detail": "Gap analysis of a fictional training centre",
+    "deliverable": "A reform plan with monitoring indicators"
+   }
+  ],
+  "hook": "The credibility of certificates and the quality of seafarer training depend on a sound system of oversight.",
+  "problem": "Gaps in issuing and verifying certificates, in training centre quality assurance and in the boundary between STCW and MLC.",
+  "method": "Analysis of the quality system and certificate cycle, and a workshop assessing a training centre.",
+  "editorial_questions": [
+   "What different legal standing do Parts A and B of the STCW Code have?",
+   "How are certificate issue, recognition and verification controlled?",
+   "What role does the MLC play alongside STCW?"
+  ],
+  "measurable_outcomes": [
+   "Separate the structure of STCW requirements and the competent authority",
+   "Identify risks in a certification system and assess the quality of a training centre",
+   "Propose a plan to reform the quality system and monitor performance"
+  ],
+  "hypothetical_case": "The fictional training centre Daryadan faces complaints about training quality, weak assessment records and delays in verifying certificates.",
+  "scientific_note": "This policy and management course does not replace a professional competence course for seafarers under STCW, or approval of training by the competent State."
+ },
+ {
+  "code": "C06",
+  "hours": 12,
+  "count": 6,
+  "refs": [
+   "imo-structure"
+  ],
+  "track": "core",
+  "title": "International Maritime Negotiation Masterclass",
+  "audience": "International affairs managers, heads of negotiating delegations and senior managers",
+  "learning_outcome": "Prepare a negotiation strategy and carry out a documented role play",
+  "capstone": "A delegation briefing book and the record of a simulation",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "The structure of international negotiation",
+    "detail": "Interests versus positions, objectives, BATNA, red lines and constraints",
+    "deliverable": "A sheet of negotiating objectives and limits"
+   },
+   {
+    "number": 2,
+    "title": "Stakeholder maps and coalitions",
+    "detail": "Influence and interest analysis, the negotiating team and agenda management",
+    "deliverable": "A stakeholder map"
+   },
+   {
+    "number": 3,
+    "title": "Preparing the delegation",
+    "detail": "The briefing book, key messages, members' roles, formal language and recording decisions",
+    "deliverable": "A delegation readiness sheet"
+   },
+   {
+    "number": 4,
+    "title": "First simulation: a multilateral meeting",
+    "detail": "Role play on a fictional scenario to amend requirements",
+    "deliverable": "A record of proposals and points of agreement"
+   },
+   {
+    "number": 5,
+    "title": "Drafting text and negotiating clauses",
+    "detail": "Drafting a memorandum of understanding or position paper and resolving conflicts",
+    "deliverable": "A first draft of the agreed text"
+   },
+   {
+    "number": 6,
+    "title": "Second simulation and feedback",
+    "detail": "A repeat negotiation, structured feedback and post-meeting commitments",
+    "deliverable": "A negotiation follow-up plan"
+   }
+  ],
+  "hook": "Professional international negotiation starts with a documented position, a coordinated team and a way to follow up.",
+  "problem": "Entering negotiations without a stakeholder map, a clear delegation mandate or proposed text.",
+  "method": "Building a briefing book, multilateral role play and practice in drafting agreed text.",
+  "editorial_questions": [
+   "How do we move from stated positions to the parties' real interests?",
+   "How are a coalition map, BATNA and red lines prepared?",
+   "How are minutes and agreed text recorded without ambiguity?"
+  ],
+  "measurable_outcomes": [
+   "Prepare a negotiation strategy and briefing book",
+   "Carry out the delegation's role and messages in a multilateral simulation",
+   "Draft an agreement and a measurable follow-up plan"
+  ],
+  "hypothetical_case": "Delegations from three fictional States negotiate a new framework for cooperation on port safety. Each delegation has different interests, budget constraints and opening text.",
+  "scientific_note": "The negotiation scenario is fictional and no position is attributed to any real government or organisation."
+ },
+ {
+  "code": "C07",
+  "hours": 8,
+  "count": 4,
+  "refs": [
+   "imo-structure"
+  ],
+  "track": "core",
+  "title": "Managing International Maritime Cooperation",
+  "audience": "International relations managers in government bodies and associations",
+  "learning_outcome": "Design a cooperation programme that can be implemented and evaluated",
+  "capstone": "A cooperation matrix and a draft non-binding MoU",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "Types of international cooperation",
+    "detail": "Bilateral, multilateral, institutional, research and capacity-building cooperation; the risk of dependency",
+    "deliverable": "A classification of opportunities"
+   },
+   {
+    "number": 2,
+    "title": "From need to the right partner",
+    "detail": "Assessing strategic fit, the parties' capacity and shared interests",
+    "deliverable": "A partner screening matrix"
+   },
+   {
+    "number": 3,
+    "title": "The MoU framework and its governance",
+    "detail": "Subject, scope, points of contact, confidentiality, disputes, responsibility and monitoring",
+    "deliverable": "A draft of the main MoU clauses"
+   },
+   {
+    "number": 4,
+    "title": "Implementing cooperation and accountability",
+    "detail": "Action plan, KPIs, meeting arrangements, transparency and risk management",
+    "deliverable": "A six-month cooperation plan"
+   }
+  ],
+  "hook": "Successful international cooperation has to go beyond the memorandum and gain an owner, a timetable and indicators.",
+  "problem": "Choosing partners without screening, and signing MoUs without a monitoring framework or a division of commitments.",
+  "method": "Partner assessment, drafting an MoU and designing a six-month programme.",
+  "editorial_questions": [
+   "Which model of cooperation fits the organisation's real problem?",
+   "How is a foreign partner screened on its capacity to deliver?",
+   "How can an MoU and action plan be made measurable?"
+  ],
+  "measurable_outcomes": [
+   "Score cooperation opportunities by value and feasibility",
+   "Prepare a partner screening matrix for the options",
+   "Design a draft non-binding MoU and a six-month action plan"
+  ],
+  "hypothetical_case": "A fictional port organisation has received three proposals for cooperation on training, data and performance improvement. Participants must choose the preferred partner.",
+  "scientific_note": "Whether an MoU is binding depends on its final text, the parties' intention and the applicable legal system, and must be checked."
+ },
+ {
+  "code": "C08",
+  "hours": 6,
+  "count": 3,
+  "refs": [
+   "imo-ghg",
+   "imo-nzf"
+  ],
+  "track": "core",
+  "title": "Board Briefing on Maritime Decarbonization Regulation",
+  "audience": "Boards, chief executives, compliance managers and policymakers",
+  "learning_outcome": "Separate adopted policy from proposals under negotiation and prioritise risk",
+  "capstone": "A decision brief on three regulatory scenarios",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "The map of maritime climate regulation",
+    "detail": "MARPOL Annex VI, the 2023 IMO Strategy and the difference between targets and requirements",
+    "deliverable": "A timeline showing legal status"
+   },
+   {
+    "number": 2,
+    "title": "Regional regulation and its scope",
+    "detail": "EU ETS for shipping and FuelEU Maritime; effects on contracts and operations",
+    "deliverable": "An exposure matrix for the organisation"
+   },
+   {
+    "number": 3,
+    "title": "Board decision scenarios",
+    "detail": "The uncertain status of the IMO Net-Zero Framework, three scenarios and no-regret actions",
+    "deliverable": "A two-page decision note"
+   }
+  ],
+  "hook": "In maritime climate regulation, the difference between approval, final adoption and entry into force is the basis of investment decisions.",
+  "problem": "Decisions based on unfinished drafts, or regional rules wrongly generalised.",
+  "method": "An EU ETS and FuelEU scope matrix, three scenarios and a board decision note.",
+  "editorial_questions": [
+   "Which climate obligations are binding now, and which are strategies or proposals?",
+   "What exposure do the EU ETS and FuelEU Maritime create for operations?",
+   "How should a board decide in the face of uncertainty over the IMO Net-Zero Framework?"
+  ],
+  "measurable_outcomes": [
+   "Place the legal status and dates of climate instruments on a timeline",
+   "Prepare a matrix of the organisation's exposure to global and regional rules",
+   "Weigh three scenarios and no-regret actions in a decision brief"
+  ],
+  "hypothetical_case": "A fictional shipping company must decide on fleet renewal and a fuel supply contract. Three regulatory scenarios with different degrees of uncertainty are examined.",
+  "scientific_note": "As of 25 October 2026, the IMO Net-Zero Framework is not presented as finally adopted or in force. The state of negotiations must be checked again before publication or delivery."
+ },
+ {
+  "code": "E01",
+  "hours": 8,
+  "count": 4,
+  "refs": [
+   "imo-msw",
+   "worldbank"
+  ],
+  "track": "executive",
+  "title": "Maritime Digitalization & Single Window Governance",
+  "audience": "Maritime administrations, ports and digital transformation managers",
+  "learning_outcome": "Design a data governance map and an organisational plan for implementing a maritime single window",
+  "capstone": "An MSW governance canvas",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "The FAL requirement and ship arrival and departure",
+    "detail": "The purpose and scope of the MSW and information exchange processes",
+    "deliverable": "A list of data and stakeholders"
+   },
+   {
+    "number": 2,
+    "title": "Data responsibility and inter-agency exchange",
+    "detail": "Data ownership, quality, consent, confidentiality and exchange",
+    "deliverable": "A data responsibility matrix"
+   },
+   {
+    "number": 3,
+    "title": "Cyber security from a governance perspective",
+    "detail": "Board decisions and the separate role of technical security specialists",
+    "deliverable": "A governance risk register for security"
+   },
+   {
+    "number": 4,
+    "title": "A digitalisation roadmap",
+    "detail": "Service priorities, acceptance criteria, indicators and change management",
+    "deliverable": "An MSW implementation roadmap"
+   }
+  ],
+  "hook": "A maritime single window is not just software; it is an agreement between agencies about data and responsibility.",
+  "problem": "Parallel systems, repeated data entry and no governance across the port, customs and other agencies.",
+  "method": "Designing the data flow, a responsibility matrix and a maritime single window roadmap.",
+  "editorial_questions": [
+   "How does a maritime single window differ from a port community system and a customs single window?",
+   "Who owns the data and who manages exchange between agencies?",
+   "Which criteria show that the MSW has been delivered?"
+  ],
+  "measurable_outcomes": [
+   "Analyse the scope of the MSW and the FAL requirements at organisational level",
+   "Design a matrix of agencies' responsibilities and data exchange",
+   "Write a governance roadmap for digitalisation and cyber risk control"
+  ],
+  "hypothetical_case": "A fictional port has six separate portals for ship arrival information, and the same data is entered several times. Groups must propose a governance design for a single point of data entry and exchange between agencies.",
+  "scientific_note": "The FAL amendments on the MSW have been in force since 1 January 2024. Determining the obligation and its enforcement for a particular State requires checking its membership and national law."
+ },
+ {
+  "code": "E02",
+  "hours": 8,
+  "count": 4,
+  "refs": [
+   "worldbank"
+  ],
+  "track": "executive",
+  "title": "Port Investment, PPP & Concession Governance",
+  "audience": "Port managers, public contracting authorities, investors and developers",
+  "learning_outcome": "Make an initial assessment of the institutional structure and risks of a port PPP project",
+  "capstone": "A PPP institutional risk brief",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "Partnership and governance models",
+    "detail": "Service contracts, concessions and PPPs, and how they differ from full privatisation",
+    "deliverable": "A decision tree for choosing a model"
+   },
+   {
+    "number": 2,
+    "title": "Stakeholders and institutional bankability",
+    "detail": "Clarity of permits, the authority's competence, tariff regulation and conflicts of interest",
+    "deliverable": "An institutional due diligence matrix"
+   },
+   {
+    "number": 3,
+    "title": "Risk structure and concession monitoring",
+    "detail": "Risk allocation and contractual indicators under port oversight",
+    "deliverable": "A monitoring and risk matrix"
+   },
+   {
+    "number": 4,
+    "title": "Workshop: a fictional project",
+    "detail": "Comparing two transaction structures and presenting to an investment committee",
+    "deliverable": "An institutional decision note"
+   }
+  ],
+  "hook": "The bankability of a port project starts with clear powers, risks and oversight arrangements.",
+  "problem": "Choosing an unsuitable public-private partnership model, and the regulatory risks of concession agreements.",
+  "method": "Screening partnership models, institutional due diligence and defending an investment option.",
+  "editorial_questions": [
+   "How does a PPP differ from a concession and a service contract?",
+   "How does institutional risk affect a project's bankability?",
+   "Which oversight indicators and review mechanisms are needed?"
+  ],
+  "measurable_outcomes": [
+   "Compare two transaction models in terms of public interest and oversight capacity",
+   "Prepare an institutional due diligence and risk matrix",
+   "Write a decision note on the concession structure for an investment committee"
+  ],
+  "hypothetical_case": "A fictional port is choosing between an operating concession and an investment partnership to develop a container terminal. The assumptions on demand and oversight differ.",
+  "scientific_note": "The assessment is preliminary and institutional. It is not a bankable financial feasibility study or a definitive investment recommendation."
+ },
+ {
+  "code": "E03",
+  "hours": 6,
+  "count": 3,
+  "refs": [
+   "bimco"
+  ],
+  "track": "executive",
+  "title": "Independent Expert & Maritime Dispute Advisory",
+  "audience": "Contract managers, industry advisers and collaborating lawyers",
+  "learning_outcome": "Recognise the role of impartial expertise and its technical and legal limits",
+  "capstone": "A draft expert issue list",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "Independence, conflicts of interest and the limits of the mandate",
+    "detail": "Terms of reference for industry analysis compared with advocacy and acting as an expert witness",
+    "deliverable": "A checklist for accepting an assignment"
+   },
+   {
+    "number": 2,
+    "title": "The structure of an expert report",
+    "detail": "Claims, evidence, assumptions, limitations and reviewability",
+    "deliverable": "An outline of an expert report"
+   },
+   {
+    "number": 3,
+    "title": "Document review and dispute prevention",
+    "detail": "A timeline of claims, contractual issues and non-judicial options",
+    "deliverable": "A table of disputed issues and evidence"
+   }
+  ],
+  "hook": "Independent expertise is valuable when the question, the evidence and the limits of the analysis are transparent.",
+  "problem": "An unclear mandate for the expert and poor documentation of disputes under maritime contracts.",
+  "method": "An independence checklist, a report structure and a timeline of claims and documents.",
+  "editorial_questions": [
+   "How does an independent expert differ from a lawyer and an expert witness?",
+   "What must be disclosed before accepting an assignment?",
+   "How does an expert report remain reviewable and impartial?"
+  ],
+  "measurable_outcomes": [
+   "Assess independence and conflicts of interest",
+   "Prepare a report structure with data, assumptions and limitations stated openly",
+   "Organise a list of issues and a timeline of the evidence in a dispute"
+  ],
+  "hypothetical_case": "A dispute has arisen between a fictional port employer and a contractor over delays in commissioning equipment. Groups must separate claims from evidence and write down the technical question that can be examined.",
+  "scientific_note": "This module does not replace legal representation, arbitration or the formal opinion of an expert appointed by a court."
+ },
+ {
+  "code": "E04",
+  "hours": 8,
+  "count": 4,
+  "refs": [
+   "imo-training",
+   "stcw"
+  ],
+  "track": "executive",
+  "title": "Train-the-Trainer & Quality Assurance",
+  "audience": "Lecturers at maritime training centres and in-house trainers",
+  "learning_outcome": "Design, pilot and evaluate a competence-based training unit",
+  "capstone": "A lesson pack and micro-teaching assessment",
+  "sessions": [
+   {
+    "number": 1,
+    "title": "Backward design from outcomes",
+    "detail": "Audience, behavioural objectives, evidence of learning and pass criteria",
+    "deliverable": "A map aligning objectives and assessment"
+   },
+   {
+    "number": 2,
+    "title": "Building a reliable lesson pack",
+    "detail": "Primary sources first, versions of instruments, citation and common biases",
+    "deliverable": "A source-checking sheet"
+   },
+   {
+    "number": 3,
+    "title": "Active learning and assessment tools",
+    "detail": "Case studies, simulation, rubrics, feedback and accessibility",
+    "deliverable": "An exercise and rubric"
+   },
+   {
+    "number": 4,
+    "title": "Pilot teaching and review",
+    "detail": "A 20-minute delivery, peer assessment and the final version",
+    "deliverable": "A completed lesson pack"
+   }
+  ],
+  "hook": "Specialist knowledge stays in an organisation when it can be taught, assessed and reviewed.",
+  "problem": "Dependence on a few trainers, vague lesson objectives and assessments that cannot be measured.",
+  "method": "Backward design, rubrics, a 20-minute pilot lesson and peer review.",
+  "editorial_questions": [
+   "How is a behavioural objective linked to evidence of learning?",
+   "How are the accuracy and version of reference instruments checked?",
+   "What evidence of quality does pilot teaching provide?"
+  ],
+  "measurable_outcomes": [
+   "Design behavioural objectives and a consistent rubric",
+   "Review a lesson pack against primary sources, versions and legal status",
+   "Deliver a lesson pack and a 20-minute pilot lesson"
+  ],
+  "hypothetical_case": "A fictional lesson pack is presented with outdated instruments, vague objectives and an unrelated test. Teams revise it and deliver a short lesson.",
+  "scientific_note": "The train-the-trainer course is an internal training quality programme. On its own it does not create a licence or competence to teach STCW courses."
+ }
+]

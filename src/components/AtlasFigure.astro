@@ -1,0 +1,56 @@
+---
+import { atlasSrc, atlasSrcset, type AtlasItem } from '../lib/atlas';
+import { num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props {
+  lang: Lang;
+  item: AtlasItem;
+  /** The first image on a page loads eagerly; every other image is lazy-loaded. */
+  eager?: boolean;
+  caption?: boolean;
+  sizes?: string;
+}
+const { lang, item, eager = false, caption = true, sizes = '(min-width: 1180px) 960px, 100vw' } = Astro.props;
+const tr = makeTr(lang);
+const title = t(item.title, lang);
+---
+<figure class="atlas-fig">
+  <button type="button" class="atlas-fig__open" data-atlas-open={item.n} aria-label={`${tr('بزرگ‌نمایی تصویر', 'Enlarge image')} ${num(item.n, lang)}: ${title}`}>
+    <img
+      src={atlasSrc(item.n, 'md')}
+      srcset={atlasSrcset(item.n)}
+      sizes={sizes}
+      width="2048"
+      height="2048"
+      alt={t(item.alt, lang)}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+      decoding="async"
+    />
+    <span class="atlas-fig__hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8M10.5 7.5v6M7.5 10.5h6"/></svg>
+      {tr('بزرگ‌نمایی', 'Zoom')}
+    </span>
+  </button>
+  {caption && (
+    <figcaption>
+      <span class="atlas-fig__num">{tr('تصویر', 'Figure')} {num(item.n, lang)}</span>
+      {t(item.caption, lang)}
+    </figcaption>
+  )}
+</figure>
+<style>
+  .atlas-fig { margin: 2rem 0; }
+  .atlas-fig__open {
+    position: relative; display: block; inline-size: 100%; padding: 0; border: 1px solid var(--line);
+    background: var(--white); border-radius: var(--radius); cursor: zoom-in; overflow: hidden;
+  }
+  .atlas-fig__open img { inline-size: 100%; block-size: auto; aspect-ratio: 1; object-fit: contain; }
+  .atlas-fig__hint {
+    position: absolute; inset-block-end: 12px; inset-inline-end: 12px; display: inline-flex; align-items: center; gap: 0.35rem;
+    padding: 0.35rem 0.7rem; border-radius: 999px; background: rgb(16 40 62 / 82%); color: var(--white);
+    font: inherit; font-size: 0.82rem; font-weight: 700; opacity: 0.85; transition: opacity 0.2s;
+  }
+  .atlas-fig__open:hover .atlas-fig__hint, .atlas-fig__open:focus-visible .atlas-fig__hint { opacity: 1; }
+  figcaption { margin-block-start: 0.8rem; font-size: 0.93rem; color: var(--slate-2); }
+  .atlas-fig__num { font-weight: 700; color: var(--gold-dark); margin-inline-end: 0.5rem; }
+</style>

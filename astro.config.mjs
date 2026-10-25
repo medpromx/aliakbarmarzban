@@ -6,5 +6,5 @@ export default defineConfig({
   site: 'https://aliakbarmarzban.ir',
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [sitemap({ filter: (page) => !page.includes('/thank-you/') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/thank-you/') && !page.includes('/insights/') })],
 });

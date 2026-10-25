@@ -1,9 +1,8 @@
 ---
-import View from '../../views/InsightDetail.astro';
-import { getInsights } from '../../lib/insights';
+import Redirect from '../../components/Redirect.astro';
+import { movedInsights } from '../../lib/redirects';
 export function getStaticPaths() {
-  return getInsights('en').map((insight) => ({ params: { slug: insight.slug }, props: { insight } }));
+  return Object.entries(movedInsights).map(([slug, to]) => ({ params: { slug }, props: { to } }));
 }
-const { insight } = Astro.props;
 ---
-<View lang="en" insight={insight} />
+<Redirect to={Astro.props.to} />

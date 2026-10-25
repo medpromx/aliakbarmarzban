@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import credentials from '../data/credentials.json';
+import { speakingAgree, speakingFormats, speakingTopics } from '../data/training/pages';
+import type { L } from '../lib/i18n';
+import { t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const parent = tr('آموزش و سخنرانی', 'Training & Speaking');
+const title = tr('سخنرانی و پنل‌ها', 'Speaking and panels');
+---
+<Base lang={lang} title={title} description={tr('دعوت از علی‌اکبر مرزبان برای سخنرانی کلیدی، پنل و میزگرد درباره حکمرانی دریایی، IMO، بنادر، مذاکرات و گذار کم‌کربن.', 'Invite Ali Akbar Marzban as a keynote speaker, panellist or moderator on maritime governance, IMO, ports, negotiation and the low-carbon transition.')}>
+  <PageHero lang={lang} eyebrow={parent} title={tr('سخنرانی برای روشن‌تر شدن تصمیم‌های دریایی', 'Speaking that sharpens maritime decisions')} lead={tr('سخنرانی کلیدی و پنل حرفه‌ای زمانی ارزشمند است که مخاطب پس از نشست بداند مسئله کجاست، چه تحولاتی در حال وقوع است و چه پرسش‌هایی باید در سطح سازمان یا سیاست‌گذاری مطرح شود.', 'A keynote or panel is worthwhile when the audience leaves knowing where the problem lies, what is changing and which questions to raise in their organisation or in policy.')} crumbs={[{ label: parent, path: '/training/' }, { label: title }]} />
+  <section class="section section--white">
+    <div class="container split">
+      <div><p class="eyebrow">{tr('موضوعات', 'Topics')}</p><h2>{tr('موضوع‌های پیشنهادی', 'Suggested topics')}</h2><p>{tr('عنوان و محتوای هر سخنرانی بر اساس موضوع رویداد و سطح مخاطب تعریف می‌شود.', 'The title and content of each talk are shaped by the event and its audience.')}</p></div>
+      <ul class="check-list">{speakingTopics.map((s) => <li>{t(s, lang)}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{tr('قالب‌ها', 'Formats')}</p><h2>{tr('قالب‌های حضور', 'Formats')}</h2></div>
+      <div class="grid grid--3">{speakingFormats.map((f) => <div class="card"><h3>{t(f.title, lang)}</h3><p class="tag">{t(f.text, lang)}</p></div>)}</div>
+      <p class="note agree">{t(speakingAgree, lang)}</p>
+    </div>
+  </section>
+  <section class="section section--white">
+    <div class="container split">
+      <div><p class="eyebrow">{tr('سوابق', 'Track record')}</p><h2>{tr('حضور بین‌المللی', 'International presence')}</h2></div>
+      <div class="card">
+        <p>{t(credentials.speaking as L, lang)}</p>
+        <h3 class="mt">{tr('رویدادها', 'Events')}</h3>
+        <p>{t(credentials.events as L, lang)}</p>
+      </div>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={tr('دعوت به سخنرانی', 'Invite to speak')} text={tr('موضوع، تاریخ، محل و مخاطبان رویداد را بنویسید.', 'Tell us the topic, date, venue and audience of your event.')} cta={tr('ارسال دعوت', 'Send an invitation')} service="executive-training" track="speaking-final" />
+</Base>
+<style>
+  .agree { margin-block-start: 2rem; max-width: 52rem; }
+  .mt { margin-block-start: 1.2rem; }
+</style>

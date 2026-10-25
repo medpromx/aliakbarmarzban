@@ -1,0 +1,11 @@
+---
+import { otherLangs, type Lang } from '../../../../lib/i18n';
+import View from '../../../../views/CourseDetail.astro';
+import { courseDetails } from '../../../../data/courses';
+export function getStaticPaths() {
+  return otherLangs.flatMap((lang) => courseDetails(lang).map((course) => ({ params: { lang, code: course.code.toLowerCase() }, props: { course } })));
+}
+const { course } = Astro.props;
+const lang = Astro.params.lang as Lang;
+---
+<View lang={lang} course={course} />

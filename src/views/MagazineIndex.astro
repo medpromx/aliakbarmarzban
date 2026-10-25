@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import AtlasLightbox from '../components/AtlasLightbox.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { getArticles } from '../lib/magazine';
+import { atlasItems, atlasPath, atlasSrc, magazineArticleSlug } from '../lib/atlas';
+import { ui } from '../data/site';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const articles = getArticles(lang);
+const feature = articles.find((a) => a.slug === magazineArticleSlug);
+const rest = articles.filter((a) => a !== feature);
+const fb = feature && feature.lang !== lang ? { lang: feature.lang, dir: 'ltr' as const } : {};
+const title = tr('مجله', 'Magazine');
+---
+<Base lang={lang} title={title} description={tr('مجله تحلیلی حکمرانی و مقررات دریایی: روایت‌های مسئله‌محور درباره IMO، بنادر، قراردادها، کربن‌زدایی و آموزش.', 'An analytical magazine on maritime governance and regulation: problem-driven writing on IMO, ports, contracts, decarbonisation and training.')}>
+  <PageHero
+    lang={lang}
+    eyebrow={title}
+    title={tr('حکمرانی دریایی به زبان تصویر و تحلیل', 'Maritime governance in images and analysis')}
+    lead={tr('یازده اینفوگرافیک تخصصی و تحلیل‌هایی درباره پیامد مقررات برای تصمیم‌های امروز و آینده مدیران دریایی.', 'Eleven specialist infographics and analysis of what regulation means for the decisions maritime leaders make today and tomorrow.')}
+    crumbs={[{ label: title }]}
+  >
+    <div class="mag-strip" role="list" aria-label={tr('اینفوگرافیک‌های اطلس تصویری', 'Visual atlas infographics')}>
+      {atlasItems.map((item, i) => (
+        <button type="button" role="listitem" class="mag-strip__item" data-atlas-open={item.n} aria-label={`${tr('بزرگ‌نمایی تصویر', 'Enlarge image')} ${num(item.n, lang)}: ${t(item.title, lang)}`}>
+          <img src={atlasSrc(item.n, 'sm')} width="600" height="600" alt="" loading={i < 4 ? 'eager' : 'lazy'} decoding="async" />
+          <span>{num(item.n, lang)}</span>
+        </button>
+      ))}
+    </div>
+    <div class="btn-row mag-actions">
+      <a class="btn btn--primary" href={href(lang, atlasPath)}>{tr('مشاهده اطلس کامل ۱۱ تصویر', 'View the full 11-image atlas')} <Icon name="arrow" size={18} /></a>
+      {feature && <a class="btn btn--ghost" href={href(lang, `/magazine/${feature.slug}/`)}>{tr('مطالعه روایت تصویری', 'Read the visual narrative')}</a>}
+    </div>
+  </PageHero>
+
+  {feature && (
+    <section class="section section--white" aria-labelledby="feature-h">
+      <div class="container mag-feature">
+        <img src={atlasSrc('01', 'md')} width="1200" height="1200" alt="" loading="lazy" decoding="async" />
+        <div>
+          <p class="eyebrow">{tr('مقاله ویژه', 'Feature')}</p>
+          <h2 id="feature-h" {...fb}><a href={href(lang, `/magazine/${feature.slug}/`)}>{feature.title}</a></h2>
+          <p {...fb}>{feature.summary}</p>
+          <a class="more-link" href={href(lang, `/magazine/${feature.slug}/`)}>{t(ui.readMore, lang)} <Icon name="arrow" size={16} /></a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {rest.length > 0 && <section class="section" aria-labelledby="latest-h">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{tr('یادداشت‌ها', 'Notes')}</p><h2 id="latest-h">{tr('تحلیل‌های کوتاه', 'Short analysis')}</h2></div>
+      <div class="grid grid--3">{rest.map((a) => <ArticleCard lang={lang} article={a} />)}</div>
+    </div>
+  </section>}
+  <CtaBand lang={lang} title={tr('این موضوع برای سازمان شما مطرح است؟', 'Is this on your organisation\'s agenda?')} text={tr('درباره پیامدهای آن برای سازمان خود گفت‌وگو کنید.', 'Discuss what it means for your organisation.')} cta={t(ui.requestConsultation, lang)} track="magazine-index" />
+  <AtlasLightbox lang={lang} />
+</Base>
+<style>
+  .mag-strip {
+    display: grid; grid-auto-flow: column; grid-auto-columns: clamp(120px, 14vw, 170px); gap: 12px;
+    overflow-x: auto; margin-block-start: 2.2rem; padding-block-end: 0.8rem; scroll-snap-type: x proximity;
+  }
+  .mag-strip__item { position: relative; padding: 0; border: 1px solid rgb(255 255 255 / 20%); border-radius: var(--radius); background: var(--white); cursor: zoom-in; scroll-snap-align: start; overflow: hidden; }
+  .mag-strip__item img { inline-size: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; transition: transform 0.3s; }
+  .mag-strip__item:hover img { transform: scale(1.04); }
+  .mag-strip__item span { position: absolute; inset-block-start: 6px; inset-inline-start: 6px; padding: 0.05rem 0.45rem; border-radius: 3px; background: var(--navy); color: var(--gold); font-weight: 800; font-size: 0.85rem; }
+  .mag-actions { margin-block-start: 1.6rem; }
+  .mag-feature { display: grid; gap: clamp(24px, 4vw, 56px); align-items: center; }
+  @media (min-width: 860px) { .mag-feature { grid-template-columns: 5fr 6fr; } }
+  .mag-feature img { inline-size: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: var(--radius); }
+  .mag-feature h2 a { color: var(--navy); text-decoration: none; }
+  .mag-feature h2 a:hover { text-decoration: underline; }
+  .more-link { display: inline-flex; gap: 0.4rem; align-items: center; font-weight: 700; }
+</style>

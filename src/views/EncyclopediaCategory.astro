@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { categories, categoryPath, contentLang, entriesIn, entryPath, type Category } from '../lib/encyclopedia';
+import { atlasSrc } from '../lib/atlas';
+import { coursePath, getCourse } from '../data/courses';
+import { ui } from '../data/site';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang; category: Category }
+const { lang, category } = Astro.props;
+const tr = makeTr(lang);
+const entries = entriesIn(lang, category.key);
+const fb = contentLang(lang) !== lang ? { lang: 'en', dir: 'ltr' as const } : {};
+const title = t(category.title, lang);
+const courseCodes = [...new Set(entries.map((e) => e.course).filter(Boolean))] as string[];
+const i = categories.indexOf(category);
+const next = categories[(i + 1) % categories.length];
+---
+<Base lang={lang} title={`${title} | ${t(ui.encyclopedia, lang)}`} description={t(category.text, lang)}>
+  <PageHero lang={lang} eyebrow={`${t(ui.encyclopedia, lang)} · ${tr('حوزه', 'Area')} ${num(String(i + 1).padStart(2, '0'), lang)}`} title={title} lead={t(category.text, lang)} crumbs={[{ label: t(ui.encyclopedia, lang), path: '/encyclopedia/' }, { label: title }]}>
+    <p class="cat-meta">{num(entries.length, lang)} {tr('مقاله، به ترتیب پیشنهادی مطالعه', 'articles, in suggested reading order')}</p>
+  </PageHero>
+  <section class="section section--white">
+    <div class="container cat-layout">
+      <ol class="cat-path">
+        {entries.map((e, n) => (
+          <li class="cat-step">
+            <span class="cat-step__n" aria-hidden="true">{num(n + 1, lang)}</span>
+            <article class="card card--link cat-card">
+              <img src={atlasSrc(e.atlas, 'sm')} width="600" height="600" alt="" loading="lazy" decoding="async" />
+              <div>
+                <p class="cat-card__meta">{num(e.readingMinutes, lang)} {tr('دقیقه مطالعه', 'min read')}{e.course && <> · <span class="ltr">{e.course}</span></>}</p>
+                <h2 {...fb}><a class="stretched" href={href(lang, entryPath(e))}>{e.title}</a></h2>
+                <p {...fb}>{e.summary}</p>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ol>
+      <aside class="cat-aside">
+        {courseCodes.length > 0 && (
+          <div class="card">
+            <h2 class="cat-aside__h">{tr('دوره‌های آموزشی مرتبط', 'Related training courses')}</h2>
+            <ul class="dash-list">
+              {courseCodes.map((c) => { const course = getCourse(c); return course && <li><a href={href(lang, coursePath(c))}><span class="ltr">{c}</span> · {t(course.title, lang)}</a></li>; })}
+            </ul>
+          </div>
+        )}
+        <div class="card">
+          <h2 class="cat-aside__h">{tr('حوزه بعدی', 'Next area')}</h2>
+          <a href={href(lang, categoryPath(next.key))}>{t(next.title, lang)} <Icon name="arrow" size={16} /></a>
+          <a class="cat-aside__all" href={href(lang, '/encyclopedia/')}>{tr('همه حوزه‌های دانشنامه', 'All encyclopedia areas')}</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={t(ui.requestConsultation, lang)} text={tr('درباره پیامد این موضوعات برای سازمان خود گفت‌وگو کنید.', 'Discuss what these topics mean for your organisation.')} cta={t(ui.requestConsultation, lang)} track={`encyclopedia-${category.key}`} />
+</Base>
+<style>
+  .cat-meta { margin-block-start: 1.2rem; color: var(--gold); }
+  .cat-layout { display: grid; gap: clamp(28px, 4vw, 56px); }
+  @media (min-width: 1000px) { .cat-layout { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; } .cat-aside { position: sticky; inset-block-start: 100px; } }
+  .cat-path { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .cat-step { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.8rem; align-items: start; }
+  .cat-step__n { inline-size: 2.4rem; block-size: 2.4rem; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: var(--gold); font-weight: 800; margin-block-start: 1rem; }
+  .cat-card { flex-direction: row; gap: 1.1rem; padding: 1.1rem; }
+  .cat-card img { inline-size: 96px; flex-shrink: 0; aspect-ratio: 1; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: 3px; }
+  .cat-card h2 { font-size: 1.12rem; line-height: 1.55; margin-block-end: 0.3rem; }
+  .cat-card__meta { font-size: 0.82rem; color: var(--slate-2); margin: 0 0 0.2rem !important; }
+  .cat-card p:last-child { font-size: 0.95rem; color: var(--slate-2); }
+  @media (max-width: 560px) { .cat-card img { display: none; } }
+  .cat-aside { display: grid; gap: 1rem; }
+  .cat-aside__h { font-size: 1rem; margin-block-end: 0.6rem; }
+  .cat-aside a { display: inline-flex; gap: 0.4rem; align-items: center; }
+  .cat-aside__all { font-size: 0.9rem; margin-block-start: 0.4rem; }
+</style>

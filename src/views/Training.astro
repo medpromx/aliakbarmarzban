@@ -3,76 +3,151 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import credentials from '../data/credentials.json';
-import type { L } from '../lib/i18n';
-import { href, t, type Lang, makeTr } from '../lib/i18n';
+import CourseCard from '../components/CourseCard.astro';
+import { courseDetails, coursePath, getCourse, programmeMeta } from '../data/courses';
+import { faq, formats, paths, topics, values } from '../data/training/pages';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const fa = lang === 'fa';
 const tr = makeTr(lang);
 const title = tr('آموزش و سخنرانی', 'Training & Speaking');
-const formats = [
-  { icon: 'people', title: { en: 'Executive workshop', fa: 'کارگاه مدیران' }, meta: { en: '1–2 days · 8–20 participants', fa: '۱ تا ۲ روز · ۸ تا ۲۰ نفر' }, text: { en: 'Case-based programme tailored to your organisation\'s decisions.', fa: 'برنامه مبتنی بر مورد، متناسب با تصمیم‌های واقعی سازمان شما.' } },
-  { icon: 'doc', title: { en: 'Leadership briefing', fa: 'جلسه توجیهی مدیران' }, meta: { en: '2–3 hours · board or senior team', fa: '۲ تا ۳ ساعت · هیئت‌مدیره یا تیم ارشد' }, text: { en: 'A focused briefing on a regulatory change, reform or negotiation.', fa: 'جلسه‌ای متمرکز درباره یک تغییر مقرراتی، اصلاحات یا مذاکره.' } },
-  { icon: 'negotiation', title: { en: 'Negotiation simulation', fa: 'شبیه‌سازی مذاکره' }, meta: { en: '1 day · delegations', fa: '۱ روز · هیئت‌های مذاکره‌کننده' }, text: { en: 'Structured rehearsal of positions for an upcoming negotiation.', fa: 'تمرین ساختاریافته مواضع برای مذاکره پیش‌رو.' } },
-  { icon: 'training', title: { en: 'Train-the-trainer', fa: 'تربیت مربی' }, meta: { en: 'Modular · academies', fa: 'ماژولار · مراکز آموزشی' }, text: { en: 'Support for internal academies to sustain capability.', fa: 'پشتیبانی از مراکز آموزش داخلی برای پایداری توانمندی.' } },
-];
-const topics = {
-  en: ['Implementing IMO instruments and the III Code', 'Port governance models and concession oversight', 'Maritime contracts and procurement risk', 'STCW quality standards and the human element', 'Preparing for international maritime negotiations', 'Maritime decarbonisation policy for administrators'],
-  fa: ['اجرای اسناد IMO و کد III', 'مدل‌های حکمرانی بندری و نظارت بر امتیازها', 'قراردادهای دریایی و ریسک تدارکات', 'استانداردهای کیفیت STCW و عامل انسانی', 'آمادگی برای مذاکرات بین‌المللی دریایی', 'سیاست کربن‌زدایی دریایی برای مدیران دولتی'],
+const list = courseDetails(lang);
+const core = list.filter((c) => c.track === 'core');
+const electives = list.filter((c) => c.track === 'executive');
+const m = programmeMeta;
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: t(f.q, lang), acceptedAnswer: { '@type': 'Answer', text: t(f.a, lang) } })),
 };
 ---
-<Base lang={lang} title={title} description={tr('کارگاه‌های مدیران، جلسات توجیهی و سخنرانی در حوزه مقررات دریایی و حکمرانی بندری.', 'Executive workshops, leadership briefings and speaking on maritime regulation and port governance.')}>
+<Base lang={lang} title={title} description={tr('برنامه آموزش تخصصی مدیریت و حکمرانی دریایی: ۱۲ دوره، ۵۶ جلسه و ۱۱۲ ساعت، کارگاه‌های مدیران، جلسات توجیهی، شبیه‌سازی مذاکره و سخنرانی.', 'The International Maritime Governance & Executive Education Programme: 12 courses, 56 sessions and 112 hours, with executive workshops, board briefings, negotiation simulations and speaking.')} jsonLd={faqLd}>
   <PageHero
     lang={lang}
     eyebrow={title}
     title={tr('آموزش مدیران برای تصمیم‌های واقعی', 'Executive education for real decisions')}
-    lead={tr('کارگاه‌ها و جلسات توجیهی به زبان انگلیسی یا فارسی، حضوری یا آنلاین.', 'Workshops and briefings in English or Persian, in person or online.')}
+    lead={tr(
+      'از شناخت مقررات بین‌المللی تا تصمیم‌های قابل اجرا. کارگاه‌ها، جلسات توجیهی هیئت‌مدیره، شبیه‌سازی مذاکرات و تربیت مدرس، به فارسی یا انگلیسی، حضوری یا آنلاین و بر اساس مسئله سازمان شما.',
+      'From understanding international regulation to decisions you can implement. Workshops, board briefings, negotiation simulations and train-the-trainer programmes, in Persian or English, in person or online, designed around your organisation\'s problem.',
+    )}
     crumbs={[{ label: title }]}
-  />
-  <section class="section section--white" id="formats">
+  >
+    <p class="prog-name ltr">International Maritime Governance &amp; Executive Education Programme</p>
+    <ul class="prog-stats">
+      <li><strong>{num(m.courses, lang)}</strong> {tr('دوره', 'courses')}</li>
+      <li><strong>{num(m.sessions, lang)}</strong> {tr('جلسه دوساعته', 'two-hour sessions')}</li>
+      <li><strong>{num(m.hours, lang)}</strong> {tr('ساعت در مسیر جامع', 'hours in the full path')}</li>
+      <li><strong>{num(m.core_courses, lang)} + {num(m.elective_courses, lang)}</strong> {tr('دوره اصلی و تکمیلی', 'core and elective courses')}</li>
+    </ul>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="#courses">{tr('مشاهده دوره‌های آموزشی', 'View the courses')}</a>
+      <a class="btn btn--ghost" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track="training-hero">{tr('درخواست کارگاه اختصاصی', 'Request a tailored workshop')}</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--white" aria-labelledby="values-h">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">{tr('قالب‌ها', 'Formats')}</p><h2>{tr('قالب‌های آموزشی', 'Workshop formats')}</h2></div>
+      <div class="section-head"><p class="eyebrow">{tr('رویکرد', 'Approach')}</p><h2 id="values-h">{tr('ارزش متمایز این آموزش', 'What makes this training different')}</h2></div>
+      <div class="steps">
+        {values.map((v, i) => <div class="step"><span class="step__num">{num(String(i + 1).padStart(2, '0'), lang)}</span><h3>{t(v.title, lang)}</h3><p>{t(v.text, lang)}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="formats" aria-labelledby="formats-h">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{tr('قالب‌ها', 'Formats')}</p><h2 id="formats-h">{tr('چهار قالب برگزاری', 'Four delivery formats')}</h2></div>
       <div class="grid grid--4">
         {formats.map((f) => (
           <div class="card">
             <div class="icon-badge"><Icon name={f.icon} /></div>
             <h3>{t(f.title, lang)}</h3>
             <p class="tag">{t(f.meta, lang)}</p>
-            <p>{t(f.text, lang)}</p>
+            <p>{t(f.lead, lang)}</p>
+          </div>
+        ))}
+      </div>
+      <p class="more-row"><a href={href(lang, '/training/formats/')}>{tr('جزئیات قالب‌ها، روش همکاری و خروجی‌ها', 'Formats in detail, how we work and deliverables')} <Icon name="arrow" size={16} /></a></p>
+    </div>
+  </section>
+
+  <section class="section section--white" id="courses" aria-labelledby="courses-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{tr('کاتالوگ دوره‌ها', 'Course catalogue')}</p>
+        <h2 id="courses-h">{tr('۱۲ دوره، ۵۶ جلسه', '12 courses, 56 sessions')}</h2>
+        <p>{tr('هر دوره صفحه‌ای مستقل با اهداف قابل سنجش، شرح همه جلسات، سناریوی فرضی، پروژه نهایی و منابع دارد.', 'Each course has its own page with measurable outcomes, every session, a fictional scenario, a final project and sources.')}</p>
+      </div>
+      <h3 class="cat-h">{tr('دوره‌های اصلی', 'Core courses')} <span>{num(m.core_courses, lang)} {tr('دوره', 'courses')} · {num(m.core_hours, lang)} {tr('ساعت', 'hours')}</span></h3>
+      <ul class="course-grid">{core.map((c) => <CourseCard lang={lang} course={c} />)}</ul>
+      <h3 class="cat-h">{tr('دوره‌های تکمیلی مدیران', 'Executive electives')} <span>{num(m.elective_courses, lang)} {tr('دوره', 'courses')} · {num(m.elective_hours, lang)} {tr('ساعت', 'hours')}</span></h3>
+      <ul class="course-grid">{electives.map((c) => <CourseCard lang={lang} course={c} />)}</ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="paths-h">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{tr('مسیرها', 'Paths')}</p><h2 id="paths-h">{tr('مسیرهای آموزشی پیشنهادی', 'Suggested learning paths')}</h2></div>
+      <div class="grid grid--2">
+        {paths.map((p) => (
+          <div class="card">
+            <h3>{t(p.title, lang)}</h3>
+            <p>{t(p.text, lang)}</p>
+            <p class="path-codes">{p.codes.map((c) => <a class="ltr" href={href(lang, coursePath(c))} title={t(getCourse(c)!.title, lang)}>{c}</a>)}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
-  <section class="section">
+
+  <section class="section section--white" aria-labelledby="topics-h">
     <div class="container split">
       <div>
         <p class="eyebrow">{tr('موضوعات', 'Topics')}</p>
-        <h2>{tr('موضوعات پرتقاضا', 'Frequently requested topics')}</h2>
-        <p>{tr('هر برنامه بر اساس نیازسنجی و اهداف سازمان شما تنظیم می‌شود.', "Every programme is tailored following a needs analysis against your organisation's objectives.")}</p>
+        <h2 id="topics-h">{tr('شش موضوع پرتقاضا', 'Six frequently requested topics')}</h2>
+        <p>{tr('هر برنامه با نیازسنجی آغاز می‌شود و با خروجی قابل ارزیابی به پایان می‌رسد.', 'Every programme begins with a needs analysis and ends with an output that can be assessed.')}</p>
         <a class="btn btn--teal" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track="training-mid">{tr('درخواست کارگاه آموزشی مدیران', 'Request an Executive Workshop')} <Icon name="arrow" size={18} /></a>
       </div>
-      <ul class="check-list">{t(topics, lang).map((x) => <li>{x}</li>)}</ul>
+      <ul class="check-list">{topics.map((x) => <li>{t(x.text, lang)} {x.codes.map((c) => <a class="topic-code ltr" href={href(lang, coursePath(c))}>{c}</a>)}</li>)}</ul>
     </div>
   </section>
-  <section class="section section--white">
+
+  <section class="section section--navy" aria-labelledby="speak-h">
     <div class="container split">
       <div>
         <p class="eyebrow">{tr('سخنرانی', 'Speaking')}</p>
-        <h2>{tr('سخنرانی و پنل‌ها', 'Conferences and panels')}</h2>
-        <p>{tr('علی‌اکبر مرزبان در همایش‌های دریایی در چهار قاره سخنرانی کرده است. برای دعوت به سخنرانی کلیدی، پنل یا میزگرد، فرم درخواست را تکمیل کنید یا در واتس‌اپ پیام دهید.', 'Ali Akbar Marzban has spoken at maritime conferences across four continents. To invite him as a keynote speaker, panellist or moderator, use the request form or WhatsApp.')}</p>
+        <h2 id="speak-h">{tr('سخنرانی‌های تخصصی و حضور در پنل‌ها', 'Keynotes and panels')}</h2>
       </div>
-      <div class="card">
-        <h3>{tr('حضور بین‌المللی', 'International presence')}</h3>
-        <p>{t(credentials.speaking as L, lang)}</p>
-        <h3 class="mt">{tr('رویدادها', 'Events')}</h3>
-        <p>{t(credentials.events as L, lang)}</p>
+      <div>
+        <p>{tr('سخنرانی کلیدی، میزگرد تخصصی یا پنل تعاملی برای همایش‌ها، اجلاس‌ها و نشست‌های تصمیم‌ساز، در موضوعاتی مانند آینده حکمرانی دریایی، اجرای تعهدات IMO، بندر و منافع عمومی، توانمندی دریانوردان، مذاکرات بین‌المللی و گذار کم‌کربن.', 'Keynotes, specialist round tables or interactive panels for conferences, summits and decision-making meetings, on topics such as the future of maritime governance, implementing IMO obligations, ports and the public interest, seafarer capability, international negotiation and the low-carbon transition.')}</p>
+        <a class="btn btn--primary" href={href(lang, '/training/speaking/')}>{tr('سخنرانی و پنل‌ها', 'Speaking and panels')} <Icon name="arrow" size={18} /></a>
       </div>
     </div>
   </section>
-  <CtaBand lang={lang} title={tr('درخواست کارگاه آموزشی مدیران', 'Request an Executive Workshop')} text={tr('مخاطبان، اهداف و زمان‌بندی مورد نظر را بنویسید.', 'Tell us about the audience, objectives and preferred timing.')} cta={tr('درخواست کارگاه', 'Request a Workshop')} service="executive-training" track="training-final" />
+
+  <section class="section section--white" aria-labelledby="faq-h">
+    <div class="container prose">
+      <h2 id="faq-h">{tr('سؤالات متداول', 'Frequently asked questions')}</h2>
+      {faq.map((f) => <details class="faq"><summary>{t(f.q, lang)}</summary><p>{t(f.a, lang)}</p></details>)}
+      <p class="note">{tr('این برنامه یک طرح مستقل آموزش مدیران است و ادعای تأیید یا اعتباربخشی رسمی از سوی IMO ندارد و جایگزین دوره‌های صلاحیت STCW نیست.', 'This is an independent executive education programme. It does not claim official IMO approval or accreditation and does not replace STCW competence courses.')}</p>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={tr('برنامه اختصاصی سازمان خود را طراحی کنید', 'Design a programme for your organisation')} text={tr('برای انتخاب دوره، برگزاری کارگاه تخصصی یا دعوت به سخنرانی، موضوع و اهداف سازمان خود را اعلام کنید.', 'To choose a course, arrange a workshop or invite a speaker, tell us your topic and objectives.')} cta={tr('درخواست کارگاه', 'Request a Workshop')} service="executive-training" track="training-final" />
 </Base>
 <style>
-  .mt { margin-block-start: 1.2rem; }
+  .prog-name { margin: 1.2rem 0 0; color: #9fb3c3; font-size: 0.9rem; }
+  .prog-stats { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; margin: 1.2rem 0 1.8rem; padding: 0; }
+  .prog-stats strong { color: var(--gold); font-size: 1.45rem; margin-inline-end: 0.3rem; }
+  .more-row { margin-block-start: 1.6rem; font-weight: 700; }
+  .more-row a { display: inline-flex; gap: 0.4rem; align-items: center; }
+  .cat-h { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: baseline; margin-block: 2rem 1rem; font-size: 1.25rem; }
+  .cat-h span { font-size: 0.9rem; font-weight: 400; color: var(--slate-2); }
+  .course-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.4vw, 24px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .path-codes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 0.6rem !important; }
+  .path-codes a, .topic-code { font-weight: 700; font-size: 0.85rem; padding: 0.1rem 0.5rem; border: 1px solid var(--line); border-radius: 3px; text-decoration: none; }
+  .topic-code { margin-inline-start: 0.3rem; }
+  .faq { border-block-start: 1px solid var(--line); padding: 0.9rem 0; }
+  .faq summary { font-weight: 700; color: var(--navy); cursor: pointer; }
+  .faq p { margin: 0.6rem 0 0; }
+  .note { margin-block-start: 2rem; }
 </style>

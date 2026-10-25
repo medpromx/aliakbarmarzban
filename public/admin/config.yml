@@ -10,69 +10,76 @@ site_url: https://aliakbarmarzban.ir
 locale: en
 
 collections:
-  - name: insights_en
-    label: Insights (English)
-    folder: src/content/insights/en
+  # Encyclopedia entries are written in Persian and English; every other language shows the English text.
+  # The file name is the URL slug: /encyclopedia/<category>/<file-name>/
+  - name: encyclopedia_fa
+    label: Encyclopedia (Persian / فارسی)
+    folder: src/content/encyclopedia/fa
     create: true
     slug: '{{slug}}'
-    fields: &insightFields
+    sortable_fields: [order, title]
+    fields: &entryFields
+      - { label: Title, name: title, widget: string }
+      - { label: Subject area, name: category, widget: select, options: [imo-regulation-compliance, seafarers-human-element, port-governance-reform, contracts-risk, negotiation-cooperation, maritime-digitalisation, decarbonisation-climate, investment-ppp, independent-expert-disputes, training-competence] }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Related course (e.g. C02), name: course, widget: string, required: false }
+      - label: Related service
+        name: service
+        widget: select
+        required: false
+        options: [imo-regulation, port-governance, maritime-contracts, seafarers-stcw, international-negotiation, executive-training]
+      - { label: Atlas image (01–11), name: atlas, widget: select, options: ['01','02','03','04','05','06','07','08','09','10','11'] }
+      - { label: Order in reading path, name: order, widget: number, value_type: int }
+      - { label: Reading minutes, name: readingMinutes, widget: number, value_type: int }
+      - { label: Last reviewed, name: updated, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' }
+      - label: Checklist
+        name: checks
+        widget: list
+        field: { label: Item, name: item, widget: string }
+      - label: FAQ
+        name: faq
+        widget: list
+        required: false
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }
+      - label: Sources (English titles, with links)
+        name: sources
+        widget: list
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: URL, name: url, widget: string }
+      - { label: Body, name: body, widget: markdown }
+  - name: encyclopedia_en
+    label: Encyclopedia (English)
+    folder: src/content/encyclopedia/en
+    create: true
+    slug: '{{slug}}'
+    sortable_fields: [order, title]
+    fields: *entryFields
+  # Magazine: write [[atlas:NN]] on its own line to place an atlas figure between paragraphs.
+  - name: magazine_fa
+    label: Magazine (Persian / فارسی)
+    folder: src/content/magazine/fa
+    create: true
+    slug: '{{slug}}'
+    fields: &magazineFields
       - { label: Title, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' }
       - { label: Summary, name: summary, widget: text }
+      - { label: Featured, name: featured, widget: boolean, required: false, default: false }
       - label: Related service
         name: service
         widget: select
         required: false
         options: [imo-regulation, port-governance, maritime-contracts, seafarers-stcw, international-negotiation, executive-training]
       - { label: Body, name: body, widget: markdown }
-  - name: insights_fa
-    label: Insights (Persian / فارسی)
-    folder: src/content/insights/fa
+  - name: magazine_en
+    label: Magazine (English)
+    folder: src/content/magazine/en
     create: true
     slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_ar
-    label: Insights (Arabic / العربية)
-    folder: src/content/insights/ar
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_es
-    label: Insights (Spanish / Español)
-    folder: src/content/insights/es
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_fr
-    label: Insights (French / Français)
-    folder: src/content/insights/fr
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_de
-    label: Insights (German / Deutsch)
-    folder: src/content/insights/de
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_zh
-    label: Insights (Chinese / 中文)
-    folder: src/content/insights/zh
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_ru
-    label: Insights (Russian / Русский)
-    folder: src/content/insights/ru
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
-  - name: insights_tr
-    label: Insights (Turkish / Türkçe)
-    folder: src/content/insights/tr
-    create: true
-    slug: '{{slug}}'
-    fields: *insightFields
+    fields: *magazineFields
   - name: credentials
     label: Experience & Credentials
     files:

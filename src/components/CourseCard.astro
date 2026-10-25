@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import { coursePath, type CourseDetail } from '../data/courses';
+import { href, num, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang; course: CourseDetail }
+const { lang, course } = Astro.props;
+const tr = makeTr(lang);
+const fb = lang !== 'fa' && lang !== 'en' ? { lang: 'en', dir: 'ltr' as const } : {};
+---
+<li class="card card--link course-card" id={`course-${course.code}`}>
+  <p class="course-card__top">
+    <span class="course-card__code ltr">{course.code}</span>
+    <span>{num(course.count, lang)} {tr('جلسه', 'sessions')} · {num(course.hours, lang)} {tr('ساعت', 'hours')}</span>
+  </p>
+  <h3 {...fb}><a class="stretched" href={href(lang, coursePath(course.code))}>{course.title}</a></h3>
+  <p {...fb}>{course.hook}</p>
+  <p class="course-card__aud" {...fb}><strong>{tr('مخاطبان:', 'Audience:')}</strong> {course.audience}</p>
+  <span class="more" aria-hidden="true">{tr('سیلابس و جلسات', 'Syllabus and sessions')} <Icon name="arrow" size={16} /></span>
+</li>
+<style>
+  .course-card__top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--slate-2); margin: 0 0 0.4rem !important; }
+  .course-card__code { font-weight: 800; color: var(--navy); background: rgb(213 175 120 / 22%); padding: 0.1rem 0.55rem; border-radius: 3px; }
+  .course-card h3 { font-size: 1.08rem; line-height: 1.5; }
+  .course-card p { font-size: 0.95rem; }
+  .course-card__aud { color: var(--slate-2); font-size: 0.88rem !important; }
+</style>

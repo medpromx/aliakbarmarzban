@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { boundaries, challenges, deliverables, formats, requestInfo, steps } from '../data/training/pages';
+import { href, num, t, type Lang, makeTr } from '../lib/i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = makeTr(lang);
+const parent = tr('آموزش و سخنرانی', 'Training & Speaking');
+const title = tr('قالب‌های آموزش مدیران و ظرفیت‌سازی', 'Executive education formats and capacity building');
+---
+<Base lang={lang} title={title} description={tr('کارگاه مدیران، جلسه توجیهی هیئت‌مدیره، شبیه‌سازی مذاکره و تربیت مدرس؛ روش همکاری در شش گام و خروجی‌های قابل تحویل.', 'Executive workshops, board briefings, negotiation simulation and train-the-trainer; a six-step way of working and the deliverables.')}>
+  <PageHero lang={lang} eyebrow={parent} title={tr('ظرفیت سازمانی بسازید، نه فقط یک دوره آموزشی', 'Build organisational capacity, not just a course')} lead={tr('آموزش اثربخش زمانی شکل می‌گیرد که مدیران پس از کلاس بتوانند اطلاعات مقرراتی را اعتبارسنجی کنند، مسئولیت‌ها را مشخص سازند و تصمیمی قابل دفاع و اجرا ارائه دهند.', 'Training works when, after the classroom, managers can verify regulatory information, assign responsibility and put forward a decision they can defend and implement.')} crumbs={[{ label: parent, path: '/training/' }, { label: title }]} />
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{tr('قالب‌ها', 'Formats')}</p><h2>{tr('چهار قالب ارائه', 'Four delivery formats')}</h2></div>
+      <div class="formats">
+        {formats.map((f) => (
+          <article class="card format">
+            <div class="icon-badge"><Icon name={f.icon} /></div>
+            <h3>{t(f.title, lang)}</h3>
+            <p class="tag">{t(f.meta, lang)}</p>
+            <p class="format__lead">{t(f.lead, lang)}</p>
+            <p>{t(f.text, lang)}</p>
+            <p><strong>{tr('مخاطبان:', 'Audience:')}</strong> {t(f.audience, lang)}</p>
+            <p class="format__limit"><strong>{tr('مرز ارائه:', 'Limits:')}</strong> {t(f.limit, lang)}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <div><p class="eyebrow">{tr('چالش‌ها', 'Challenges')}</p><h2>{tr('چالش‌هایی که این آموزش پاسخ می‌دهد', 'The challenges this training addresses')}</h2></div>
+      <ul class="check-list">{challenges.map((c) => <li>{t(c, lang)}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">{tr('روش', 'Method')}</p><h2>{tr('رویکرد همکاری در شش گام', 'How we work, in six steps')}</h2></div>
+      <div class="steps">{steps.map((s, i) => <div class="step"><span class="step__num">{num(String(i + 1).padStart(2, '0'), lang)}</span><h3>{t(s.title, lang)}</h3><p>{t(s.text, lang)}</p></div>)}</div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{tr('خروجی‌ها', 'Deliverables')}</p>
+        <h2>{tr('خروجی‌های قابل تحویل', 'What you receive')}</h2>
+        <p>{tr('مخاطبان: سازمان‌های دریایی و دستگاه‌های سیاست‌گذاری، سازمان‌های بنادر و پایانه‌ها، شرکت‌های کشتیرانی، مراکز آموزش و دانشگاه‌های دریایی، مدیران قرارداد، تدارکات، همکاری‌های بین‌المللی و هیئت‌مدیره‌ها.', 'For maritime administrations and policy bodies, port authorities and terminals, shipping companies, maritime training centres and universities, and contract, procurement, international cooperation and board leaders.')}</p>
+      </div>
+      <ul class="check-list">{deliverables.map((d) => <li>{t(d, lang)}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section section--white">
+    <div class="container prose">
+      <h2>{tr('اطلاعات لازم برای درخواست', 'What to include in your request')}</h2>
+      <p>{t(requestInfo, lang)}</p>
+      <a class="btn btn--teal" href={`${href(lang, '/consultation/')}?service=executive-training`} data-track="formats-request">{tr('درخواست طراحی برنامه اختصاصی', 'Request a tailored programme')} <Icon name="arrow" size={18} /></a>
+      <h2>{tr('اصول حرفه‌ای و مرز خدمات', 'Professional principles and scope')}</h2>
+      <p class="note">{t(boundaries, lang)}</p>
+    </div>
+  </section>
+  <CtaBand lang={lang} title={tr('درخواست کارگاه آموزشی مدیران', 'Request an Executive Workshop')} text={tr('مخاطبان، اهداف و زمان‌بندی مورد نظر را بنویسید.', 'Tell us about the audience, objectives and preferred timing.')} cta={tr('درخواست کارگاه', 'Request a Workshop')} service="executive-training" track="formats-final" />
+</Base>
+<style>
+  .formats { display: grid; gap: clamp(16px, 2.4vw, 28px); grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); }
+  .format p { font-size: 0.97rem; }
+  .format__lead { font-weight: 700; color: var(--navy); }
+  .format__limit { color: var(--slate-2); font-size: 0.9rem !important; padding-block-start: 0.6rem; border-block-start: 1px solid var(--line); margin-block-start: auto !important; }
+  .prose h2 + p { margin-block-start: 0; }
+</style>
